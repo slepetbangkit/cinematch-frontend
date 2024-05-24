@@ -83,7 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_uname" />
 
-
     <com.slepetbangkit.cinematch.view.custom.EditEmailView
         style="@style/EditText"
         android:id="@+id/edt_email"
