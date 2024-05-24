@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cinematch</string>
+    <string name="access_account">Access your account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

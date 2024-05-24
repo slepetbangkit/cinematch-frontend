@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title"
         app:srcCompat="@drawable/baseline_chevron_left_24"
-        app:tint="@color/on_neutral" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/title"
@@ -35,10 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:fontFamily="@font/PlusJakartaSans_Bold"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
         android:textColor="@color/on_neutral"
         android:textSize="20sp"
-        android:text="Access your account"
+        android:text="@string/access_account"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
@@ -48,10 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
-        android:fontFamily="@font/PlusJakartaSans_Bold"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
         android:textColor="@color/on_neutral"
         android:textSize="16sp"
-        android:text="Email"
+        android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -63,9 +63,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/PlusJakartaSans_Regular"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
         android:textSize="12sp"
-        android:hint="Email"
+        android:hint="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_label" />
@@ -76,10 +76,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/PlusJakartaSans_Bold"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
         android:textColor="@color/on_neutral"
         android:textSize="16sp"
-        android:text="Password"
+        android:text="@string/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
@@ -91,9 +91,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/PlusJakartaSans_Regular"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
         android:textSize="12sp"
-        android:hint="Password"
+        android:hint="@string/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_label" />
@@ -105,8 +105,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/PlusJakartaSans_SemiBold"
-        android:text="Login"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="@string/login"
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/edt_password"
         app:layout_constraintEnd_toEndOf="parent"
