@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.api
 
+import com.slepetbangkit.cinematch.api.response.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -12,5 +13,6 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String,
         @Field("password2") password2: String,
-    )
+        @Field("bio") bio: String,
+    ): RegisterResponse
 }

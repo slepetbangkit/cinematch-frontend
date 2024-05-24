@@ -7,4 +7,5 @@
     <string name="create_new_account">Create a new account</string>
     <string name="username">Username</string>
     <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
