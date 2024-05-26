@@ -1,8 +1,9 @@
-package com.slepetbangkit.cinematch.api.response
+package com.slepetbangkit.cinematch.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
 data class RegisterResponse(
+
 	@field:SerializedName("bio")
 	val bio: String? = null,
 

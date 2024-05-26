@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.api
+package com.slepetbangkit.cinematch.data.remote.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
