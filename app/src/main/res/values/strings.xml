@@ -15,4 +15,5 @@
     <string name="following_follower_count">0</string>
     <string name="followers">Followers</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="search">Search</string>
 </resources>

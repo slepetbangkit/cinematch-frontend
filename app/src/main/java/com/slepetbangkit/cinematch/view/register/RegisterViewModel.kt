@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.slepetbangkit.cinematch.data.remote.response.ErrorMessage
-import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import retrofit2.Call

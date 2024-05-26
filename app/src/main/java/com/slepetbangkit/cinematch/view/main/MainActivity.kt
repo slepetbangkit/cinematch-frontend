@@ -10,6 +10,7 @@ import com.slepetbangkit.cinematch.databinding.ActivityMainBinding
 import com.slepetbangkit.cinematch.view.login.LoginActivity
 import com.slepetbangkit.cinematch.view.profile.ProfileActivity
 import com.slepetbangkit.cinematch.view.register.RegisterActivity
+import com.slepetbangkit.cinematch.view.search.SearchActivity
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnProfile.setOnClickListener {
             val profileIntent = Intent(this, ProfileActivity::class.java)
             startActivity(profileIntent)
+        }
+
+        binding.btnSearch.setOnClickListener {
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
         }
 
         binding.btnLogin.setOnClickListener {
@@ -56,10 +62,12 @@ class MainActivity : AppCompatActivity() {
                     binding.btnRegister.isClickable = true
                     binding.btnLogout.isClickable = false
                     binding.btnProfile.isClickable = false
+                    binding.btnSearch.isClickable = false
                     binding.btnLogin.background.alpha = 255
                     binding.btnRegister.background.alpha = 255
                     binding.btnLogout.background.alpha = 77
                     binding.btnProfile.background.alpha = 77
+                    binding.btnSearch.background.alpha = 77
 
                     binding.tvSessionTokenValue.text = "Null"
                     binding.tvRefreshTokenValue.text = "Null"
@@ -68,10 +76,12 @@ class MainActivity : AppCompatActivity() {
                     binding.btnRegister.isClickable = false
                     binding.btnLogout.isClickable = true
                     binding.btnProfile.isClickable = true
+                    binding.btnSearch.isClickable = true
                     binding.btnLogin.background.alpha = 77
                     binding.btnRegister.background.alpha = 77
                     binding.btnLogout.background.alpha = 255
                     binding.btnProfile.background.alpha = 255
+                    binding.btnSearch.background.alpha = 255
 
                     binding.tvSessionTokenValue.text = accessToken
                     binding.tvRefreshTokenValue.text = refreshToken
