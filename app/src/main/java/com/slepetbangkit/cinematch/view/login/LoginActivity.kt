@@ -28,8 +28,6 @@ class LoginActivity : AppCompatActivity() {
         sessionPrefs = SessionPreferences.getInstance(this.dataStore)
         setContentView(binding.root)
 
-        setupValidationListeners()
-
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -37,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             handleLogin()
         }
+
+        setupValidationListeners()
 
         loginViewModel.loginResult.observe(this) { loginResponse ->
             lifecycleScope.launch {
