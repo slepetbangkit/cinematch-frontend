@@ -6,6 +6,11 @@
         <item name="android:statusBarColor">@color/neutral</item>
     </style>
 
+    <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/on_neutral</item>
+        <item name="android:background">@drawable/bottom_navigation_background</item>
+    </style>
+
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button</item>
         <item name="android:textColor">@color/on_primary</item>

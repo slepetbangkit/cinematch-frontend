@@ -82,14 +82,14 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/favorite"
-                            android:background="" />
+                            android:background="@android:color/transparent" />
 
                         <ImageButton
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginStart="16dp"
                             android:src="@drawable/add_box"
-                            android:background=""/>
+                            android:background="@android:color/transparent"/>
 
                     </LinearLayout>
                 </LinearLayout>
