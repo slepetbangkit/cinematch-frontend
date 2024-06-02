@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral"
+    tools:context=".view.movieDetails.MovieDetailsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <!-- Movie Info -->
+            <LinearLayout
+                android:id="@+id/movie_info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/movie_poster"
+                    android:layout_width="105dp"
+                    android:layout_height="155dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/challengers_xlg"
+                    app:shapeAppearanceOverlay="@style/RoundedSquare"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+
+                    <TextView
+                        android:id="@+id/movie_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                        android:textSize="22sp"
+                        android:textColor="@color/on_neutral"
+                        tools:text="Challengers"/>
+
+                    <TextView
+                        android:id="@+id/release_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/plus_jakarta_sans_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/on_neutral"
+                        tools:text="2024"/>
+
+                    <TextView
+                        android:id="@+id/director"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/on_neutral"
+                        android:alpha="0.75"
+                        tools:text="Luca Guadagnino"/>
+
+                    <LinearLayout
+                        android:id="@+id/buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/favorite"
+                            android:background="" />
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/add_box"
+                            android:background=""/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Synopsis -->
+            <TextView
+                android:id="@+id/synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_medium"
+                android:textSize="11sp"
+                android:textColor="@color/on_neutral"
+                android:alpha="0.75"
+                tools:text="Tashi, a tennis player turned coach, has transformed her husband from a mediocre player into a world-famous grand slam champion. To jolt him out of his recent losing streak, she makes him play a challenger event -- close to the lowest level of tournament on the pro tour. "/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="Verdict"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                    android:textSize="22sp"
+                    android:textColor="@color/primary"
+                    android:layout_gravity="center"
+                    tools:text="N/A"/>
+
+                <Button
+                    style="@style/ButtonTransparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="Reviews"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
+
