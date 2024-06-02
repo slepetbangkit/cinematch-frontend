@@ -16,4 +16,6 @@
     <string name="followers">Followers</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="search">Search</string>
+    <string name="activity">Activity</string>
+    <string name="time">time</string>
 </resources>
