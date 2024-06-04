@@ -83,7 +83,7 @@
                             android:layout_height="24dp"
                             android:contentDescription="@string/favorite_button"
                             android:src="@drawable/favorite"
-                            android:background="" />
+                            android:background="@null" />
 
                         <ImageButton
                             android:layout_width="24dp"
@@ -91,7 +91,8 @@
                             android:layout_marginStart="16dp"
                             android:contentDescription="@string/add_to_movie_list_button"
                             android:src="@drawable/add_box"
-                            android:background="" />
+                            android:background="@null"/>
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

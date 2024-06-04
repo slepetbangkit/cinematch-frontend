@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/neutral">
+
+    <ImageView
+        android:id="@+id/iv_profile_picture"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/username"
+        android:src="@drawable/baseline_account_circle_24"
+        app:tint="@color/primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="13sp"
+        android:textColor="@color/on_neutral"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="@string/username"
+        app:layout_constraintStart_toEndOf="@id/iv_profile_picture"
+        app:layout_constraintTop_toTopOf="@id/iv_profile_picture"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:textColor="@color/primary"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="@string/time"
+        app:layout_constraintStart_toStartOf="@id/tv_activity"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

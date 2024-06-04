@@ -18,6 +18,12 @@
             android:name=".view.review.ReviewActivity"
             android:exported="false" />
         <activity
+            android:name=".view.testing.TestingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ActivityActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.movieDetails.MovieDetailsActivity"
             android:exported="false" />
         <activity
