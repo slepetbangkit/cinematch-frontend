@@ -16,4 +16,17 @@
     <string name="followers">Followers</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="search">Search</string>
+    <string name="favorite_button">Add to favorite button</string>
+    <string name="add_to_movie_list_button">Add to movie list button</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailer">Trailer</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
+    <string name="details">Details</string>
+    <string name="release_date">Release Date:</string>
+    <string name="countries_of_origin">Countries of Origin:</string>
+    <string name="languages">Languages:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="add_to_your_list">Add to your list</string>
 </resources>

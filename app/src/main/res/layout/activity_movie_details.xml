@@ -10,14 +10,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:padding="16dp">
 
             <!-- Movie Info -->
             <LinearLayout
@@ -27,12 +27,12 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/movie_poster"
+                    android:id="@+id/movie_poster_iv"
                     android:layout_width="105dp"
                     android:layout_height="155dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/challengers_xlg"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"/>
+                    app:shapeAppearanceOverlay="@style/RoundedPoster" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -42,25 +42,25 @@
                     android:layout_marginStart="16dp">
 
                     <TextView
-                        android:id="@+id/movie_title"
+                        android:id="@+id/movie_title_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                         android:textSize="22sp"
                         android:textColor="@color/on_neutral"
-                        tools:text="Challengers"/>
+                        tools:text="Challengers" />
 
                     <TextView
-                        android:id="@+id/release_date"
+                        android:id="@+id/release_date_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/plus_jakarta_sans_regular"
                         android:textSize="16sp"
                         android:textColor="@color/on_neutral"
-                        tools:text="2024"/>
+                        tools:text="2024" />
 
                     <TextView
-                        android:id="@+id/director"
+                        android:id="@+id/director_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -68,19 +68,20 @@
                         android:textSize="14sp"
                         android:textColor="@color/on_neutral"
                         android:alpha="0.75"
-                        tools:text="Luca Guadagnino"/>
+                        tools:text="Luca Guadagnino" />
 
                     <LinearLayout
                         android:id="@+id/buttons"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="bottom"
-                        android:orientation="horizontal">
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
 
                         <ImageButton
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:contentDescription="@string/favorite_button"
                             android:src="@drawable/favorite"
                             android:background="" />
 
@@ -88,30 +89,30 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginStart="16dp"
+                            android:contentDescription="@string/add_to_movie_list_button"
                             android:src="@drawable/add_box"
-                            android:background=""/>
-
+                            android:background="" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <!-- Synopsis -->
             <TextView
-                android:id="@+id/synopsis"
+                android:id="@+id/synopsis_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/plus_jakarta_sans_medium"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 android:textColor="@color/on_neutral"
                 android:alpha="0.75"
-                tools:text="Tashi, a tennis player turned coach, has transformed her husband from a mediocre player into a world-famous grand slam champion. To jolt him out of his recent losing streak, she makes him play a challenger event -- close to the lowest level of tournament on the pro tour. "/>
+                tools:text="Tashi, a tennis player turned coach, has transformed her husband from a mediocre player into a world-famous grand slam champion. To jolt him out of his recent losing streak, she makes him play a challenger event -- close to the lowest level of tournament on the pro tour. " />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/neutral_variant"/>
+                android:background="@color/neutral_variant" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,8 +121,8 @@
                 android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                 android:textSize="20sp"
                 android:textColor="@color/on_neutral"
-                android:text="Verdict"/>
-            
+                android:text="Verdict" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,22 +130,227 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                     android:textSize="22sp"
                     android:textColor="@color/primary"
                     android:layout_gravity="center"
-                    tools:text="N/A"/>
+                    tools:text="N/A" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="@style/ButtonTransparent"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="Reviews"/>
-
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15dp"
+                    android:paddingHorizontal="20dp"
+                    android:textSize="16sp"
+                    android:drawableLeft="@drawable/reviews"
+                    android:text="@string/reviews"
+                    app:cornerRadius="6dp" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant" />
+
+            <!-- Trailer -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/trailer" />
+
+            <VideoView
+                android:id="@+id/trailer_vv"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/neutral_variant" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant" />
+
+            <!-- Cast -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/cast" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cast_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/cast_crew_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant" />
+
+            <!-- Crew -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/crew" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/crew_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/cast_crew_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant" />
+
+            <!-- Movie Details -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/details" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    android:text="@string/release_date" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/plus_jakarta_sans_regular"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    tools:text="April 26, 2024" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    android:text="@string/countries_of_origin" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/plus_jakarta_sans_regular"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    tools:text="US" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    android:text="@string/languages" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/plus_jakarta_sans_regular"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    tools:text="English" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    android:text="@string/runtime" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/plus_jakarta_sans_regular"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_neutral"
+                    tools:text="2 hours 11 minutes" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/neutral_variant" />
+
+            <!-- Similar Movies -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="20sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/similar_movies" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/similar_movies_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/movie_poster_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
-
