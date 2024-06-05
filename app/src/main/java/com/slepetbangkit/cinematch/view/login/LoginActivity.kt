@@ -2,6 +2,7 @@ package com.slepetbangkit.cinematch.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +13,7 @@ import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.databinding.ActivityLoginBinding
 import com.slepetbangkit.cinematch.view.main.MainActivity
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -42,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 loginResponse.access?.let { sessionPrefs.saveAccessToken(it) }
                 loginResponse.refresh?.let { sessionPrefs.saveRefreshToken(it) }
+                loginResponse.access?.let { sessionPrefs.saveUsername(it) }
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

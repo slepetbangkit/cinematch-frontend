@@ -1,60 +1,63 @@
 package com.slepetbangkit.cinematch.view.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.slepetbangkit.cinematch.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
+import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
+import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var sessionPrefs: SessionPreferences
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        sessionPrefs = SessionPreferences.getInstance(requireContext().dataStore)
+        profileViewModel = ViewModelFactory.getInstance(sessionPrefs).create(ProfileViewModel::class.java)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        profileViewModel.profile.observe(viewLifecycleOwner) {
+            it.followingCount?.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
+            it.followerCount?.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
+            it.username?.let { username -> binding.profileCard.setUsername(username) }
+            it.bio?.let { bio -> binding.profileCard.setBio(bio) }
+        }
+
+        profileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.profileCard.visibility = View.GONE
+                binding.shimmerViewContainer.let {
+                    it.startShimmer()
+                    it.visibility = View.VISIBLE
+                }
+            } else {
+                binding.profileCard.visibility = View.VISIBLE
+                binding.shimmerViewContainer.let {
+                    it.stopShimmer()
+                    it.visibility = View.GONE
                 }
             }
+        }
+
+        binding.profileCard.setEdtProfileButtonClickListener {
+            // TO-DO: Implement edit profile feature
+        }
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

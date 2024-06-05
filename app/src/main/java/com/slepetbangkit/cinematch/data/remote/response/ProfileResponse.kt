@@ -38,7 +38,7 @@ data class ProfileResponse(
 	val followingCount: Int? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: String? = null,
 
 	@field:SerializedName("date_joined")
 	val dateJoined: String? = null,

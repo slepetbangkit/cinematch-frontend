@@ -9,6 +9,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -26,6 +27,9 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @GET("user/profile/")
-    fun getProfile(@Header("Authorization") token: String): Call<ProfileResponse>
+    @GET("user/profile/{username}")
+    fun getProfile(
+        @Header("Authorization") token: String,
+        @Path("username") username: String
+    ): Call<ProfileResponse>
 }

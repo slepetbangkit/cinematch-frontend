@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
     private lateinit var accessToken: String
+    private lateinit var username: String
 
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
@@ -26,7 +27,8 @@ class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
     init {
         viewModelScope.launch {
             accessToken = sessionPrefs.getAccessToken().first()
-            Log.d("ProfileViewModel", "accessToken: $accessToken")
+            username = sessionPrefs.getUsername().first()
+
             fetchProfile()
         }
     }
@@ -34,7 +36,7 @@ class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
     private fun fetchProfile() {
         _isLoading.value = true
 
-        val client = ApiConfig.getApiService().getProfile("Bearer $accessToken")
+        val client = ApiConfig.getApiService().getProfile("Bearer $accessToken", username)
         client.enqueue(object : retrofit2.Callback<ProfileResponse> {
             override fun onResponse(call: retrofit2.Call<ProfileResponse>, response: retrofit2.Response<ProfileResponse>) {
                 if (response.isSuccessful) {
@@ -51,4 +53,5 @@ class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
             }
         })
     }
+
 }

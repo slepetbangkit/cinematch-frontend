@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.auth0.android.jwt.JWT
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -37,6 +38,20 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    fun getUsername(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USERNAME] ?: ""
+        }
+    }
+
+    suspend fun saveUsername(accessToken: String) {
+         dataStore.edit { preferences ->
+             val jwt = JWT(accessToken)
+             val username = jwt.getClaim("username").asString() ?: ""
+             preferences[USERNAME] = username
+        }
+    }
+
     suspend fun clear() {
         dataStore.edit { preferences ->
             preferences.clear()
@@ -46,6 +61,7 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
     companion object {
         private val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
+        private val USERNAME = stringPreferencesKey("username")
 
         @Volatile
         private var INSTANCE: SessionPreferences? = null
