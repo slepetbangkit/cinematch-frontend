@@ -46,36 +46,38 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.activity:activity-ktx:1.7.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.androidx.datastore.preferences)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // Shimmer
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.shimmer)
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation(libs.glide)
 
     // Pager
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation(libs.material.v140)
+    implementation(libs.androidx.viewpager2)
 
     // JWT Decoder
-    implementation("com.auth0.android:jwtdecode:2.0.2")
+    implementation(libs.jwtdecode)
 }

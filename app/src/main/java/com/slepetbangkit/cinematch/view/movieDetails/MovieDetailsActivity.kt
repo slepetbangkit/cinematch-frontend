@@ -18,4 +18,8 @@ class MovieDetailsActivity : AppCompatActivity() {
             insets
         }
     }
+
+    companion object {
+        const val MOVIE_ID = "movie_id"
+    }
 }

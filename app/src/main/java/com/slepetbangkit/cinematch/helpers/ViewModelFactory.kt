@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
+import com.slepetbangkit.cinematch.view.search.SearchMovieViewModel
 
 class ViewModelFactory private constructor(private val sessionPrefs: SessionPreferences) :
     ViewModelProvider.NewInstanceFactory() {
@@ -13,6 +14,9 @@ class ViewModelFactory private constructor(private val sessionPrefs: SessionPref
         return when {
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(sessionPrefs) as T
+            }
+            modelClass.isAssignableFrom(SearchMovieViewModel::class.java) -> {
+                SearchMovieViewModel(sessionPrefs) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

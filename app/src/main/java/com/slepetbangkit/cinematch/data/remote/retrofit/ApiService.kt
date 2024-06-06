@@ -3,6 +3,8 @@ package com.slepetbangkit.cinematch.data.remote.retrofit
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
+import com.slepetbangkit.cinematch.data.remote.response.SearchResponse
+import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -10,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -32,4 +35,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("username") username: String
     ): Call<ProfileResponse>
+
+    @GET("movies/search")
+    fun searchMovies(
+        @Header("Authorization") token: String,
+        @Query("query") query: String
+    ): Call<List<SearchResponseItem>>
 }
