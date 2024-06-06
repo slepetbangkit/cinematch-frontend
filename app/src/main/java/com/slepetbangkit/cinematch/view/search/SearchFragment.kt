@@ -50,13 +50,13 @@ class SearchFragment : Fragment() {
     }
 
     override fun onPause() {
-        searchMovieViewModel.clearSearchResults()
         super.onPause()
+        searchMovieViewModel.clearSearchResults()
     }
 
     override fun onDestroyView() {
-        searchMovieViewModel.clearSearchResults()
-        _binding = null
         super.onDestroyView()
+        _binding = null
+
     }
 }

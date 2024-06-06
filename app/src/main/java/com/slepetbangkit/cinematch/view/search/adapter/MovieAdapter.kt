@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.databinding.SearchMovieItemBinding
 import com.slepetbangkit.cinematch.view.movieDetails.MovieDetailsActivity
@@ -31,15 +32,27 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
     }
 
     class MyViewHolder(val binding: SearchMovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: SearchResponseItem){
+        fun bind(movie: SearchResponseItem) {
             Glide.with(binding.moviePosterIv.context)
                 .load(movie.posterUrl)
+                .placeholder(R.drawable.broken_poster)
+                .error(R.drawable.broken_poster)
                 .into(binding.moviePosterIv)
+
             binding.movieTitleTv.text = movie.title
-            binding.movieYearTv.text = movie.releaseDate?.substring(0,4) ?: "Unknown"
+
+            val releaseDate = movie.releaseDate
+            val year = if (releaseDate != null && releaseDate.length >= 4) {
+                releaseDate.substring(0, 4)
+            } else {
+                "Unknown"
+            }
+
+            binding.movieYearTv.text = year
             binding.movieDirectorTv.text = movie.director
         }
     }
+
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SearchResponseItem>() {

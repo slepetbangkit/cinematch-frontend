@@ -36,9 +36,9 @@ interface ApiService {
         @Path("username") username: String
     ): Call<ProfileResponse>
 
-    @GET("movies/search")
+    @GET("movies/")
     fun searchMovies(
         @Header("Authorization") token: String,
-        @Query("query") query: String
+        @Query("search") query: String
     ): Call<List<SearchResponseItem>>
 }
