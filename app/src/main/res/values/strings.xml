@@ -37,4 +37,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_movies">Search Movies</string>
     <string name="search_users">Search Users</string>
+    <string name="explore_cinematch">Explore Cinematch!</string>
+    <string name="welcome_description">Discover, connect, and enjoy the world of movies.</string>
 </resources>
