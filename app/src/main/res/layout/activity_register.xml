@@ -24,7 +24,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
-        android:contentDescription="Go Back"
+        android:contentDescription="@string/go_back"
         android:src="@drawable/baseline_chevron_left_24"
         android:background="?android:selectableItemBackground"
         app:tint="@color/on_neutral"
@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_label" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         style="@style/Button"
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
@@ -142,6 +142,7 @@
         android:fontFamily="@font/plus_jakarta_sans_semi_bold"
         android:text="@string/register"
         android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_password" />
