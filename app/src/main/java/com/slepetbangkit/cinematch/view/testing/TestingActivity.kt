@@ -2,19 +2,14 @@ package com.slepetbangkit.cinematch.view.testing
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.databinding.ActivityTestingBinding
 import com.slepetbangkit.cinematch.view.login.LoginActivity
-import com.slepetbangkit.cinematch.view.profile.ProfileActivity
 import com.slepetbangkit.cinematch.view.register.RegisterActivity
-import com.slepetbangkit.cinematch.view.search.SearchActivity
+//import com.slepetbangkit.cinematch.view.search.SearchActivity
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -28,15 +23,15 @@ class TestingActivity : AppCompatActivity() {
         sessionPreferences = SessionPreferences.getInstance(this.dataStore)
         setContentView(binding.root)
 
-        binding.btnProfile.setOnClickListener {
-            val profileIntent = Intent(this, ProfileActivity::class.java)
-            startActivity(profileIntent)
-        }
-
-        binding.btnSearch.setOnClickListener {
-            val searchIntent = Intent(this, SearchActivity::class.java)
-            startActivity(searchIntent)
-        }
+//        binding.btnProfile.setOnClickListener {
+//            val profileIntent = Intent(this, ProfileActivity::class.java)
+//            startActivity(profileIntent)
+//        }
+//
+//        binding.btnSearch.setOnClickListener {
+//            val searchIntent = Intent(this, SearchActivity::class.java)
+//            startActivity(searchIntent)
+//        }
 
         binding.btnLogin.setOnClickListener {
             val loginIntent = Intent(this, LoginActivity::class.java)

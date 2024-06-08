@@ -8,10 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
+class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
     private lateinit var accessToken: String
     private lateinit var username: String
 
@@ -26,8 +27,8 @@ class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            accessToken = sessionPrefs.getAccessToken().first()
-            username = sessionPrefs.getUsername().first()
+            accessToken = sessionRepository.getAccessToken().first()
+            username = sessionRepository.getUsername().first()
 
             fetchProfile()
         }
@@ -54,4 +55,9 @@ class ProfileViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
         })
     }
 
+    fun logout() {
+        viewModelScope.launch {
+            sessionRepository.clear()
+        }
+    }
 }

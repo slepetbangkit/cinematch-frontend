@@ -7,18 +7,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.slepetbangkit.cinematch.databinding.CustomViewProfileCardBinding
+import com.slepetbangkit.cinematch.databinding.CardViewProfileBinding
 
 class ProfileCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    private val binding: CustomViewProfileCardBinding
+    private val binding: CardViewProfileBinding
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        binding = CustomViewProfileCardBinding.inflate(inflater, this, true)
+        binding = CardViewProfileBinding.inflate(inflater, this, true)
     }
 
     fun setProfileImage() {
@@ -46,5 +46,9 @@ class ProfileCardView @JvmOverloads constructor(
 
     fun setEdtProfileButtonClickListener(listener: OnClickListener) {
         binding.btnEditProfile.setOnClickListener(listener)
+    }
+
+    fun setSettingsButtonClickListener(listener: OnClickListener) {
+        binding.btnSettings.setOnClickListener(listener)
     }
 }

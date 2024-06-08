@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieSearchBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 import com.slepetbangkit.cinematch.view.search.SearchMovieViewModel
@@ -24,7 +25,7 @@ import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
 class MovieSearchFragment : Fragment() {
     private var _binding: FragmentMovieSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var sessionPrefs: SessionPreferences
+    private lateinit var sessionRepository: SessionRepository
     private lateinit var searchMovieViewModel: SearchMovieViewModel
     private lateinit var movieAdapter: MovieAdapter
 
@@ -40,8 +41,8 @@ class MovieSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionPrefs = SessionPreferences.getInstance(requireContext().dataStore)
-        val viewModelFactory = ViewModelFactory.getInstance(sessionPrefs)
+        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
+        val viewModelFactory = ViewModelFactory.getInstance(sessionRepository)
         val viewModel: SearchMovieViewModel by viewModels { viewModelFactory }
         searchMovieViewModel = viewModel
 

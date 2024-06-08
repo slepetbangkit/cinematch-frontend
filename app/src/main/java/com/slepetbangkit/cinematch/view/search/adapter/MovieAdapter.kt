@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
-import com.slepetbangkit.cinematch.databinding.SearchMovieItemBinding
-import com.slepetbangkit.cinematch.view.movieDetails.MovieDetailsActivity
+import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
+import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
 class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = SearchMovieItemBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
+        val binding = ItemSearchMovieBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -31,12 +31,12 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
         }
     }
 
-    class MyViewHolder(val binding: SearchMovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(val binding: ItemSearchMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: SearchResponseItem) {
             Glide.with(binding.moviePosterIv.context)
                 .load(movie.posterUrl)
-                .placeholder(R.drawable.broken_poster)
-                .error(R.drawable.broken_poster)
+                .placeholder(R.drawable.image_broken_poster)
+                .error(R.drawable.image_broken_poster)
                 .into(binding.moviePosterIv)
 
             binding.movieTitleTv.text = movie.title

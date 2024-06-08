@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/nav_graph_home">
 
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.slepetbangkit.cinematch.view.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
+    <include
+        android:id="@+id/nav_graph_home"
+        app:graph="@navigation/nav_graph_home" />
 
-    <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.slepetbangkit.cinematch.view.search.SearchFragment"
-        android:label="Search"
-        tools:layout="@layout/fragment_search" />
+    <include
+        android:id="@+id/nav_graph_search"
+        app:graph="@navigation/nav_graph_search" />
 
-    <fragment
-        android:id="@+id/navigation_activity"
-        android:name="com.slepetbangkit.cinematch.view.activity.ActivityFragment"
-        android:label="Notifications"
-        tools:layout="@layout/fragment_activity" />
+    <include
+        android:id="@+id/nav_graph_activity"
+        app:graph="@navigation/nav_graph_activity" />
 
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+    <include
+        android:id="@+id/nav_graph_profile"
+        app:graph="@navigation/nav_graph_profile" />
 </navigation>

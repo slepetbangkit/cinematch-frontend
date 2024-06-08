@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.ActivityLoginBinding
 import com.slepetbangkit.cinematch.view.main.MainActivity
 import kotlinx.coroutines.flow.first
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var sessionPrefs: SessionPreferences
+    private lateinit var sessionRepository: SessionRepository
     private val loginViewModel: LoginViewModel by viewModels()
 
     private var isUsernameValid = false
@@ -27,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        sessionPrefs = SessionPreferences.getInstance(this.dataStore)
+        sessionRepository = SessionRepository.getInstance(this.dataStore)
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
@@ -42,9 +43,9 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginResult.observe(this) { loginResponse ->
             lifecycleScope.launch {
-                loginResponse.access?.let { sessionPrefs.saveAccessToken(it) }
-                loginResponse.refresh?.let { sessionPrefs.saveRefreshToken(it) }
-                loginResponse.access?.let { sessionPrefs.saveUsername(it) }
+                loginResponse.access?.let { sessionRepository.saveAccessToken(it) }
+                loginResponse.refresh?.let { sessionRepository.saveRefreshToken(it) }
+                loginResponse.access?.let { sessionRepository.saveUsername(it) }
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

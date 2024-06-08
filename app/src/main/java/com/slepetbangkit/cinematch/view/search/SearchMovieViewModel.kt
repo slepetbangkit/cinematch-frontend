@@ -7,13 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchMovieViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
+class SearchMovieViewModel(sessionRepository: SessionRepository) : ViewModel() {
     private lateinit var accessToken: String
 
     private val _searchMovieResult = MutableLiveData<List<SearchResponseItem>>()
@@ -27,7 +28,7 @@ class SearchMovieViewModel(sessionPrefs: SessionPreferences) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            accessToken = sessionPrefs.getAccessToken().first()
+            accessToken = sessionRepository.getAccessToken().first()
         }
     }
 

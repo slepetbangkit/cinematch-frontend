@@ -13,7 +13,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/challengers_xlg"
+            android:src="@drawable/image_challengers_xlg"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/RoundedCast"/>
         <LinearLayout

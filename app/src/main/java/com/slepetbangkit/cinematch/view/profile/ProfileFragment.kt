@@ -7,24 +7,38 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private lateinit var sessionPrefs: SessionPreferences
+    private lateinit var sessionRepository: SessionRepository
+    private lateinit var factory: ViewModelFactory
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        sessionPrefs = SessionPreferences.getInstance(requireContext().dataStore)
-        profileViewModel = ViewModelFactory.getInstance(sessionPrefs).create(ProfileViewModel::class.java)
+        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
+        factory = ViewModelFactory.getInstance(sessionRepository)
+        profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        navController = findNavController()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         profileViewModel.profile.observe(viewLifecycleOwner) {
             it.followingCount?.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
@@ -50,10 +64,12 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileCard.setEdtProfileButtonClickListener {
-            // TO-DO: Implement edit profile feature
+            navController.navigate(R.id.action_navigation_profile_to_navigation_edit_profile)
         }
 
-        return binding.root
+        binding.profileCard.setSettingsButtonClickListener {
+            navController.navigate(R.id.action_navigation_profile_to_navigation_settings)
+        }
     }
 
     override fun onDestroyView() {

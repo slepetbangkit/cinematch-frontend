@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.activity
+package com.slepetbangkit.cinematch.view.aboutus
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ActivityFragment.newInstance] factory method to
+ * Use the [AboutUsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ActivityFragment : Fragment() {
+class AboutUsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +35,7 @@ class ActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activity, container, false)
+        return inflater.inflate(R.layout.fragment_about_us, container, false)
     }
 
     companion object {
@@ -45,12 +45,12 @@ class ActivityFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ActivityFragment.
+         * @return A new instance of fragment AboutUsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ActivityFragment().apply {
+            AboutUsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -58,17 +58,3 @@ class ActivityFragment : Fragment() {
             }
     }
 }
-
-// To use custom font in SpannableString for Activity Text
-// val username = "username"
-// val action = " started following you"
-// val fullText = "$username$action"
-//
-// val spannableString = SpannableString(fullText)
-//
-// val boldTypeface = ResourcesCompat.getFont(context, R.font.plus_jakarta_sans_bold) // replace with your bold font resource ID
-// val boldSpan = CustomTypefaceSpan(boldTypeface!!)
-// spannableString.setSpan(boldSpan, 0, username.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-//
-// val textView = findViewById<TextView>(R.id.tv_activity)
-// textView.text = spannableString

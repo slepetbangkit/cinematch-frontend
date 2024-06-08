@@ -14,6 +14,7 @@
         android:fontFamily="@font/plus_jakarta_sans_regular"
         android:textSize="12sp"
         android:hint="@string/search_users"
+        android:textColorHint="@color/neutral"
         android:inputType="text"
         app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
 
@@ -22,5 +23,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        tools:listitem="@layout/search_user_item"/>
+        tools:listitem="@layout/item_search_user"/>
 </LinearLayout>

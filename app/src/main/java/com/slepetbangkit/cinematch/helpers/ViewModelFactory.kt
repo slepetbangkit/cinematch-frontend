@@ -2,21 +2,21 @@ package com.slepetbangkit.cinematch.helpers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 import com.slepetbangkit.cinematch.view.search.SearchMovieViewModel
 
-class ViewModelFactory private constructor(private val sessionPrefs: SessionPreferences) :
+class ViewModelFactory private constructor(private val sessionRepository: SessionRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(sessionPrefs) as T
+                ProfileViewModel(sessionRepository) as T
             }
             modelClass.isAssignableFrom(SearchMovieViewModel::class.java) -> {
-                SearchMovieViewModel(sessionPrefs) as T
+                SearchMovieViewModel(sessionRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
@@ -27,10 +27,10 @@ class ViewModelFactory private constructor(private val sessionPrefs: SessionPref
         private var INSTANCE: ViewModelFactory? = null
 
         @JvmStatic
-        fun getInstance(sessionPrefs: SessionPreferences): ViewModelFactory {
+        fun getInstance(sessionRepository: SessionRepository): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(sessionPrefs)
+                    INSTANCE = ViewModelFactory(sessionRepository)
                 }
             }
             return INSTANCE as ViewModelFactory

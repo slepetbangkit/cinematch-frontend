@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_activity"
+    app:startDestination="@id/navigation_activity">
+
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="com.slepetbangkit.cinematch.view.activity.ActivityFragment"
+        android:label="@string/activity"
+        tools:layout="@layout/fragment_activity" >
+        <action
+            android:id="@+id/action_navigation_activity_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_movie_details"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"-->
+    <!--        android:label="@string/details"-->
+    <!--        tools:layout="@layout/fragment_movie_details" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_reviews"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.MovieReviewsFragment"-->
+    <!--        android:label="@string/reviews"-->
+    <!--        tools:layout="@layout/fragment_movie_reviews" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_review"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.IndividualReviewFragment"-->
+    <!--        android:label="@string/individual_review"-->
+    <!--        tools:layout="@layout/fragment_individual_review" />-->
+    <!--    -->
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_add_review"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.AddReviewFragment"-->
+    <!--        android:label="@string/add_review"-->
+    <!--        tools:layout="@layout/fragment_add_review" />-->
+
+</navigation>

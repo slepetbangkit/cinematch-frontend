@@ -39,4 +39,17 @@
     <string name="search_users">Search Users</string>
     <string name="explore_cinematch">Explore Cinematch!</string>
     <string name="welcome_description">Discover, connect, and enjoy the world of movies.</string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About Us</string>
+    <string name="log_out">Log Out</string>
+    <string name="bio">Bio</string>
+    <string name="save">Save</string>
+    <string name="recommended_for_you">Recommended For You</string>
+    <string name="friend_s_recent_likes">Friend\'s Recent Likes</string>
+    <string name="their_verdict">Their Verdict</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="year">Year</string>
+    <string name="rating">Rating</string>
+    <string name="review">Review</string>
+    <string name="popular_in_your_area">Popular in Your Area</string>
 </resources>

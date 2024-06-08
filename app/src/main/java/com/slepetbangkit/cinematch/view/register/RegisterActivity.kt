@@ -11,13 +11,14 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.ActivityRegisterBinding
 import com.slepetbangkit.cinematch.view.main.MainActivity
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var sessionPrefs: SessionPreferences
+    private lateinit var sessionRepository: SessionRepository
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private var isUsernameValid = false
@@ -27,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        sessionPrefs = SessionPreferences.getInstance(this.dataStore)
+        sessionRepository = SessionRepository.getInstance(this.dataStore)
         setContentView(binding.root)
 
         setupUI()
@@ -90,8 +91,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun handleRegisterResponse(registerResponse: RegisterResponse) {
         lifecycleScope.launch {
-            registerResponse.token?.access?.let { sessionPrefs.saveAccessToken(it) }
-            registerResponse.token?.refresh?.let { sessionPrefs.saveRefreshToken(it) }
+            registerResponse.token?.access?.let { sessionRepository.saveAccessToken(it) }
+            registerResponse.token?.refresh?.let { sessionRepository.saveRefreshToken(it) }
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             })

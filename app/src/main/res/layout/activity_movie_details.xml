@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral"
-    tools:context=".view.movieDetails.MovieDetailsActivity">
+    tools:context=".view.moviedetails.MovieDetailsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:layout_width="105dp"
                     android:layout_height="155dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/challengers_xlg"
+                    android:src="@drawable/image_challengers_xlg"
                     app:shapeAppearanceOverlay="@style/RoundedPoster" />
 
                 <LinearLayout
@@ -82,16 +82,18 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/favorite_button"
-                            android:src="@drawable/favorite"
-                            android:background="@null" />
+                            android:src="@drawable/material_favorite_24"
+                            android:background="@null"
+                            app:tint="@color/primary"/>
 
                         <ImageButton
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginStart="16dp"
                             android:contentDescription="@string/add_to_movie_list_button"
-                            android:src="@drawable/add_box"
-                            android:background="@null"/>
+                            android:src="@drawable/material_add_box_24"
+                            android:background="@null"
+                            app:tint="@color/primary"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -141,13 +143,13 @@
                     tools:text="N/A" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/ButtonTransparent"
+                    style="@style/ButtonVariant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="15dp"
                     android:paddingHorizontal="20dp"
                     android:textSize="16sp"
-                    android:drawableLeft="@drawable/reviews"
+                    android:drawableLeft="@drawable/vector_reviews"
                     android:text="@string/reviews"
                     app:cornerRadius="6dp" />
             </LinearLayout>
@@ -198,7 +200,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
-                tools:listitem="@layout/cast_crew_item"
+                tools:listitem="@layout/item_cast_crew"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <View
@@ -224,7 +226,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
-                tools:listitem="@layout/cast_crew_item"
+                tools:listitem="@layout/item_cast_crew"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <View
@@ -350,7 +352,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
-                tools:listitem="@layout/movie_poster_item"
+                tools:listitem="@layout/item_movie_poster"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
     </ScrollView>

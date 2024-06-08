@@ -20,6 +20,7 @@
             android:fontFamily="@font/plus_jakarta_sans_regular"
             android:textSize="12sp"
             android:hint="@string/search_movies"
+            android:textColorHint="@color/neutral"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
 
@@ -27,7 +28,7 @@
             android:id="@+id/movieRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/search_movie_item"
+            tools:listitem="@layout/item_search_movie"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
 

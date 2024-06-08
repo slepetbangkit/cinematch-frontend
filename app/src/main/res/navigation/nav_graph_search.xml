@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_search"
+    app:startDestination="@id/navigation_search">
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.slepetbangkit.cinematch.view.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_movie_details"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"-->
+    <!--        android:label="@string/details"-->
+    <!--        tools:layout="@layout/fragment_movie_details" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_reviews"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.MovieReviewsFragment"-->
+    <!--        android:label="@string/reviews"-->
+    <!--        tools:layout="@layout/fragment_movie_reviews" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_review"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.IndividualReviewFragment"-->
+    <!--        android:label="@string/individual_review"-->
+    <!--        tools:layout="@layout/fragment_individual_review" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_add_review"-->
+    <!--        android:name="com.slepetbangkit.cinematch.view.moviereviews.AddReviewFragment"-->
+    <!--        android:label="@string/add_review"-->
+    <!--        tools:layout="@layout/fragment_add_review" />-->
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>
