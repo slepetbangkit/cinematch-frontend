@@ -2,7 +2,7 @@ package com.slepetbangkit.cinematch.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchResponse(
+data class MovieSearchResponse(
 
 	@field:SerializedName("SearchResponse")
 	val searchResponse: List<SearchResponseItem?>? = null

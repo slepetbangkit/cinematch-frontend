@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/neutral">
 
-    <EditText
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:fontFamily="@font/plus_jakarta_sans_regular"
-        android:textSize="12sp"
-        android:hint="@string/search_users"
-        android:textColorHint="@color/neutral"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        tools:listitem="@layout/item_search_user"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:background="@color/neutral">
+
+        <EditText
+            style="@style/EditText"
+            android:id="@+id/search_tv"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:textSize="12sp"
+            android:hint="@string/search_users"
+            android:textColorHint="@color/neutral"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            tools:listitem="@layout/item_search_user"/>
+    </LinearLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/primary"
+        android:layout_gravity="center"
+        tools:visibility="visible" />
+
+</FrameLayout>
+

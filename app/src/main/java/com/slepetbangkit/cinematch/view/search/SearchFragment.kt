@@ -12,6 +12,7 @@ import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentSearchBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -54,12 +55,10 @@ class SearchFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        searchMovieViewModel.clearSearchResults()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 }

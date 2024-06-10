@@ -3,8 +3,10 @@ package com.slepetbangkit.cinematch.data.remote.retrofit
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponse
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
+import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -30,7 +32,7 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @GET("user/profile/{username}")
+    @GET("user/profile/{username}/")
     fun getProfile(
         @Header("Authorization") token: String,
         @Path("username") username: String
@@ -41,4 +43,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("search") query: String
     ): Call<List<SearchResponseItem>>
+
+    @GET("user/profile/search")
+    fun searchUser(
+        @Header("Authorization") token: String,
+        @Query("query") query: String
+    ): Call<UserSearchResponse>
 }

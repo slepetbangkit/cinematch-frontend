@@ -1,9 +1,7 @@
-package com.slepetbangkit.cinematch.view.search.pagerFragment
+package com.slepetbangkit.cinematch.view.search.pagerfragments
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -14,12 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieSearchBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
-import com.slepetbangkit.cinematch.view.search.SearchMovieViewModel
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
 
 class MovieSearchFragment : Fragment() {
@@ -85,13 +82,6 @@ class MovieSearchFragment : Fragment() {
                 false
             }
         }
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        searchMovieViewModel.clearSearchResults()
-        binding.searchTv.text.clear()
     }
 
     override fun onDestroyView() {
