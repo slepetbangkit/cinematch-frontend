@@ -1,40 +1,38 @@
 package com.slepetbangkit.cinematch.view.moviedetails
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.slepetbangkit.cinematch.databinding.ActivityMovieDetailsBinding
+import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
 import com.slepetbangkit.cinematch.databinding.ModalAddToListBinding
 
+class MovieDetailsFragment : Fragment() {
+    private var _binding: FragmentMovieDetailsBinding? = null
+    private val binding get() = _binding!!
 
-class MovieDetailsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMovieDetailsBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
         binding.addToListIb.setOnClickListener {
             showAddToListModal()
         }
+
+        return binding.root
     }
 
     private fun showAddToListModal() {
-        val dialog = BottomSheetDialog(this)
+        val dialog = BottomSheetDialog(requireContext())
         val modalBinding: ModalAddToListBinding = ModalAddToListBinding.inflate(layoutInflater)
         dialog.setContentView(modalBinding.root)
-
-        // Setup RecyclerView
-        modalBinding.movieListRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        dialog.show()
     }
 
     companion object {

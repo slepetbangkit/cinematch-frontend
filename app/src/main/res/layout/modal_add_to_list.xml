@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="500dp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@color/primary"
-    app:cardCornerRadius="25dp">
+    android:layout_gravity="center"
+    app:cardElevation="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_gravity="center"
             android:text="@string/add_to_your_list"/>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/similar_movies_rv"
+            android:id="@+id/movie_list_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -29,5 +30,4 @@
             android:scrollbars="horizontal"
             tools:listitem="@layout/item_add_to_list_movie" />
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

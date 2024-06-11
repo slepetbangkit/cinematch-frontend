@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="16dp"
+    android:orientation="vertical"
+    android:background="@color/neutral"
+    tools:context=".view.review.AddReviewFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/go_back"
+            android:src="@drawable/baseline_chevron_left_24"
+            android:background="?android:selectableItemBackground"
+            android:layout_gravity="bottom"
+            app:tint="@color/on_neutral" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textColor="@color/on_neutral"
+            android:textSize="20sp"
+            android:text="@string/add_a_new_review" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+            android:textColor="@color/on_neutral"
+            android:textSize="18sp"
+            tools:text="Challengers" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:textSize="13sp"
+            android:textColor="@color/on_neutral"
+            tools:text="2024" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.slepetbangkit.cinematch.view.custom.EditText
+            style="@style/EditText"
+            android:id="@+id/edt_uname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:textColorHint="@color/neutral"
+            android:textSize="12sp"
+            android:hint="@string/add_review_hint"
+            android:inputType="text"
+            android:gravity="top" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Button"
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+            android:textSize="16sp"
+            android:text="@string/add_review"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+</LinearLayout>
