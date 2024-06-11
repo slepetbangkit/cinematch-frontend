@@ -3,8 +3,8 @@ package com.slepetbangkit.cinematch.helpers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.view.profile.EditProfileViewModel
-import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
+import com.slepetbangkit.cinematch.view.activity.ActivityViewModel
+import com.slepetbangkit.cinematch.view.profile.editprofile.EditProfileViewModel
 import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 import com.slepetbangkit.cinematch.view.search.viewmodels.SearchUserViewModel
 
@@ -14,6 +14,9 @@ class ViewModelFactory private constructor(private val sessionRepository: Sessio
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(ActivityViewModel::class.java) -> {
+                ActivityViewModel(sessionRepository) as T
+            }
             modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
                 EditProfileViewModel(sessionRepository) as T
             }

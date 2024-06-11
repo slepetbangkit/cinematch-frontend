@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile
+package com.slepetbangkit.cinematch.view.profile.followingfollowers
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

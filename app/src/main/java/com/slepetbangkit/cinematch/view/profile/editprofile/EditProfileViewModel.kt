@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile
+package com.slepetbangkit.cinematch.view.profile.editprofile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

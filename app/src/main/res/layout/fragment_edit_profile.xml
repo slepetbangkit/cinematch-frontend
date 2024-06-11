@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral"
-    tools:context=".view.profile.EditProfileFragment">
+    tools:context=".view.profile.editprofile.EditProfileFragment">
 
     <ImageButton
         android:id="@+id/btn_back"

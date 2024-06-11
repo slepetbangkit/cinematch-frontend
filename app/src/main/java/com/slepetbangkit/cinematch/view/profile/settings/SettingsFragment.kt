@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile
+package com.slepetbangkit.cinematch.view.profile.settings
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
-import com.slepetbangkit.cinematch.databinding.FragmentSearchBinding
 import com.slepetbangkit.cinematch.databinding.FragmentSettingsBinding
-import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 import com.slepetbangkit.cinematch.view.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

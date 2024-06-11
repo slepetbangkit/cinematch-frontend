@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile
+package com.slepetbangkit.cinematch.view.profile.editprofile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +14,8 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
-import com.slepetbangkit.cinematch.helpers.ProfileViewModelFactory
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.profile.SharedProfileViewModel
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null

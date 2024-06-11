@@ -1,5 +1,7 @@
 package com.slepetbangkit.cinematch.data.remote.retrofit
 
+import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
+import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
@@ -33,6 +35,23 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
+    @GET("movies/")
+    fun searchMovies(
+        @Header("Authorization") token: String,
+        @Query("search") query: String
+    ): Call<List<SearchResponseItem>>
+
+    @GET("user/profile/search")
+    fun searchUser(
+        @Header("Authorization") token: String,
+        @Query("query") query: String
+    ): Call<UserSearchResponse>
+
+    @GET("user/activities/")
+    fun getActivities(
+        @Header("Authorization") token: String
+    ): Call<ActivityResponse>
+
     @GET("user/profile/{username}/")
     fun getProfile(
         @Header("Authorization") token: String,
@@ -60,15 +79,9 @@ interface ApiService {
         @Path("username") username: String
     ): Call<MessageResponse>
 
-    @GET("movies/")
-    fun searchMovies(
+    @GET("user/profile/{username}/following/")
+    fun getFollowing(
         @Header("Authorization") token: String,
-        @Query("search") query: String
-    ): Call<List<SearchResponseItem>>
-
-    @GET("user/profile/search/")
-    fun searchUser(
-        @Header("Authorization") token: String,
-        @Query("query") query: String
-    ): Call<UserSearchResponse>
+        @Path("username") username: String
+    ): Call<FollowListResponse>
 }
