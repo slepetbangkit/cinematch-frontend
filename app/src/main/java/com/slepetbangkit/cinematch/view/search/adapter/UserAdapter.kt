@@ -15,6 +15,11 @@ import com.slepetbangkit.cinematch.databinding.ItemSearchUserBinding
 import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
 class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemSearchUserBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
         return MyViewHolder(binding)
@@ -25,8 +30,10 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
         if (user != null) {
             holder.bind(user)
             holder.itemView.setOnClickListener {
-                val intent = Intent(holder.itemView.context, MovieDetailsActivity::class.java)
-                holder.itemView.context.startActivity(intent)
+//                val intent = Intent(holder.itemView.context, MovieDetailsActivity::class.java)
+//                holder.itemView.context.startActivity(intent)
+
+                onItemClickCallback.onItemClicked(user)
             }
         }
     }
@@ -43,6 +50,9 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
         }
     }
 
+    interface OnItemClickCallback {
+        fun onItemClicked(data: UsersItem)
+    }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UsersItem>() {

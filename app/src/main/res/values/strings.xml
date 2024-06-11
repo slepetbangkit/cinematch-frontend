@@ -52,6 +52,7 @@
     <string name="rating">Rating</string>
     <string name="review">Review</string>
     <string name="popular_in_your_area">Popular in Your Area</string>
+    <string name="follow">Follow</string>
     <string name="add_a_new_review">Add a new review</string>
     <string name="add_review_hint">Add review...</string>
     <string name="add_review">Add Review</string>

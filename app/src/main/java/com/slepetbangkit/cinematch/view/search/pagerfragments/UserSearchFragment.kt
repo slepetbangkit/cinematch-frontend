@@ -1,6 +1,7 @@
 package com.slepetbangkit.cinematch.view.search.pagerfragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -11,11 +12,16 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentUserSearchBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 import com.slepetbangkit.cinematch.view.search.adapter.UserAdapter
 import com.slepetbangkit.cinematch.view.search.viewmodels.SearchUserViewModel
 
@@ -25,6 +31,7 @@ class UserSearchFragment : Fragment(){
     private lateinit var sessionRepository: SessionRepository
     private lateinit var searchUserViewModel: SearchUserViewModel
     private lateinit var userAdapter: UserAdapter
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +49,7 @@ class UserSearchFragment : Fragment(){
         val viewModelFactory = ViewModelFactory.getInstance(sessionRepository)
         val viewModel: SearchUserViewModel by viewModels { viewModelFactory }
         searchUserViewModel = viewModel
+        navController = findNavController()
 
         setupRecyclerView()
         setupSearchInput()
@@ -65,6 +73,12 @@ class UserSearchFragment : Fragment(){
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
+        userAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: UsersItem) {
+                data.username?.let { ProfileViewModel.setSelectedUsername(it) }
+                navController.navigate(R.id.action_navigation_search_to_navigation_profile)
+            }
+        })
     }
 
     private fun setupSearchInput() {
