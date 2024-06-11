@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchUserViewModel
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -22,6 +21,7 @@ class ProfileFragment : Fragment() {
     private lateinit var sessionRepository: SessionRepository
     private lateinit var factory: ViewModelFactory
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var searchUserViewModel: SearchUserViewModel
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -32,6 +32,7 @@ class ProfileFragment : Fragment() {
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
         factory = ViewModelFactory.getInstance(sessionRepository)
         profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        searchUserViewModel = ViewModelProvider(this, factory)[SearchUserViewModel::class.java]
         navController = findNavController()
 
         return binding.root
@@ -39,6 +40,14 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        profileViewModel.isOwnProfile.observe(viewLifecycleOwner) { isOwnProfile ->
+            if (isOwnProfile) {
+                binding.profileCard.setIsOwnProfileView(true)
+            } else {
+                binding.profileCard.setIsOwnProfileView(false)
+            }
+        }
 
         profileViewModel.profile.observe(viewLifecycleOwner) {
             it.followingCount?.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
@@ -69,6 +78,10 @@ class ProfileFragment : Fragment() {
 
         binding.profileCard.setSettingsButtonClickListener {
             navController.navigate(R.id.action_navigation_profile_to_navigation_settings)
+        }
+
+        binding.profileCard.setFollowButtonClickListener {
+            // TO-DO: Follow button click listener
         }
     }
 

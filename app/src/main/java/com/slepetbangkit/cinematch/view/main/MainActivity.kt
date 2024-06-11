@@ -12,6 +12,7 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.databinding.ActivityMainBinding
+import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 import com.slepetbangkit.cinematch.view.welcome.WelcomeActivity
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch

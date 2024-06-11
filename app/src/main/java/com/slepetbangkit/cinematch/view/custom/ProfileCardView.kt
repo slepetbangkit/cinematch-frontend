@@ -51,4 +51,20 @@ class ProfileCardView @JvmOverloads constructor(
     fun setSettingsButtonClickListener(listener: OnClickListener) {
         binding.btnSettings.setOnClickListener(listener)
     }
+
+    fun setFollowButtonClickListener(listener: OnClickListener) {
+        binding.btnFollow.setOnClickListener(listener)
+    }
+
+    fun setIsOwnProfileView(isOwnProfile: Boolean) {
+        if (isOwnProfile) {
+            binding.btnEditProfile.visibility = VISIBLE
+            binding.btnSettings.visibility = VISIBLE
+            binding.btnFollow.visibility = GONE
+        } else {
+            binding.btnEditProfile.visibility = GONE
+            binding.btnSettings.visibility = GONE
+            binding.btnFollow.visibility = VISIBLE
+        }
+    }
 }

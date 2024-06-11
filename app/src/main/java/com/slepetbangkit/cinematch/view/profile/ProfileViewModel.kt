@@ -14,7 +14,12 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
     private lateinit var accessToken: String
-    private lateinit var username: String
+
+    private val _username = MutableLiveData<String>()
+    val username: LiveData<String> = _username
+
+    private val _isOwnProfile = MutableLiveData<Boolean>()
+    val isOwnProfile: LiveData<Boolean> = _isOwnProfile
 
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
@@ -28,7 +33,14 @@ class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewM
     init {
         viewModelScope.launch {
             accessToken = sessionRepository.getAccessToken().first()
-            username = sessionRepository.getUsername().first()
+
+            if (selectedUsername.isBlank()) {
+                _username.value = sessionRepository.getUsername().first()
+                _isOwnProfile.value = true
+            } else {
+                _username.value = selectedUsername
+                _isOwnProfile.value = false
+            }
 
             fetchProfile()
         }
@@ -37,7 +49,9 @@ class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewM
     private fun fetchProfile() {
         _isLoading.value = true
 
-        val client = ApiConfig.getApiService().getProfile("Bearer $accessToken", username)
+        val client = ApiConfig.getApiService().getProfile("Bearer $accessToken",
+            username.value.toString()
+        )
         client.enqueue(object : retrofit2.Callback<ProfileResponse> {
             override fun onResponse(call: retrofit2.Call<ProfileResponse>, response: retrofit2.Response<ProfileResponse>) {
                 if (response.isSuccessful) {
@@ -58,6 +72,14 @@ class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewM
     fun logout() {
         viewModelScope.launch {
             sessionRepository.clear()
+        }
+    }
+
+    companion object {
+        private var selectedUsername: String = ""
+
+        fun setSelectedUsername(username: String) {
+            selectedUsername = username
         }
     }
 }
