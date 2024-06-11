@@ -5,7 +5,7 @@ import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 
 object Injection {
-    private fun provideApiService(): ApiService {
+    fun provideApiService(): ApiService {
         return ApiConfig.getApiService()
     }
 
