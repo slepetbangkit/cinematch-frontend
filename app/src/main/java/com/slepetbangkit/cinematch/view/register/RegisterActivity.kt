@@ -93,9 +93,11 @@ class RegisterActivity : AppCompatActivity() {
         lifecycleScope.launch {
             registerResponse.token?.access?.let { sessionRepository.saveAccessToken(it) }
             registerResponse.token?.refresh?.let { sessionRepository.saveRefreshToken(it) }
-            startActivity(Intent(this@RegisterActivity, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            })
+            registerResponse.token?.access?.let { sessionRepository.saveUsername(it) }
+
+            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
     }
 

@@ -29,14 +29,14 @@
                 android:fontFamily="@font/plus_jakarta_sans_bold"
                 android:textColor="@color/on_primary"
                 android:textSize="13sp"
-                tools:text="List Title"/>
+                android:text="List Title"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:textColor="@color/on_primary"
                 android:textSize="11sp"
-                tools:text="24 movies"/>
+                android:text="24 movies"/>
         </LinearLayout>
 
         <com.google.android.material.checkbox.MaterialCheckBox
