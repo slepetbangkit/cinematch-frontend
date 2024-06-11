@@ -12,6 +12,7 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
+import com.slepetbangkit.cinematch.helpers.ProfileViewModelFactory
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 import com.slepetbangkit.cinematch.view.search.viewmodels.SearchUserViewModel
 
@@ -19,20 +20,23 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
-    private lateinit var factory: ViewModelFactory
+    private lateinit var factory: ProfileViewModelFactory
     private lateinit var profileViewModel: ProfileViewModel
-    private lateinit var searchUserViewModel: SearchUserViewModel
     private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        var username = arguments?.getString("username")
+        if (username == null) {
+            username = ""
+        }
+
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        factory = ViewModelFactory.getInstance(sessionRepository)
+        factory = ProfileViewModelFactory.getInstance(sessionRepository, username)
         profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
-        searchUserViewModel = ViewModelProvider(this, factory)[SearchUserViewModel::class.java]
         navController = findNavController()
 
         return binding.root

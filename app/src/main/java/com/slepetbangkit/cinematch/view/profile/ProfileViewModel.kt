@@ -12,7 +12,7 @@ import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
+class ProfileViewModel(private val sessionRepository: SessionRepository, private val selectedUsername: String) : ViewModel() {
     private lateinit var accessToken: String
 
     private val _username = MutableLiveData<String>()
@@ -41,6 +41,7 @@ class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewM
                 _username.value = selectedUsername
                 _isOwnProfile.value = false
             }
+
 
             fetchProfile()
         }
@@ -72,14 +73,6 @@ class ProfileViewModel(private val sessionRepository: SessionRepository) : ViewM
     fun logout() {
         viewModelScope.launch {
             sessionRepository.clear()
-        }
-    }
-
-    companion object {
-        private var selectedUsername: String = ""
-
-        fun setSelectedUsername(username: String) {
-            selectedUsername = username
         }
     }
 }

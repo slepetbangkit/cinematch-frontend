@@ -75,8 +75,12 @@ class UserSearchFragment : Fragment(){
         }
         userAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: UsersItem) {
-                data.username?.let { ProfileViewModel.setSelectedUsername(it) }
-                navController.navigate(R.id.action_navigation_search_to_navigation_profile)
+                data.username?.let { username ->
+                    val bundle = Bundle().apply {
+                        putString("username", username)
+                    }
+                    navController.navigate(R.id.action_navigation_search_to_navigation_profile, bundle)
+                }
             }
         })
     }

@@ -13,9 +13,9 @@ class ViewModelFactory private constructor(private val sessionRepository: Sessio
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(sessionRepository) as T
-            }
+//            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+//                ProfileViewModel(sessionRepository) as T
+//            }
             modelClass.isAssignableFrom(SearchMovieViewModel::class.java) -> {
                 SearchMovieViewModel(sessionRepository) as T
             }

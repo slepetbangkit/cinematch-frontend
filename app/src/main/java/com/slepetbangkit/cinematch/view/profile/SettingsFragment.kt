@@ -17,6 +17,9 @@ import com.slepetbangkit.cinematch.databinding.FragmentSearchBinding
 import com.slepetbangkit.cinematch.databinding.FragmentSettingsBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 import com.slepetbangkit.cinematch.view.welcome.WelcomeActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -32,7 +35,6 @@ class SettingsFragment : Fragment() {
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        profileViewModel = ViewModelFactory.getInstance(sessionRepository).create(ProfileViewModel::class.java)
         navController = findNavController()
 
         return binding.root
@@ -50,10 +52,12 @@ class SettingsFragment : Fragment() {
                 .setTitle("Log Out")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes") { _, _ ->
-                    profileViewModel.logout()
-                    val intent = Intent(activity, WelcomeActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        sessionRepository.clear()
+                        val intent = Intent(activity, WelcomeActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
                 }
                 .setNegativeButton("No", null)
                 .show()
