@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile
+package com.slepetbangkit.cinematch.view.profile.editprofile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,17 +12,23 @@ import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val sessionRepository: SessionRepository, private val selectedUsername: String) : ViewModel() {
+class EditProfileViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
     private lateinit var accessToken: String
+
+    private val _newUsername = MutableLiveData<String>()
+    private val newUsername: LiveData<String> = _newUsername
+
+    private val _newBio = MutableLiveData<String>()
+    private val newBio: LiveData<String> = _newBio
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
 
-    private val _isOwnProfile = MutableLiveData<Boolean>()
-    val isOwnProfile: LiveData<Boolean> = _isOwnProfile
-
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
+
+    private val _message = MutableLiveData<MessageResponse>()
+    val message: LiveData<MessageResponse> get() = _message
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -33,22 +39,21 @@ class ProfileViewModel(private val sessionRepository: SessionRepository, private
     init {
         viewModelScope.launch {
             accessToken = sessionRepository.getAccessToken().first()
-            val ownProfile = selectedUsername.isBlank() || selectedUsername == sessionRepository.getUsername().first()
-
-            if (ownProfile) {
-                _username.value = sessionRepository.getUsername().first()
-                _isOwnProfile.value = true
-            } else {
-                _username.value = selectedUsername
-                _isOwnProfile.value = false
-            }
-
+            _username.value = sessionRepository.getUsername().first()
 
             fetchProfile()
         }
     }
 
-    fun fetchProfile() {
+    fun setNewUsername(newUsername: String) {
+        _newUsername.value = newUsername
+    }
+
+    fun setNewBio(newBio: String) {
+        _newBio.value = newBio
+    }
+
+    private fun fetchProfile() {
         _isLoading.value = true
 
         val client = ApiConfig.getApiService().getProfile(
@@ -72,45 +77,27 @@ class ProfileViewModel(private val sessionRepository: SessionRepository, private
         })
     }
 
-    fun followUser() {
+    fun updateProfile() {
         _isLoading.value = true
 
-        val client = Injection.provideApiService().followUser(
+        val client = Injection.provideApiService().updateProfile(
             "Bearer $accessToken",
-            username.value.toString()
+            username.value.toString(),
+            newUsername.value.toString(),
+            newBio.value.toString()
         )
         client.enqueue(object : retrofit2.Callback<MessageResponse> {
             override fun onResponse(call: retrofit2.Call<MessageResponse>, response: retrofit2.Response<MessageResponse>) {
-                if (!response.isSuccessful) {
-                    _error.value = "Follow Failed: ${response.message()}"
+                if (response.isSuccessful) {
+                    _message.value = response.body()
+                } else {
+                    _error.value = "Update Profile Failed: ${response.message()}"
                 }
                 _isLoading.value = false
             }
 
             override fun onFailure(call: retrofit2.Call<MessageResponse>, t: Throwable) {
-                _error.value = "Follow Failed: ${t.message}"
-                _isLoading.value = false
-            }
-        })
-    }
-
-    fun unfollowUser() {
-        _isLoading.value = true
-
-        val client = Injection.provideApiService().unfollowUser(
-            "Bearer $accessToken",
-            username.value.toString()
-        )
-        client.enqueue(object : retrofit2.Callback<MessageResponse> {
-            override fun onResponse(call: retrofit2.Call<MessageResponse>, response: retrofit2.Response<MessageResponse>) {
-                if (!response.isSuccessful) {
-                    _error.value = "Unfollow Failed: ${response.message()}"
-                }
-                _isLoading.value = false
-            }
-
-            override fun onFailure(call: retrofit2.Call<MessageResponse>, t: Throwable) {
-                _error.value = "Unfollow Failed: ${t.message}"
+                _error.value = "Update Profile Failed: ${t.message}"
                 _isLoading.value = false
             }
         })

@@ -22,7 +22,14 @@
         android:id="@+id/navigation_profile"
         android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_edit_profile"
+            app:destination="@id/navigation_edit_profile" />
+    </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"
@@ -32,4 +39,19 @@
             app:destination="@id/movieDetailsFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.slepetbangkit.cinematch.view.profile.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_about_us"
+            app:destination="@id/navigation_about_us" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_about_us"
+        android:name="com.slepetbangkit.cinematch.view.profile.aboutus.AboutUsFragment"
+        android:label="@string/about_us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

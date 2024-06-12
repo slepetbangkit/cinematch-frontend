@@ -30,9 +30,6 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
         if (user != null) {
             holder.bind(user)
             holder.itemView.setOnClickListener {
-//                val intent = Intent(holder.itemView.context, MovieDetailsActivity::class.java)
-//                holder.itemView.context.startActivity(intent)
-
                 onItemClickCallback.onItemClicked(user)
             }
         }

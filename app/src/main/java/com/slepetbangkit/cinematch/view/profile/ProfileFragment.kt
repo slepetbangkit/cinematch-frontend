@@ -22,21 +22,24 @@ class ProfileFragment : Fragment() {
     private lateinit var sessionRepository: SessionRepository
     private lateinit var factory: ProfileViewModelFactory
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var sharedProfileViewModel: SharedProfileViewModel
     private lateinit var navController: NavController
+    var username: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var username = arguments?.getString("username")
+        username = arguments?.getString("username")
         if (username == null) {
             username = ""
         }
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        factory = ProfileViewModelFactory.getInstance(sessionRepository, username)
+        factory = ProfileViewModelFactory.getInstance(sessionRepository, username.toString())
         profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        sharedProfileViewModel = ViewModelProvider(requireActivity())[SharedProfileViewModel::class.java]
         navController = findNavController()
 
         return binding.root
@@ -44,6 +47,13 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedProfileViewModel.isProfileUpdated.observe(viewLifecycleOwner) { isUpdated ->
+            if (isUpdated) {
+                profileViewModel.fetchProfile()
+                sharedProfileViewModel.setProfileUpdated(false)
+            }
+        }
 
         profileViewModel.isOwnProfile.observe(viewLifecycleOwner) { isOwnProfile ->
             if (isOwnProfile) {
@@ -58,6 +68,7 @@ class ProfileFragment : Fragment() {
             it.followerCount?.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
             it.username?.let { username -> binding.profileCard.setUsername(username) }
             it.bio?.let { bio -> binding.profileCard.setBio(bio) }
+//            it.isFollowed?.let { isFollowed -> if (isFollowed) binding.profileCard.setIsFollowed(true) else binding.profileCard.setIsFollowed(false) }
         }
 
         profileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -77,7 +88,10 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileCard.setEdtProfileButtonClickListener {
-            navController.navigate(R.id.action_navigation_profile_to_navigation_edit_profile)
+            val bundle = Bundle().apply {
+                putString("username", username)
+            }
+            navController.navigate(R.id.action_navigation_profile_to_navigation_edit_profile, bundle)
         }
 
         binding.profileCard.setSettingsButtonClickListener {
