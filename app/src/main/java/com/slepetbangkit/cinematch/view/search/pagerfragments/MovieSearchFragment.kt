@@ -11,13 +11,19 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieSearchBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
+import com.slepetbangkit.cinematch.view.search.adapter.UserAdapter
 
 class MovieSearchFragment : Fragment() {
     private var _binding: FragmentMovieSearchBinding? = null
@@ -25,6 +31,7 @@ class MovieSearchFragment : Fragment() {
     private lateinit var sessionRepository: SessionRepository
     private lateinit var searchMovieViewModel: SearchMovieViewModel
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +49,7 @@ class MovieSearchFragment : Fragment() {
         val viewModelFactory = ViewModelFactory.getInstance(sessionRepository)
         val viewModel: SearchMovieViewModel by viewModels { viewModelFactory }
         searchMovieViewModel = viewModel
+        navController = findNavController()
 
         setupRecyclerView()
         setupSearchInput()
@@ -65,6 +73,17 @@ class MovieSearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = movieAdapter
         }
+
+        movieAdapter.setOnItemClickCallback(object : MovieAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: SearchResponseItem) {
+                data.tmdbId?.let { tmdbId ->
+                    val bundle = Bundle().apply {
+                        putInt("tmdbId", tmdbId)
+                    }
+                    navController.navigate(R.id.action_navigation_search_to_movieDetailsFragment, bundle)
+                }
+            }
+        })
     }
 
     private fun setupSearchInput() {

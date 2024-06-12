@@ -1,6 +1,7 @@
 package com.slepetbangkit.cinematch.data.remote.retrofit
 
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieDetailResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponse
@@ -49,4 +50,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("query") query: String
     ): Call<UserSearchResponse>
+
+    @GET("movies/details/{tmdb_id}/")
+    fun getMovieDetail(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int
+    ): Call<MovieDetailResponse>
 }
