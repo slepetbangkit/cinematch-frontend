@@ -3,10 +3,12 @@ package com.slepetbangkit.cinematch.view.custom
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
@@ -106,4 +108,15 @@ class MovieDetailsView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
+
+    fun setReviewButtonClickListener(tmdbId: Int) {
+        binding.reviewsBtn.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("tmdbId", tmdbId)
+            }
+            val navController = findNavController()
+            navController.navigate(R.id.action_movieDetailsFragment_to_reviewFragment, bundle)
+        }
+    }
+
 }

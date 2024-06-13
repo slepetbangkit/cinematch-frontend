@@ -5,6 +5,7 @@ import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieDetailResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
@@ -91,4 +92,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("username") username: String
     ): Call<FollowListResponse>
+
+    @GET("movies/details/{tmdb_id}/review/")
+    fun getMovieReviews(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int
+    ): Call<MovieReviewsResponse>
 }

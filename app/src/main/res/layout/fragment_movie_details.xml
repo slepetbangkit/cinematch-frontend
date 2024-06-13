@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral"
-    tools:context=".view.moviedetails.MovieDetailsActivity">
+    tools:context=".view.moviedetails.MovieDetailsFragment">
 
     <com.slepetbangkit.cinematch.view.custom.MovieDetailsView
         android:id="@+id/movie_details_view"

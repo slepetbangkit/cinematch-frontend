@@ -7,9 +7,10 @@
     tools:context=".view.review.ReviewFragment">
 
     <LinearLayout
+        android:id="@+id/review_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_title"
@@ -19,10 +20,25 @@
             android:fontFamily="@font/plus_jakarta_sans_bold"
             android:textSize="20sp"
             android:textColor="@color/on_neutral"
-            android:text="@string/activity"
+            android:text="@string/reviews"
             android:layout_gravity="center" />
 
+        <TextView
+            android:id="@+id/tv_no_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="64dp"
+            android:gravity="center"
+            android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+            android:textSize="16sp"
+            android:textColor="@color/on_neutral"
+            android:alpha="0.7"
+            android:text="@string/no_reviews_yet"
+            android:visibility="visible"/>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -38,5 +54,15 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/primary"
         android:src="@drawable/baseline_add_24" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/primary"
+        android:layout_gravity="center"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

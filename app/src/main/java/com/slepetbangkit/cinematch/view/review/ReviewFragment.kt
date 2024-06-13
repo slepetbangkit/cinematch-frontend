@@ -1,60 +1,86 @@
 package com.slepetbangkit.cinematch.view.review
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
+import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
+import com.slepetbangkit.cinematch.databinding.FragmentReviewBinding
+import com.slepetbangkit.cinematch.databinding.FragmentUserSearchBinding
+import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
+import com.slepetbangkit.cinematch.helpers.ViewModelFactory
+import com.slepetbangkit.cinematch.view.moviedetails.MovieViewModel
+import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
+import com.slepetbangkit.cinematch.view.search.adapter.UserAdapter
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchUserViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentReviewBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var sessionRepository: SessionRepository
+    private lateinit var movieReviewsViewModel: MovieReviewsViewModel
+    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var factory: MovieViewModelFactory
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review, container, false)
+    ): View {
+        var tmdbId = arguments?.getInt("tmdbId")
+        if (tmdbId == null) {
+            tmdbId = 0
+        }
+
+        _binding = FragmentReviewBinding.inflate(inflater, container, false)
+        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
+        factory = MovieViewModelFactory.getInstance(sessionRepository, tmdbId)
+
+        movieReviewsViewModel = ViewModelProvider(this, factory)[MovieReviewsViewModel::class.java]
+        navController = findNavController()
+
+        setupRecyclerView()
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        movieReviewsViewModel.movieReviews.observe(viewLifecycleOwner) { reviews ->
+            reviewAdapter.submitList(reviews.reviews)
+
+            if (reviews.reviews.isNullOrEmpty()) {
+                binding.tvNoReviews.visibility = View.VISIBLE
+            } else {
+                binding.tvNoReviews.visibility = View.GONE
             }
+        }
+
+        movieReviewsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.reviewContainer.visibility = if (isLoading) View.GONE else View.VISIBLE
+        }
+    }
+
+    private fun setupRecyclerView() {
+        reviewAdapter = ReviewAdapter()
+        binding.rvReview.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = reviewAdapter
+        }
     }
 }

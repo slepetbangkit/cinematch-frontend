@@ -1,18 +1,12 @@
 package com.slepetbangkit.cinematch.view.search.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
-import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
 import com.slepetbangkit.cinematch.databinding.ItemSearchUserBinding
-import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
 class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback

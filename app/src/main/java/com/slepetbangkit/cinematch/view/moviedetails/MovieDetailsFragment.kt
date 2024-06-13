@@ -13,14 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.databinding.ActivityMovieDetailsBinding
 import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
-import com.slepetbangkit.cinematch.databinding.FragmentProfileBinding
-import com.slepetbangkit.cinematch.databinding.ModalAddToListBinding
 import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
-import com.slepetbangkit.cinematch.helpers.ProfileViewModelFactory
-import com.slepetbangkit.cinematch.helpers.ViewModelFactory
-import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 
 class MovieDetailsFragment : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -69,15 +63,14 @@ class MovieDetailsFragment : Fragment() {
                     navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
                 }
             }
-
-            binding.movieDetailsView.setTrailerLink(it.trailerLink)
+            it.trailerLink?.let { trailerLink -> binding.movieDetailsView.setTrailerLink(trailerLink) }
+            it.tmdbId?.let { tmdbId -> binding.movieDetailsView.setReviewButtonClickListener(tmdbId) }
         }
 
         movieViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.movieDetailsView.visibility = if (isLoading) View.GONE else View.VISIBLE
         }
-
     }
 
     companion object {
