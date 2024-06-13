@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.Movie
+import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
@@ -34,6 +36,7 @@ class ReviewFragment : Fragment() {
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var factory: MovieViewModelFactory
     private lateinit var navController: NavController
+    private var movie: Movie? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +54,11 @@ class ReviewFragment : Fragment() {
         movieReviewsViewModel = ViewModelProvider(this, factory)[MovieReviewsViewModel::class.java]
         navController = findNavController()
 
-        setupRecyclerView()
+        binding.btnBack.setOnClickListener {
+            navController.navigateUp()
+        }
 
+        setupRecyclerView()
 
         return binding.root
     }
@@ -62,6 +68,7 @@ class ReviewFragment : Fragment() {
 
         movieReviewsViewModel.movieReviews.observe(viewLifecycleOwner) { reviews ->
             reviewAdapter.submitList(reviews.reviews)
+            movie = reviews.movie
 
             if (reviews.reviews.isNullOrEmpty()) {
                 binding.tvNoReviews.visibility = View.VISIBLE
@@ -82,5 +89,31 @@ class ReviewFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = reviewAdapter
         }
+
+        reviewAdapter.setOnItemClickCallback(object : ReviewAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ReviewsItem) {
+                data.id?.let { reviewId ->
+                    val bundle = Bundle().apply {
+                        putString("reviewId", reviewId)
+                        putString("movieTitle", movie?.title.toString())
+                        putString("releaseDate", formatReleaseDate(movie?.releaseDate.toString()))
+                    }
+                    navController.navigate(R.id.action_reviewFragment_to_reviewDetailFragment, bundle)
+                }
+            }
+        })
+    }
+
+    private fun formatReleaseDate(releaseDate: String?): String {
+        return if (releaseDate.isNullOrEmpty()){
+            "Unknown"
+        } else {
+            releaseDate.substring(0, 4)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

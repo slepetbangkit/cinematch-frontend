@@ -63,8 +63,18 @@ class MovieDetailsFragment : Fragment() {
                     navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
                 }
             }
-            it.trailerLink?.let { trailerLink -> binding.movieDetailsView.setTrailerLink(trailerLink) }
+            if (it.trailerLink.isNullOrEmpty()) {
+                binding.movieDetailsView.setTrailerLink(null)
+            } else {
+                it.trailerLink.let { trailerLink -> binding.movieDetailsView.setTrailerLink(trailerLink) }
+            }
+            it.backdropUrl?.let { backdropUrl -> binding.movieDetailsView.setTrailerBackdrop(backdropUrl) }
+            it.originCountries?.let { originCountries -> binding.movieDetailsView.setOriginCountries(originCountries) }
+            it.genres?.let { genres -> binding.movieDetailsView.setGenres(genres) }
+            it.languages?.let { languages -> binding.movieDetailsView.setLanguage(languages) }
+            it.releaseDate?.let { releaseDate -> binding.movieDetailsView.setReleaseDate(releaseDate) }
             it.tmdbId?.let { tmdbId -> binding.movieDetailsView.setReviewButtonClickListener(tmdbId) }
+            it.runtime?.let { runtime -> binding.movieDetailsView.setRuntime(runtime)}
         }
 
         movieViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

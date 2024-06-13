@@ -4,10 +4,11 @@ import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
 import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
-import com.slepetbangkit.cinematch.data.remote.response.MovieDetailResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
+import com.slepetbangkit.cinematch.data.remote.response.ReviewDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import retrofit2.Call
@@ -53,7 +54,7 @@ interface ApiService {
     fun getMovieDetail(
         @Header("Authorization") token: String,
         @Path("tmdb_id") tmdbId: Int
-    ): Call<MovieDetailResponse>
+    ): Call<MovieDetailsResponse>
 
     @GET("user/activities/")
     fun getActivities(
@@ -98,4 +99,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("tmdb_id") tmdbId: Int
     ): Call<MovieReviewsResponse>
+
+    @GET("movies/review/{review_id}/")
+    fun getDetailReviewById(
+        @Header("Authorization") token: String,
+        @Path("review_id") reviewId: String
+    ): Call<ReviewDetailsResponse>
 }

@@ -56,10 +56,17 @@ class MovieSearchFragment : Fragment() {
 
         searchMovieViewModel.searchMovieResult.observe(viewLifecycleOwner) { movies ->
             movieAdapter.submitList(movies)
+
+            if (movies.isEmpty()) {
+                binding.noResultsTextView.visibility = View.VISIBLE
+            } else {
+                binding.noResultsTextView.visibility = View.GONE
+            }
         }
 
         searchMovieViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) { binding.noResultsTextView.visibility = View.GONE }
         }
 
         searchMovieViewModel.error.observe(viewLifecycleOwner) { error ->

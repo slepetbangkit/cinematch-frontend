@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/neutral"
     android:fillViewport="true">
 
     <LinearLayout
@@ -41,7 +42,7 @@
                     android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                     android:textSize="22sp"
                     android:textColor="@color/on_neutral"
-                    tools:text="Challengers" />
+                    tools:text="Movie Title" />
 
                 <TextView
                     android:id="@+id/release_year_tv"
@@ -61,7 +62,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/on_neutral"
                     android:alpha="0.75"
-                    tools:text="Luca Guadagnino" />
+                    tools:text="Director" />
 
                 <LinearLayout
                     android:id="@+id/buttons"
@@ -104,7 +105,7 @@
             android:textSize="13sp"
             android:textColor="@color/on_neutral"
             android:alpha="0.75"
-            tools:text="Tashi, a tennis player turned coach, has transformed her husband from a mediocre player into a world-famous grand slam champion. To jolt him out of his recent losing streak, she makes him play a challenger event -- close to the lowest level of tournament on the pro tour. " />
+            tools:text="Movie Plot" />
 
         <View
             android:layout_width="match_parent"
@@ -152,6 +153,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/trailer_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -180,6 +182,7 @@
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/trailer_placeholder"
+                android:alpha="0.5"
                 app:shapeAppearanceOverlay="@style/RoundedCast" />
 
             <ImageView
@@ -191,7 +194,7 @@
         </FrameLayout>
 
         <View
-            android:id="@+id/trailer_divider"
+            android:id="@+id/cast_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -199,6 +202,7 @@
 
         <!-- Cast -->
         <TextView
+            android:id="@+id/cast_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -218,6 +222,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <View
+            android:id="@+id/crew_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -225,6 +230,7 @@
 
         <!-- Crew -->
         <TextView
+            android:id="@+id/crew_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -244,6 +250,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <View
+            android:id="@+id/details_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -275,11 +282,33 @@
                 android:id="@+id/release_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:textSize="11sp"
                 android:textColor="@color/on_neutral"
                 tools:text="April 26, 2024" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="11sp"
+                android:textColor="@color/on_neutral"
+                android:text="@string/genres" />
+            <TextView
+                android:id="@+id/genre_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/plus_jakarta_sans_regular"
+                android:textSize="11sp"
+                android:textColor="@color/on_neutral"
+                tools:text="Horror" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -297,7 +326,7 @@
                 android:id="@+id/countries_of_origin_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:textSize="11sp"
                 android:textColor="@color/on_neutral"
@@ -314,12 +343,12 @@
                 android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                 android:textSize="11sp"
                 android:textColor="@color/on_neutral"
-                android:text="@string/languages" />
+                android:text="@string/original_language" />
             <TextView
                 android:id="@+id/languages_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:textSize="11sp"
                 android:textColor="@color/on_neutral"
@@ -341,7 +370,7 @@
                 android:id="@+id/runtime_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:textSize="11sp"
                 android:textColor="@color/on_neutral"
@@ -349,6 +378,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/similar_movies_divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
@@ -356,6 +386,7 @@
 
         <!-- Similar Movies -->
         <TextView
+            android:id="@+id/similar_movies_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
