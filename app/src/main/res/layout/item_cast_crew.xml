@@ -8,12 +8,15 @@
     android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/photo_cast_crew"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:src="@drawable/image_zendaya"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_placeholder"
         app:shapeAppearanceOverlay="@style/RoundedCast"/>
 
     <TextView
+        android:id="@+id/name_cast_crew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -24,6 +27,7 @@
         tools:text="Zendaya"/>
 
     <TextView
+        android:id="@+id/detail_cast_crew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/plus_jakarta_sans_medium"

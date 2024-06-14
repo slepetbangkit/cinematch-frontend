@@ -59,10 +59,6 @@ class FollowersFragment : Fragment() {
         })
 
         followListViewModel.followList.observe(viewLifecycleOwner) {
-            Log.d("FollowersFragment", "Followers: $it")
-        }
-
-        followListViewModel.followList.observe(viewLifecycleOwner) {
             followListItemAdapter.submitList(it.followers)
         }
     }

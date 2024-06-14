@@ -25,12 +25,9 @@
             android:exported="false" />
         <activity
             android:name=".view.testing.TestingActivity"
-            android:exported="false"></activity>
-        <activity
-            android:name=".view.activity.ActivityActivity"
             android:exported="false" />
         <activity
-            android:name=".view.moviedetails.MovieDetailsActivity"
+            android:name=".view.activity.ActivityActivity"
             android:exported="false" />
         <activity
             android:name=".view.search.SearchActivity"

@@ -1,60 +1,122 @@
 package com.slepetbangkit.cinematch.view.review
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
+import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
+import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.databinding.FragmentReviewBinding
+import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
+import com.slepetbangkit.cinematch.view.review.MovieReviewsViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentReviewBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var movieReviewsViewModel: MovieReviewsViewModel
+    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var navController: NavController
+    private var movieTitle: String? = ""
+    private var releaseDate: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review, container, false)
+    ): View {
+        val tmdbId = arguments?.getInt("tmdbId") ?: 0
+        movieTitle = arguments?.getString("movieTitle")
+        releaseDate = arguments?.getString("releaseDate")
+
+        _binding = FragmentReviewBinding.inflate(inflater, container, false)
+        val sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
+        val factory = MovieViewModelFactory.getInstance(sessionRepository, tmdbId)
+
+        movieReviewsViewModel = ViewModelProvider(this, factory)[MovieReviewsViewModel::class.java]
+        navController = findNavController()
+
+        setupViews(tmdbId)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
+        fetchReviews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchReviews()
+    }
+
+    private fun setupViews(tmdbId: Int) {
+        binding.apply {
+            btnBack.setOnClickListener { navController.navigateUp() }
+            fab.setOnClickListener { navigateToAddReview(tmdbId) }
+        }
+        setupRecyclerView()
+    }
+
+    private fun observeViewModel() {
+        movieReviewsViewModel.apply {
+            movieReviews.observe(viewLifecycleOwner) { reviews ->
+                reviewAdapter.submitList(reviews.reviews)
+                binding.tvNoReviews.visibility = if (reviews.reviews.isNullOrEmpty()) View.VISIBLE else View.GONE
+            }
+            isLoading.observe(viewLifecycleOwner) { isLoading ->
+                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                binding.reviewContainer.visibility = if (isLoading) View.GONE else View.VISIBLE
+            }
+        }
+    }
+
+    private fun fetchReviews() {
+        movieReviewsViewModel.fetchMovieReviews()
+    }
+
+    private fun setupRecyclerView() {
+        reviewAdapter = ReviewAdapter()
+        binding.rvReview.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = reviewAdapter
+        }
+        reviewAdapter.setOnItemClickCallback(object : ReviewAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ReviewsItem) {
+                data.id?.let { reviewId ->
+                    navigateToReviewDetail(reviewId)
                 }
             }
+        })
+    }
+
+    private fun navigateToAddReview(tmdbId: Int) {
+        val bundle = Bundle().apply {
+            putInt("tmdbId", tmdbId)
+            putString("movieTitle", movieTitle)
+            putString("releaseDate", releaseDate)
+        }
+        navController.navigate(R.id.action_reviewFragment_to_addReviewFragment, bundle)
+    }
+
+    private fun navigateToReviewDetail(reviewId: String) {
+        val bundle = Bundle().apply {
+            putString("reviewId", reviewId)
+            putString("movieTitle", movieTitle)
+            putString("releaseDate", releaseDate)
+        }
+        navController.navigate(R.id.action_reviewFragment_to_reviewDetailFragment, bundle)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -32,6 +32,20 @@
             android:layout_marginTop="16dp"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/noResultsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:textSize="16sp"
+        android:textColor="@color/on_neutral"
+        android:alpha="0.7"
+        android:visibility="gone"
+        android:text="@string/search_not_found"/>
+
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"

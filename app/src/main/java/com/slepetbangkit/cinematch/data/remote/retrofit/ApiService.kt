@@ -1,12 +1,16 @@
 package com.slepetbangkit.cinematch.data.remote.retrofit
 
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
+import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieDetailsResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
+import com.slepetbangkit.cinematch.data.remote.response.ReviewDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import retrofit2.Call
@@ -55,6 +59,12 @@ interface ApiService {
         @Query("query") query: String
     ): Call<UserSearchResponse>
 
+    @GET("movies/details/{tmdb_id}/")
+    fun getMovieDetail(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int
+    ): Call<MovieDetailsResponse>
+
     @GET("user/activities/")
     fun getActivities(
         @Header("Authorization") token: String
@@ -92,4 +102,24 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("username") username: String
     ): Call<FollowListResponse>
+
+    @GET("movies/details/{tmdb_id}/review/")
+    fun getMovieReviews(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int
+    ): Call<MovieReviewsResponse>
+
+    @GET("movies/review/{review_id}/")
+    fun getDetailReviewById(
+        @Header("Authorization") token: String,
+        @Path("review_id") reviewId: String
+    ): Call<ReviewDetailsResponse>
+
+    @FormUrlEncoded
+    @POST("movies/details/{tmdb_id}/review/")
+    fun addReview(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int,
+        @Field("description") description: String
+    ): Call<AddReviewResponse>
 }

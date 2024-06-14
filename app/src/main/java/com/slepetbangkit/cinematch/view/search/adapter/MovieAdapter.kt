@@ -1,6 +1,5 @@
 package com.slepetbangkit.cinematch.view.search.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,9 +9,14 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
-import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
 class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemSearchMovieBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
@@ -24,9 +28,7 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
         if (movie != null) {
             holder.bind(movie)
             holder.itemView.setOnClickListener {
-                val intent = Intent(holder.itemView.context, MovieDetailsActivity::class.java)
-                intent.putExtra(MovieDetailsActivity.MOVIE_ID, movie.tmdbId)
-                holder.itemView.context.startActivity(intent)
+                onItemClickCallback.onItemClicked(movie)
             }
         }
     }
@@ -35,7 +37,7 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
         fun bind(movie: SearchResponseItem) {
             Glide.with(binding.moviePosterIv.context)
                 .load(movie.posterUrl)
-                .placeholder(R.drawable.image_broken_poster)
+                .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
                 .into(binding.moviePosterIv)
 
@@ -51,6 +53,10 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
             binding.movieYearTv.text = year
             binding.movieDirectorTv.text = movie.director
         }
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: SearchResponseItem)
     }
 
 

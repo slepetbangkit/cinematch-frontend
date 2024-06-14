@@ -11,6 +11,6 @@
         android:layout_width="105dp"
         android:layout_height="155dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_challengers_xlg"
+        android:src="@drawable/poster_empty_placeholder"
         app:shapeAppearanceOverlay="@style/RoundedPoster" />
 </LinearLayout>

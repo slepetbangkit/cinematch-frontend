@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral"
-    tools:context=".view.profile.ProfileActivity">
+    tools:context=".view.profile.ProfileFragment">
 
     <com.slepetbangkit.cinematch.view.custom.ProfileCardView
         android:id="@+id/profile_card"

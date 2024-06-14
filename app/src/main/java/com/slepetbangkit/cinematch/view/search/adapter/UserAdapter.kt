@@ -12,7 +12,6 @@ import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding
-import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
 class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
