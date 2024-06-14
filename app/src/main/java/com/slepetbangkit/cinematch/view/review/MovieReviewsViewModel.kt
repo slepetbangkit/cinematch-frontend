@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieReviewsViewModel(private val sessionRepository: SessionRepository, private val movie: Int) : ViewModel(){
+class MovieReviewsViewModel(private val sessionRepository: SessionRepository, private val movie: Int) : ViewModel() {
     private lateinit var accessToken: String
 
     private val _tmdbId = MutableLiveData<Int>()
@@ -30,20 +30,31 @@ class MovieReviewsViewModel(private val sessionRepository: SessionRepository, pr
 
     init {
         viewModelScope.launch {
-            accessToken = sessionRepository.getAccessToken().first()
-
+            initializeToken()
             _tmdbId.value = movie
-
             fetchMovieReviews()
         }
     }
 
-    private fun fetchMovieReviews() {
+    private suspend fun initializeToken() {
+        accessToken = sessionRepository.getAccessToken().first()
+    }
+
+    fun fetchMovieReviews() {
+        if (!this::accessToken.isInitialized) {
+            viewModelScope.launch {
+                initializeToken()
+                fetchReviews()
+            }
+        } else {
+            fetchReviews()
+        }
+    }
+
+    private fun fetchReviews() {
         _isLoading.value = true
 
-        val client = ApiConfig.getApiService().getMovieReviews("Bearer $accessToken",
-            tmdbId.value!!.toInt()
-        )
+        val client = ApiConfig.getApiService().getMovieReviews("Bearer $accessToken", tmdbId.value!!.toInt())
         client.enqueue(object : Callback<MovieReviewsResponse> {
             override fun onResponse(call: Call<MovieReviewsResponse>, response: Response<MovieReviewsResponse>) {
                 if (response.isSuccessful) {

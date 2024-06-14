@@ -76,6 +76,18 @@
                         android:textColor="@color/on_neutral"
                         tools:text="Year" />
 
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/plus_jakarta_sans_regular"
+                        android:textSize="11sp"
+                        android:textColor="@color/on_neutral"
+                        android:alpha="0.6"
+                        tools:text="Reviewed on: March 6, 2024"
+                        />
+
                 </LinearLayout>
 
                 <TextView
@@ -85,7 +97,7 @@
                     android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                     android:textSize="16sp"
                     android:textColor="@color/primary"
-                    android:gravity="bottom"
+                    android:gravity="center"
                     tools:text="4.3" />
 
             </LinearLayout>

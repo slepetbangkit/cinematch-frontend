@@ -1,6 +1,7 @@
 package com.slepetbangkit.cinematch.data.remote.retrofit
 
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
+import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
@@ -105,4 +106,12 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("review_id") reviewId: String
     ): Call<ReviewDetailsResponse>
+
+    @FormUrlEncoded
+    @POST("movies/details/{tmdb_id}/review/")
+    fun addReview(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int,
+        @Field("description") description: String
+    ): Call<AddReviewResponse>
 }

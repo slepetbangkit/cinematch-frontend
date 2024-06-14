@@ -6,6 +6,7 @@ import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.view.moviedetails.MovieViewModel
 import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 import com.slepetbangkit.cinematch.view.review.MovieReviewsViewModel
+import com.slepetbangkit.cinematch.view.review.add.AddReviewViewModel
 
 class MovieViewModelFactory private constructor(private val sessionRepository: SessionRepository, private val tmdbId: Int = 0) :
     ViewModelProvider.NewInstanceFactory() {
@@ -18,6 +19,9 @@ class MovieViewModelFactory private constructor(private val sessionRepository: S
             }
             modelClass.isAssignableFrom(MovieReviewsViewModel::class.java) -> {
                 MovieReviewsViewModel(sessionRepository, tmdbId) as T
+            }
+            modelClass.isAssignableFrom(AddReviewViewModel::class.java) -> {
+                AddReviewViewModel(sessionRepository, tmdbId) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

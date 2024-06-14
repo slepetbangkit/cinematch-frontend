@@ -65,10 +65,18 @@
         <action
             android:id="@+id/action_reviewFragment_to_reviewDetailFragment"
             app:destination="@id/reviewDetailFragment" />
+        <action
+            android:id="@+id/action_reviewFragment_to_addReviewFragment"
+            app:destination="@id/addReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/reviewDetailFragment"
         android:name="com.slepetbangkit.cinematch.view.review.detail.ReviewDetailFragment"
         android:label="fragment_review_detail"
         tools:layout="@layout/fragment_review_detail" />
+    <fragment
+        android:id="@+id/addReviewFragment"
+        android:name="com.slepetbangkit.cinematch.view.review.add.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" />
 </navigation>

@@ -47,14 +47,13 @@ class MovieDetailsView @JvmOverloads constructor(
         binding.movieTitleTv.text = title
     }
 
-    fun setReleaseYear(releaseDate: String) {
-        val year = if (releaseDate.isNotEmpty() && releaseDate.length >= 4) {
-            releaseDate.substring(0, 4)
+    fun setReleaseYear(releaseDate: String): String {
+        return if (releaseDate.isNotEmpty() && releaseDate.length >= 4) {
+            binding.releaseYearTv.text = releaseDate.substring(0, 4)
+            return releaseDate.substring(0, 4)
         } else {
             "Unknown"
         }
-
-        binding.releaseYearTv.text = year
     }
 
     fun setDirector(director: String) {
@@ -161,10 +160,12 @@ class MovieDetailsView @JvmOverloads constructor(
         }
     }
 
-    fun setReviewButtonClickListener(tmdbId: Int) {
+    fun setReviewButtonClickListener(tmdbId: Int, title: String, releaseDate: String) {
         binding.reviewsBtn.setOnClickListener {
             val bundle = Bundle().apply {
                 putInt("tmdbId", tmdbId)
+                putString("movieTitle", title)
+                putString("releaseDate", setReleaseYear(releaseDate))
             }
             val navController = findNavController()
             navController.navigate(R.id.action_movieDetailsFragment_to_reviewFragment, bundle)

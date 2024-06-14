@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
 import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
@@ -28,10 +27,7 @@ class MovieDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var tmdbId = arguments?.getInt("tmdbId")
-        if (tmdbId == null) {
-            tmdbId = 0
-        }
+        val tmdbId = arguments?.getInt("tmdbId") ?: 0
 
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
@@ -46,41 +42,56 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieViewModel.movieDetail.observe(viewLifecycleOwner) {
-            it.title?.let { title -> binding.movieDetailsView.setMovieTitle(title) }
-            it.releaseDate?.let { releaseDate -> binding.movieDetailsView.setReleaseYear(releaseDate) }
-            it.director?.let { director -> binding.movieDetailsView.setDirector(director) }
-            it.posterUrl?.let { posterUrl -> binding.movieDetailsView.setMoviePoster(posterUrl) }
-            it.description?.let { description -> binding.movieDetailsView.setSynopsis(description) }
-            it.rating?.let { rating -> binding.movieDetailsView.setVerdict(rating) }
-            it.cast?.let { cast -> binding.movieDetailsView.setCast(cast) }
-            it.crew?.let { crew -> binding.movieDetailsView.setCrew(crew) }
-            it.similarMovies?.let { similarMovies ->
-                binding.movieDetailsView.setSimilarMovies(similarMovies) { similarMovie ->
-                    val bundle = Bundle().apply {
-                        similarMovie.tmdbId?.let { it1 -> putInt("tmdbId", it1) }
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        movieViewModel.movieDetail.observe(viewLifecycleOwner) { movie ->
+            movie.apply {
+                title?.let { binding.movieDetailsView.setMovieTitle(it) }
+                releaseDate?.let { binding.movieDetailsView.setReleaseYear(it) }
+                director?.let { binding.movieDetailsView.setDirector(it) }
+                posterUrl?.let { binding.movieDetailsView.setMoviePoster(it) }
+                description?.let { binding.movieDetailsView.setSynopsis(it) }
+                rating?.let { binding.movieDetailsView.setVerdict(it) }
+                cast?.let { binding.movieDetailsView.setCast(it) }
+                crew?.let { binding.movieDetailsView.setCrew(it) }
+                similarMovies?.let { setupSimilarMovies(it) }
+                trailerLink?.let { binding.movieDetailsView.setTrailerLink(it) } ?: binding.movieDetailsView.setTrailerLink(null)
+                backdropUrl?.let { binding.movieDetailsView.setTrailerBackdrop(it) }
+                originCountries?.let { binding.movieDetailsView.setOriginCountries(it) }
+                genres?.let { binding.movieDetailsView.setGenres(it) }
+                languages?.let { binding.movieDetailsView.setLanguage(it) }
+                releaseDate?.let { binding.movieDetailsView.setReleaseDate(it) }
+                tmdbId?.let { id ->
+                    title?.let { title ->
+                        releaseDate?.let { releaseDate ->
+                            binding.movieDetailsView.setReviewButtonClickListener(id, title, releaseDate)
+                        }
                     }
-                    navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
                 }
+                runtime?.let { binding.movieDetailsView.setRuntime(it) }
             }
-            if (it.trailerLink.isNullOrEmpty()) {
-                binding.movieDetailsView.setTrailerLink(null)
-            } else {
-                it.trailerLink.let { trailerLink -> binding.movieDetailsView.setTrailerLink(trailerLink) }
-            }
-            it.backdropUrl?.let { backdropUrl -> binding.movieDetailsView.setTrailerBackdrop(backdropUrl) }
-            it.originCountries?.let { originCountries -> binding.movieDetailsView.setOriginCountries(originCountries) }
-            it.genres?.let { genres -> binding.movieDetailsView.setGenres(genres) }
-            it.languages?.let { languages -> binding.movieDetailsView.setLanguage(languages) }
-            it.releaseDate?.let { releaseDate -> binding.movieDetailsView.setReleaseDate(releaseDate) }
-            it.tmdbId?.let { tmdbId -> binding.movieDetailsView.setReviewButtonClickListener(tmdbId) }
-            it.runtime?.let { runtime -> binding.movieDetailsView.setRuntime(runtime)}
         }
 
         movieViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.movieDetailsView.visibility = if (isLoading) View.GONE else View.VISIBLE
         }
+    }
+
+    private fun setupSimilarMovies(similarMovies: List<SimilarMoviesItem?>) {
+        binding.movieDetailsView.setSimilarMovies(similarMovies) { similarMovie ->
+            val bundle = Bundle().apply {
+                similarMovie.tmdbId?.let { putInt("tmdbId", it) }
+            }
+            navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
