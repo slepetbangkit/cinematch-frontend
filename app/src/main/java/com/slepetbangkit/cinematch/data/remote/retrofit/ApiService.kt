@@ -5,6 +5,7 @@ import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
+import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
@@ -34,6 +35,13 @@ interface ApiService {
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<LoginResponse>
+
+    @FormUrlEncoded
+    @POST("user/token/refresh/")
+    fun refresh(
+        @Header("Authorization") token: String,
+        @Field("refresh") refreshToken: String
+    ): Call<RefreshResponse>
 
     @GET("movies/")
     fun searchMovies(
@@ -80,7 +88,7 @@ interface ApiService {
     ): Call<MessageResponse>
 
     @GET("user/profile/{username}/following/")
-    fun getFollowing(
+    fun getFollowList(
         @Header("Authorization") token: String,
         @Path("username") username: String
     ): Call<FollowListResponse>

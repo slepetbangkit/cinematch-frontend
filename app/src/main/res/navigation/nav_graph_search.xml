@@ -50,7 +50,16 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_edit_profile"
             app:destination="@id/navigation_edit_profile" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_follow_list"
+            app:destination="@id/navigation_follow_list" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_follow_list"
+        android:name="com.slepetbangkit.cinematch.view.profile.followlist.FollowListFragment"
+        android:label="@string/follow_list"
+        tools:layout="@layout/fragment_follow_list" />
 
     <fragment
         android:id="@+id/navigation_edit_profile"

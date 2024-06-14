@@ -1,31 +1,25 @@
-package com.slepetbangkit.cinematch.view.search.adapter
+package com.slepetbangkit.cinematch.view.profile.followlist.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
-import com.slepetbangkit.cinematch.data.remote.response.UsersItem
-import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
+import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding
-import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsActivity
 
-class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FollowListItemAdapter: ListAdapter<FollowListItem, FollowListItemAdapter.FollowListHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowListHolder {
         val binding = ItemUserBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
-        return MyViewHolder(binding)
+        return FollowListHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FollowListHolder, position: Int) {
         val user = getItem(position)
         if (user != null) {
             holder.bind(user)
@@ -35,8 +29,8 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: UsersItem) {
+    class FollowListHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: FollowListItem) {
 //            Glide.with(binding.ivProfilePicture.context)
 //                .load(user.)
 //                .placeholder(R.drawable.image_broken_poster)
@@ -48,15 +42,15 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: UsersItem)
+        fun onItemClicked(data: FollowListItem)
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UsersItem>() {
-            override fun areItemsTheSame(oldItem: UsersItem, newItem: UsersItem): Boolean {
-                return oldItem == newItem
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowListItem>() {
+            override fun areItemsTheSame(oldItem: FollowListItem, newItem: FollowListItem): Boolean {
+                return oldItem.id == newItem.id
             }
-            override fun areContentsTheSame(oldItem: UsersItem, newItem: UsersItem): Boolean {
+            override fun areContentsTheSame(oldItem: FollowListItem, newItem: FollowListItem): Boolean {
                 return oldItem == newItem
             }
         }

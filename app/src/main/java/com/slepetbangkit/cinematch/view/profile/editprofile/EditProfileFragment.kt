@@ -15,26 +15,28 @@ import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
 import com.slepetbangkit.cinematch.helpers.ViewModelFactory
-import com.slepetbangkit.cinematch.view.profile.SharedProfileViewModel
+import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
     private lateinit var factory: ViewModelFactory
+    private lateinit var profileViewModel: ProfileViewModel
     private lateinit var editProfileViewModel: EditProfileViewModel
-    private lateinit var sharedProfileViewModel: SharedProfileViewModel
     private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_profile)
+
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        profileViewModel = ViewModelProvider(navBackStackEntry)[ProfileViewModel::class.java]
         sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
         factory = ViewModelFactory.getInstance(sessionRepository)
         editProfileViewModel = ViewModelProvider(this, factory)[EditProfileViewModel::class.java]
-        sharedProfileViewModel = ViewModelProvider(requireActivity())[SharedProfileViewModel::class.java]
         navController = findNavController()
 
         return binding.root
@@ -49,7 +51,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        editProfileViewModel.profile.observe(viewLifecycleOwner) {
+        profileViewModel.profile.observe(viewLifecycleOwner) {
             binding.edtUname.setText(it.username)
             binding.edtBio.setText(it.bio)
         }
@@ -98,7 +100,7 @@ class EditProfileFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             editProfileViewModel.updateProfile()
-            sharedProfileViewModel.setProfileUpdated(true)
+            profileViewModel.setProfileUpdated(true)
         }
     }
 

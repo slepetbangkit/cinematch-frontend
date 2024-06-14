@@ -24,9 +24,6 @@ class EditProfileViewModel(private val sessionRepository: SessionRepository) : V
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
 
-    private val _profile = MutableLiveData<ProfileResponse>()
-    val profile: LiveData<ProfileResponse> get() = _profile
-
     private val _message = MutableLiveData<MessageResponse>()
     val message: LiveData<MessageResponse> get() = _message
 
@@ -40,8 +37,6 @@ class EditProfileViewModel(private val sessionRepository: SessionRepository) : V
         viewModelScope.launch {
             accessToken = sessionRepository.getAccessToken().first()
             _username.value = sessionRepository.getUsername().first()
-
-            fetchProfile()
         }
     }
 
@@ -51,30 +46,6 @@ class EditProfileViewModel(private val sessionRepository: SessionRepository) : V
 
     fun setNewBio(newBio: String) {
         _newBio.value = newBio
-    }
-
-    private fun fetchProfile() {
-        _isLoading.value = true
-
-        val client = ApiConfig.getApiService().getProfile(
-            "Bearer $accessToken",
-            username.value.toString()
-        )
-        client.enqueue(object : retrofit2.Callback<ProfileResponse> {
-            override fun onResponse(call: retrofit2.Call<ProfileResponse>, response: retrofit2.Response<ProfileResponse>) {
-                if (response.isSuccessful) {
-                    _profile.value = response.body()
-                } else {
-                    _error.value = "Login Failed: ${response.message()}"
-                }
-                _isLoading.value = false
-            }
-
-            override fun onFailure(call: retrofit2.Call<ProfileResponse>, t: Throwable) {
-                _error.value = "Login Failed: ${t.message}"
-                _isLoading.value = false
-            }
-        })
     }
 
     fun updateProfile() {
