@@ -89,9 +89,18 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        binding.profileCard.setFollowCountClickListener {
+        binding.profileCard.setFollowingLayoutClickListener() {
             val bundle = Bundle().apply {
                 putString("username", username)
+                putInt("tabIndex", 0)
+            }
+            navController.navigate(R.id.action_navigation_profile_to_navigation_follow_list, bundle)
+        }
+
+        binding.profileCard.setFollowersLayoutClickListener() {
+            val bundle = Bundle().apply {
+                putString("username", username)
+                putInt("tabIndex", 1)
             }
             navController.navigate(R.id.action_navigation_profile_to_navigation_follow_list, bundle)
         }

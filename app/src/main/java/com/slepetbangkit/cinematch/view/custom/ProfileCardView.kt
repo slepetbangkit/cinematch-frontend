@@ -44,9 +44,12 @@ class ProfileCardView @JvmOverloads constructor(
         binding.tvBio.text = bio
     }
 
-    fun setFollowCountClickListener(listener: OnClickListener) {
-        binding.tvFollowingCount.setOnClickListener(listener)
-        binding.tvFollowerCount.setOnClickListener(listener)
+    fun setFollowingLayoutClickListener(listener: OnClickListener) {
+        binding.followingLayout.setOnClickListener(listener)
+    }
+
+    fun setFollowersLayoutClickListener(listener: OnClickListener) {
+        binding.followersLayout.setOnClickListener(listener)
     }
 
     fun setEdtProfileButtonClickListener(listener: OnClickListener) {

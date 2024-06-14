@@ -38,7 +38,11 @@
         android:id="@+id/navigation_follow_list"
         android:name="com.slepetbangkit.cinematch.view.profile.followlist.FollowListFragment"
         android:label="@string/follow_list"
-        tools:layout="@layout/fragment_follow_list" />
+        tools:layout="@layout/fragment_follow_list" >
+        <action
+            android:id="@+id/action_navigation_follow_list_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -67,6 +71,7 @@
         android:name="com.slepetbangkit.cinematch.view.profile.aboutus.AboutUsFragment"
         android:label="@string/about_us"
         tools:layout="@layout/fragment_about_us" />
+
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.slepetbangkit.cinematch.view.review.ReviewFragment"

@@ -53,7 +53,7 @@ class FollowersFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString("username", username)
                     }
-                    navController.navigate(R.id.action_navigation_search_to_navigation_profile, bundle)
+                    navController.navigate(R.id.action_navigation_follow_list_to_navigation_profile, bundle)
                 }
             }
         })

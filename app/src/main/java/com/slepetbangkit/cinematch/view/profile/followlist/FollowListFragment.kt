@@ -59,6 +59,9 @@ class FollowListFragment : Fragment() {
                 1 -> tab.text = "Followers"
             }
         }.attach()
+
+        val tabIndex = arguments?.getInt("tabIndex", 0)
+        viewPager.setCurrentItem(tabIndex ?: 0, false)
     }
 
     override fun onDestroyView() {
