@@ -27,7 +27,6 @@ class OtherFollowListFragment : Fragment() {
     private lateinit var userRepository: UserRepository
     private lateinit var factory: OtherProfileViewModelFactory
     private lateinit var otherFollowListViewModel: OtherFollowListViewModel
-    private lateinit var otherProfileViewModel: OtherProfileViewModel
     private var username: String = ""
 
     override fun onCreateView(
@@ -36,6 +35,8 @@ class OtherFollowListFragment : Fragment() {
     ): View {
         username = arguments?.getString("username") ?: ""
 
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_follow_list)
+
         _binding = FragmentOtherFollowListBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
@@ -43,8 +44,7 @@ class OtherFollowListFragment : Fragment() {
         factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
         factory.updateUsername(username)
 
-        otherFollowListViewModel = ViewModelProvider(this, factory)[OtherFollowListViewModel::class.java]
-        otherProfileViewModel = ViewModelProvider(this, factory)[OtherProfileViewModel::class.java]
+        otherFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherFollowListViewModel::class.java]
 
         return binding.root
     }
@@ -69,12 +69,6 @@ class OtherFollowListFragment : Fragment() {
 
         val tabIndex = arguments?.getInt("tabIndex", 0)
         viewPager.setCurrentItem(tabIndex ?: 0, false)
-
-        otherProfileViewModel.profile.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                otherFollowListViewModel.getOtherFollowList()
-            }
-        }
     }
 
     override fun onDestroyView() {

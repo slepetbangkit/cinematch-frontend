@@ -28,6 +28,7 @@
 
         <include
             layout="@layout/skeleton_profile_card" />
+
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <TextView

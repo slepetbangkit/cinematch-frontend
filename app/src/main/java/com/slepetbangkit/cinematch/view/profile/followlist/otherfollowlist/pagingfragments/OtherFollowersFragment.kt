@@ -39,7 +39,7 @@ class OtherFollowersFragment : Fragment() {
     ): View {
         val username = arguments?.getString("username") ?: ""
 
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_profile)
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_follow_list)
 
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
@@ -48,14 +48,13 @@ class OtherFollowersFragment : Fragment() {
         factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
         factory.updateUsername(username)
 
-        otherFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherFollowListViewModel::class.java]
+        otherFollowListViewModel = ViewModelProvider(navBackStackEntry)[OtherFollowListViewModel::class.java]
         otherFollowListItemAdapter = OtherFollowListItemAdapter()
         navController = findNavController()
 
         lifecycleScope.launch {
             sessionUsername = sessionRepository.getUsername()
         }
-        Log.d("TESTINGGGG", "Username: $username")
 
         return binding.root
     }
@@ -84,7 +83,6 @@ class OtherFollowersFragment : Fragment() {
         })
 
         otherFollowListViewModel.followList.observe(viewLifecycleOwner) {
-            Log.d("OtherFollowersFragment", "Fetched data: ${it.followers}")
             otherFollowListItemAdapter.submitList(it.followers)
         }
 

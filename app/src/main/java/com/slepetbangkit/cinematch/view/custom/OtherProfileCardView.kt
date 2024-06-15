@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.databinding.ViewCardOtherProfileBinding
 
 class OtherProfileCardView @JvmOverloads constructor(
@@ -48,6 +49,14 @@ class OtherProfileCardView @JvmOverloads constructor(
         } else {
             binding.btnFollow.visibility = VISIBLE
             binding.btnUnfollow.visibility = GONE
+        }
+    }
+
+    fun setIsFollowingUser(isFollowingUser: Boolean) {
+        if (isFollowingUser) {
+            binding.btnFollow.text = context.getString(R.string.follow_back)
+        } else {
+            binding.btnFollow.text = context.getString(R.string.follow)
         }
     }
 

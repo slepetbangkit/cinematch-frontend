@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
                 setupNavBar()
             }
         }
-
     }
+
     private fun setupNavBar() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
