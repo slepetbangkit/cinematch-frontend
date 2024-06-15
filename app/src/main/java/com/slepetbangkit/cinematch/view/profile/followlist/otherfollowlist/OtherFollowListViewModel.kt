@@ -34,11 +34,10 @@ class OtherFollowListViewModel(
         }
     }
 
-    suspend fun getOtherFollowList() {
+    private suspend fun getOtherFollowList() {
         try {
             _isLoading.value = true
             val response = userRepository.getOtherFollowList(username)
-            Log.d("OtherFollowListViewModel", response.toString())
             _followList.value = response
         } catch (e: HttpException) {
             if (e.code() == 401) {
@@ -49,6 +48,7 @@ class OtherFollowListViewModel(
             }
         } finally {
             _isLoading.value = false
+            Log.d("OtherFollowListViewModel", "followList: ${followList.value.toString()}")
         }
     }
 }

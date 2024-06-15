@@ -38,14 +38,14 @@ class OtherFollowingFragment : Fragment() {
     ): View {
         val username = arguments?.getString("username") ?: ""
 
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_profile)
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_follow_list)
 
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
         factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
         factory.updateUsername(username)
-        otherFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherFollowListViewModel::class.java]
+        otherFollowListViewModel = ViewModelProvider(navBackStackEntry)[OtherFollowListViewModel::class.java]
         otherFollowListItemAdapter = OtherFollowListItemAdapter()
         navController = findNavController()
 

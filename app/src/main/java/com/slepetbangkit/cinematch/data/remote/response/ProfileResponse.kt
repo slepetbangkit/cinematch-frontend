@@ -10,6 +10,9 @@ data class ProfileResponse(
 	@field:SerializedName("is_followed")
 	val isFollowed: Boolean,
 
+	@field:SerializedName("is_following_user")
+	val isFollowingUser: Boolean,
+
 	@field:SerializedName("playlists")
 	val playlists: List<Any>,
 
@@ -17,7 +20,7 @@ data class ProfileResponse(
 	val bio: String,
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: String,
+	val profilePicture: String? = null,
 
 	@field:SerializedName("id")
 	val id: String,

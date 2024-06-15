@@ -58,12 +58,10 @@ class OtherProfileFragment : Fragment() {
         otherProfileViewModel.profile.observe(viewLifecycleOwner) {
             it.followingCount.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
             it.followerCount.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
-            it.username.let { uname ->
-                binding.profileCard.setUsername(uname)
-                username = uname
-            }
+            it.username.let { username -> binding.profileCard.setUsername(username) }
             it.bio.let { bio -> binding.profileCard.setBio(bio) }
             it.isFollowed.let { isFollowed -> binding.profileCard.setIsFollowed(isFollowed) }
+            it.isFollowingUser.let { isFollowingUser -> binding.profileCard.setIsFollowingUser(isFollowingUser) }
         }
 
         otherProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

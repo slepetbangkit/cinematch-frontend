@@ -18,7 +18,7 @@
         app:shapeAppearanceOverlay="@style/RoundedCard" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/movie_poster_img"
+        android:id="@+id/movie_poster"
         android:layout_width="155dp"
         android:layout_height="227dp"
         android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
         android:textColor="@color/on_neutral"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/movie_poster_img"
+        app:layout_constraintStart_toEndOf="@id/movie_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
