@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.factories
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
@@ -10,9 +11,14 @@ import com.slepetbangkit.cinematch.view.review.add.AddReviewViewModel
 
 class MovieViewModelFactory private constructor(
     private val sessionRepository: SessionRepository,
-    private val movieRepository: MovieRepository,
-    private val tmdbId: Int = 0
+    private val movieRepository: MovieRepository
 ) : ViewModelProvider.NewInstanceFactory() {
+
+    private var tmdbId: Int = 0
+
+    fun updateTmdbId(tmdbId: Int) {
+        this.tmdbId = tmdbId
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -37,15 +43,13 @@ class MovieViewModelFactory private constructor(
         @JvmStatic
         fun getInstance(
             sessionRepository: SessionRepository,
-            movieRepository: MovieRepository,
-            tmdbId: Int
+            movieRepository: MovieRepository
         ): MovieViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(MovieViewModelFactory::class.java) {
-                    INSTANCE = MovieViewModelFactory(sessionRepository, movieRepository, tmdbId)
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: MovieViewModelFactory(sessionRepository, movieRepository).also {
+                    INSTANCE = it
                 }
             }
-            return INSTANCE as MovieViewModelFactory
         }
     }
 }

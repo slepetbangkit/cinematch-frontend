@@ -9,9 +9,15 @@ import com.slepetbangkit.cinematch.view.profile.otherprofile.OtherProfileViewMod
 
 class OtherProfileViewModelFactory private constructor(
     private val sessionRepository: SessionRepository,
-    private val userRepository: UserRepository,
-    private val username: String
+    private val userRepository: UserRepository
 ) : ViewModelProvider.NewInstanceFactory() {
+
+    private var username: String = ""
+
+    fun updateUsername(username: String) {
+        this.username = username
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
@@ -32,15 +38,13 @@ class OtherProfileViewModelFactory private constructor(
         @JvmStatic
         fun getInstance(
             sessionRepository: SessionRepository,
-            userRepository: UserRepository,
-            username: String
+            userRepository: UserRepository
         ): OtherProfileViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(OtherProfileViewModelFactory::class.java) {
-                    INSTANCE = OtherProfileViewModelFactory(sessionRepository, userRepository, username)
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: OtherProfileViewModelFactory(sessionRepository, userRepository).also {
+                    INSTANCE = it
                 }
             }
-            return INSTANCE as OtherProfileViewModelFactory
         }
     }
 }

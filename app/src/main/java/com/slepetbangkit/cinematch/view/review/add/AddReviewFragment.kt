@@ -41,7 +41,7 @@ class AddReviewFragment : Fragment() {
         _binding = FragmentAddReviewBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         movieRepository = Injection.provideMovieRepository(requireContext())
-        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository, tmdbId)
+        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository)
 
         addReviewViewModel = ViewModelProvider(this, factory)[AddReviewViewModel::class.java]
         navController = findNavController()

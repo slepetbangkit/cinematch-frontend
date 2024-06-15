@@ -17,7 +17,6 @@ import com.slepetbangkit.cinematch.databinding.FragmentOtherFollowListBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.OtherProfileViewModelFactory
 import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.adapter.OtherFollowListAdapter
-import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.adapter.SelfFollowListAdapter
 import com.slepetbangkit.cinematch.view.profile.otherprofile.OtherProfileViewModel
 import kotlinx.coroutines.launch
 
@@ -29,28 +28,23 @@ class OtherFollowListFragment : Fragment() {
     private lateinit var factory: OtherProfileViewModelFactory
     private lateinit var otherFollowListViewModel: OtherFollowListViewModel
     private lateinit var otherProfileViewModel: OtherProfileViewModel
-    var username: String? = ""
+    private var username: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        username = arguments?.getString("username")
-        if (username == null) {
-            username = ""
-        }
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_profile)
+        username = arguments?.getString("username") ?: ""
 
         _binding = FragmentOtherFollowListBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
-        factory = OtherProfileViewModelFactory.getInstance(
-            sessionRepository,
-            userRepository,
-            username.toString()
-        )
-        otherFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherFollowListViewModel::class.java]
-        otherProfileViewModel = ViewModelProvider(navBackStackEntry)[OtherProfileViewModel::class.java]
+
+        factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
+        factory.updateUsername(username)
+
+        otherFollowListViewModel = ViewModelProvider(this, factory)[OtherFollowListViewModel::class.java]
+        otherProfileViewModel = ViewModelProvider(this, factory)[OtherProfileViewModel::class.java]
 
         return binding.root
     }

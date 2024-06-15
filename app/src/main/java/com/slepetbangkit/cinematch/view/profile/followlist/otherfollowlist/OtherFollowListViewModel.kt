@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,7 @@ class OtherFollowListViewModel(
         try {
             _isLoading.value = true
             val response = userRepository.getOtherFollowList(username)
+            Log.d("OtherFollowListViewModel", response.toString())
             _followList.value = response
         } catch (e: HttpException) {
             if (e.code() == 401) {

@@ -5,92 +5,95 @@ import com.google.gson.annotations.SerializedName
 data class MovieDetailsResponse(
 
 	@field:SerializedName("trailer_link")
-	val trailerLink: String,
+	val trailerLink: String? = null,
 
 	@field:SerializedName("tmdb_id")
-	val tmdbId: Int,
+	val tmdbId: Int? = null,
 
 	@field:SerializedName("backdrop_url")
-	val backdropUrl: String,
-
-	@field:SerializedName("runtime")
-	val runtime: Int,
+	val backdropUrl: String? = null,
 
 	@field:SerializedName("languages")
-	val languages: String,
+	val languages: String? = null,
 
 	@field:SerializedName("director")
-	val director: String,
+	val director: String? = null,
+
+	@field:SerializedName("overall_sentiment")
+	val overallSentiment: String? = null,
 
 	@field:SerializedName("rating")
-	val rating: Any,
+	val rating: Any? = null,
 
 	@field:SerializedName("poster_url")
-	val posterUrl: String,
+	val posterUrl: String? = null,
 
 	@field:SerializedName("description")
-	val description: String,
+	val description: String? = null,
+
+	@field:SerializedName("runtime")
+	val runtime: Int? = null,
 
 	@field:SerializedName("in_playlists")
-	val inPlaylists: List<Any>,
+	val inPlaylists: List<Any?>? = null,
 
 	@field:SerializedName("title")
-	val title: String,
+	val title: String? = null,
 
 	@field:SerializedName("crew")
-	val crew: List<CrewItem>,
+	val crew: List<CrewItem?>? = null,
 
 	@field:SerializedName("cast")
-	val cast: List<CastItem>,
+	val cast: List<CastItem?>? = null,
 
 	@field:SerializedName("similar_movies")
-	val similarMovies: List<SimilarMoviesItem>,
+	val similarMovies: List<SimilarMoviesItem?>? = null,
 
 	@field:SerializedName("release_date")
-	val releaseDate: String,
+	val releaseDate: String? = null,
 
 	@field:SerializedName("genres")
-	val genres: List<String>,
+	val genres: List<String?>? = null,
 
 	@field:SerializedName("origin_countries")
-	val originCountries: List<String>,
+	val originCountries: List<String?>? = null,
 
 	@field:SerializedName("is_liked")
-	val isLiked: Boolean
-)
-
-data class SimilarMoviesItem(
-
-	@field:SerializedName("tmdb_id")
-	val tmdbId: Int,
-
-	@field:SerializedName("poster_url")
-	val posterUrl: String,
-
-	@field:SerializedName("title")
-	val title: String
-)
-
-data class CrewItem(
-
-	@field:SerializedName("profile_url")
-	val profileUrl: String,
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("job")
-	val job: String
+	val isLiked: Boolean? = null
 )
 
 data class CastItem(
 
 	@field:SerializedName("character")
-	val character: String,
+	val character: String? = null,
 
 	@field:SerializedName("profile_url")
-	val profileUrl: String,
+	val profileUrl: String? = null,
 
 	@field:SerializedName("name")
-	val name: String
+	val name: String? = null
+)
+
+data class CrewItem(
+
+	@field:SerializedName("profile_url")
+	val profileUrl: String? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("job")
+	val job: String? = null
+)
+
+data class SimilarMoviesItem(
+
+	@field:SerializedName("tmdb_id")
+	val tmdbId: Int? = null,
+
+	@field:SerializedName("poster_url")
+	val posterUrl: String? = null,
+
+	@field:SerializedName("title")
+	val title: String? = null
 )

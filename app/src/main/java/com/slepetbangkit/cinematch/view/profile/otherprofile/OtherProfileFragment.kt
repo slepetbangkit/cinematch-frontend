@@ -29,28 +29,23 @@ class OtherProfileFragment : Fragment() {
     private lateinit var otherProfileViewModel: OtherProfileViewModel
     private lateinit var selfProfileViewModel: SelfProfileViewModel
     private lateinit var navController: NavController
-    var username: String? = ""
+    private var username: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        username = arguments?.getString("username")
-        if (username == null) {
-            username = ""
-        }
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_profile)
+        username = arguments?.getString("username") ?: ""
 
         _binding = FragmentOtherProfileBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
-        factory = OtherProfileViewModelFactory.getInstance(
-            sessionRepository,
-            userRepository,
-            username.toString()
-        )
+
+        factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
+        factory.updateUsername(username)
+
         selfFactory = SelfProfileViewModelFactory.getInstance(sessionRepository, userRepository)
-        otherProfileViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherProfileViewModel::class.java]
+        otherProfileViewModel = ViewModelProvider(this, factory)[OtherProfileViewModel::class.java]
         selfProfileViewModel = ViewModelProvider(requireActivity(), selfFactory)[SelfProfileViewModel::class.java]
         navController = findNavController()
 

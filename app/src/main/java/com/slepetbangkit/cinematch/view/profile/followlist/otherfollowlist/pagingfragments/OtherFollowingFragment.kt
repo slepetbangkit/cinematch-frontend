@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentFollowersBinding
 import com.slepetbangkit.cinematch.di.Injection
-import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.adapter.SelfFollowListItemAdapter
+import com.slepetbangkit.cinematch.factories.OtherProfileViewModelFactory
 import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.OtherFollowListViewModel
 import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.adapter.OtherFollowListItemAdapter
 import kotlinx.coroutines.launch
@@ -24,6 +25,8 @@ class OtherFollowingFragment : Fragment() {
     private var _binding: FragmentFollowersBinding? = null
     private val binding: FragmentFollowersBinding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
+    private lateinit var userRepository: UserRepository
+    private lateinit var factory: OtherProfileViewModelFactory
     private lateinit var otherFollowListViewModel: OtherFollowListViewModel
     private lateinit var otherFollowListItemAdapter: OtherFollowListItemAdapter
     private lateinit var navController: NavController
@@ -33,11 +36,16 @@ class OtherFollowingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val username = arguments?.getString("username") ?: ""
+
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_profile)
 
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
-        otherFollowListViewModel = ViewModelProvider(navBackStackEntry)[OtherFollowListViewModel::class.java]
+        userRepository = Injection.provideUserRepository(requireContext())
+        factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
+        factory.updateUsername(username)
+        otherFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[OtherFollowListViewModel::class.java]
         otherFollowListItemAdapter = OtherFollowListItemAdapter()
         navController = findNavController()
 

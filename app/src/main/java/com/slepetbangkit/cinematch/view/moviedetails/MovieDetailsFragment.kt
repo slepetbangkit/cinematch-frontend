@@ -1,6 +1,7 @@
 package com.slepetbangkit.cinematch.view.moviedetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,10 @@ class MovieDetailsFragment : Fragment() {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         movieRepository = Injection.provideMovieRepository(requireContext())
-        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository, tmdbId)
+
+        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository)
+        factory.updateTmdbId(tmdbId)
+
         movieDetailsViewModel = ViewModelProvider(this, factory)[MovieDetailsViewModel::class.java]
         navController = findNavController()
 
@@ -56,7 +60,7 @@ class MovieDetailsFragment : Fragment() {
                 director.let { binding.movieDetailsView.setDirector(it) }
                 posterUrl.let { binding.movieDetailsView.setMoviePoster(it) }
                 description.let { binding.movieDetailsView.setSynopsis(it) }
-                rating.let { binding.movieDetailsView.setVerdict(it) }
+                overallSentiment.let { binding.movieDetailsView.setVerdict(it) }
                 cast.let { binding.movieDetailsView.setCast(it) }
                 crew.let { binding.movieDetailsView.setCrew(it) }
                 trailerLink.let { binding.movieDetailsView.setTrailerLink(it) } ?: binding.movieDetailsView.setTrailerLink(null)
@@ -73,7 +77,7 @@ class MovieDetailsFragment : Fragment() {
                     }
                 }
                 runtime.let { binding.movieDetailsView.setRuntime(it) }
-                setupSimilarMovies(similarMovies)
+                similarMovies?.let { setupSimilarMovies(it) }
             }
         }
 
@@ -86,7 +90,7 @@ class MovieDetailsFragment : Fragment() {
     private fun setupSimilarMovies(similarMovies: List<SimilarMoviesItem?>) {
         binding.movieDetailsView.setSimilarMovies(similarMovies) { similarMovie ->
             val bundle = Bundle().apply {
-                putInt("tmdbId", similarMovie.tmdbId)
+                similarMovie.tmdbId?.let { putInt("tmdbId", it) }
             }
             navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
         }
