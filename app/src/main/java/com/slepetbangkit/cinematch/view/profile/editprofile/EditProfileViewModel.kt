@@ -8,22 +8,16 @@ import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
-class EditProfileViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
-    private lateinit var accessToken: String
-
-    private val _newUsername = MutableLiveData<String>()
-    private val newUsername: LiveData<String> = _newUsername
-
-    private val _newBio = MutableLiveData<String>()
-    private val newBio: LiveData<String> = _newBio
-
-    private val _username = MutableLiveData<String>()
-    val username: LiveData<String> = _username
-
+class EditProfileViewModel(
+    private val sessionRepository: SessionRepository,
+    private val userRepository: UserRepository
+) : ViewModel() {
     private val _message = MutableLiveData<MessageResponse>()
     val message: LiveData<MessageResponse> get() = _message
 
@@ -33,44 +27,20 @@ class EditProfileViewModel(private val sessionRepository: SessionRepository) : V
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    init {
-        viewModelScope.launch {
-            accessToken = sessionRepository.getAccessToken().first()
-            _username.value = sessionRepository.getUsername().first()
+    suspend fun updateSelfProfile(newUsername: String, newBio: String) {
+        try {
+            _isLoading.value = true
+            val response = userRepository.updateSelfProfile(newUsername, newBio)
+            _message.value = response
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                sessionRepository.refresh()
+                updateSelfProfile(newUsername, newBio)
+            } else {
+                _error.value = e.message()
+            }
+        } finally {
+            _isLoading.value = false
         }
-    }
-
-    fun setNewUsername(newUsername: String) {
-        _newUsername.value = newUsername
-    }
-
-    fun setNewBio(newBio: String) {
-        _newBio.value = newBio
-    }
-
-    fun updateProfile() {
-        _isLoading.value = true
-
-        val client = Injection.provideApiService().updateProfile(
-            "Bearer $accessToken",
-            username.value.toString(),
-            newUsername.value.toString(),
-            newBio.value.toString()
-        )
-        client.enqueue(object : retrofit2.Callback<MessageResponse> {
-            override fun onResponse(call: retrofit2.Call<MessageResponse>, response: retrofit2.Response<MessageResponse>) {
-                if (response.isSuccessful) {
-                    _message.value = response.body()
-                } else {
-                    _error.value = "Update Profile Failed: ${response.message()}"
-                }
-                _isLoading.value = false
-            }
-
-            override fun onFailure(call: retrofit2.Call<MessageResponse>, t: Throwable) {
-                _error.value = "Update Profile Failed: ${t.message}"
-                _isLoading.value = false
-            }
-        })
     }
 }

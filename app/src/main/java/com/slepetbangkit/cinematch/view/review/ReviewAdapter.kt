@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.databinding.ItemReviewCardBinding
 import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
 

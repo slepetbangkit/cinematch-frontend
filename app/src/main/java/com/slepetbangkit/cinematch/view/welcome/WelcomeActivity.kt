@@ -3,13 +3,8 @@ package com.slepetbangkit.cinematch.view.welcome
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
-import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.ActivityWelcomeBinding
-import com.slepetbangkit.cinematch.helpers.ViewModelFactory
 import com.slepetbangkit.cinematch.view.login.LoginActivity
-import com.slepetbangkit.cinematch.view.main.MainActivity
 import com.slepetbangkit.cinematch.view.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {

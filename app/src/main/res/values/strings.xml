@@ -65,4 +65,5 @@
     <string name="plot_unknown">Plot Unknown.</string>
     <string name="search_not_found">Sorry, we couldn\'t find what you were looking for.</string>
     <string name="follow_list">Follow List</string>
+    <string name="unfollow">Unfollow</string>
 </resources>

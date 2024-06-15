@@ -10,10 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentSettingsBinding
-import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 import com.slepetbangkit.cinematch.view.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,6 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
-    private lateinit var profileViewModel: ProfileViewModel
     private lateinit var navController: NavController
 
 
@@ -32,7 +32,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
+        sessionRepository = Injection.provideSessionRepository(requireContext())
         navController = findNavController()
 
         return binding.root
@@ -51,7 +51,7 @@ class SettingsFragment : Fragment() {
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes") { _, _ ->
                     CoroutineScope(Dispatchers.Main).launch {
-                        sessionRepository.clear()
+                        sessionRepository.logout()
                         val intent = Intent(activity, WelcomeActivity::class.java)
                         startActivity(intent)
                         activity?.finish()

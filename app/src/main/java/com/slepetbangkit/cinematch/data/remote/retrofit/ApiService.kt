@@ -7,13 +7,12 @@ import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
+import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.response.ReviewDetailsResponse
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
-import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -27,99 +26,98 @@ import retrofit2.http.Query
 interface ApiService {
     @FormUrlEncoded
     @POST("user/register/")
-    fun register(
+    suspend fun register(
         @Field("username") username: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<RegisterResponse>
+    ): RegisterResponse
 
     @FormUrlEncoded
     @POST("user/token/")
-    fun login(
+    suspend fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("user/token/refresh/")
-    fun refresh(
-        @Header("Authorization") token: String,
+    suspend fun refresh(
         @Field("refresh") refreshToken: String
-    ): Call<RefreshResponse>
+    ): RefreshResponse
 
     @GET("movies/")
-    fun searchMovies(
+    suspend fun searchMovies(
         @Header("Authorization") token: String,
         @Query("search") query: String
-    ): Call<List<SearchResponseItem>>
+    ): List<MovieSearchResponseItem>
 
     @GET("user/profile/search")
-    fun searchUser(
+    suspend fun searchUser(
         @Header("Authorization") token: String,
         @Query("query") query: String
-    ): Call<UserSearchResponse>
+    ): UserSearchResponse
 
     @GET("movies/details/{tmdb_id}/")
-    fun getMovieDetail(
+    suspend fun getMovieDetails(
         @Header("Authorization") token: String,
         @Path("tmdb_id") tmdbId: Int
-    ): Call<MovieDetailsResponse>
+    ): MovieDetailsResponse
 
     @GET("user/activities/")
-    fun getActivities(
+    suspend fun getActivities(
         @Header("Authorization") token: String
-    ): Call<ActivityResponse>
+    ): ActivityResponse
+
+    @GET("movies/details/{tmdb_id}/review/")
+    suspend fun getMovieReviews(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int
+    ): MovieReviewsResponse
+
+    @GET("movies/review/{review_id}/")
+    suspend fun getReviewDetailsById(
+        @Header("Authorization") token: String,
+        @Path("review_id") reviewId: String
+    ): ReviewDetailsResponse
+
+    @FormUrlEncoded
+    @POST("movies/details/{tmdb_id}/review/")
+    suspend fun addReview(
+        @Header("Authorization") token: String,
+        @Path("tmdb_id") tmdbId: Int,
+        @Field("description") description: String
+    ): AddReviewResponse
 
     @GET("user/profile/{username}/")
-    fun getProfile(
+    suspend fun getProfile(
         @Header("Authorization") token: String,
         @Path("username") username: String
-    ): Call<ProfileResponse>
+    ): ProfileResponse
 
     @FormUrlEncoded
     @PATCH("user/profile/{username}/")
-    fun updateProfile(
+    suspend fun updateSelfProfile(
         @Header("Authorization") token: String,
         @Path("username") username: String,
         @Field("username") newUsername: String,
         @Field("bio") newBio: String
-    ): Call<MessageResponse>
-
-    @POST("user/profile/{username}/following/")
-    fun followUser(
-        @Header("Authorization") token: String,
-        @Path("username") username: String
-    ): Call<MessageResponse>
-
-    @DELETE("user/profile/{username}/following/")
-    fun unfollowUser(
-        @Header("Authorization") token: String,
-        @Path("username") username: String
-    ): Call<MessageResponse>
+    ): MessageResponse
 
     @GET("user/profile/{username}/following/")
-    fun getFollowList(
+    suspend fun getFollowList(
         @Header("Authorization") token: String,
         @Path("username") username: String
-    ): Call<FollowListResponse>
+    ): FollowListResponse
 
-    @GET("movies/details/{tmdb_id}/review/")
-    fun getMovieReviews(
+    @POST("user/profile/{username}/following/")
+    suspend fun followUser(
         @Header("Authorization") token: String,
-        @Path("tmdb_id") tmdbId: Int
-    ): Call<MovieReviewsResponse>
+        @Path("username") username: String
+    ): MessageResponse
 
-    @GET("movies/review/{review_id}/")
-    fun getDetailReviewById(
+    @DELETE("user/profile/{username}/following/")
+    suspend fun unfollowUser(
         @Header("Authorization") token: String,
-        @Path("review_id") reviewId: String
-    ): Call<ReviewDetailsResponse>
-
-    @FormUrlEncoded
-    @POST("movies/details/{tmdb_id}/review/")
-    fun addReview(
-        @Header("Authorization") token: String,
-        @Path("tmdb_id") tmdbId: Int,
-        @Field("description") description: String
-    ): Call<AddReviewResponse>
+        @Path("username") username: String
+    ): MessageResponse
 }

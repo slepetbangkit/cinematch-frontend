@@ -30,32 +30,15 @@ class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewH
     override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
         val activity = getItem(position)
         holder.bind(activity)
-//        holder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(activity)
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(activity)
+        }
     }
 
     class ActivityViewHolder(val binding: ItemActivityCardBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(activity: ActivitiesItem) {
-//            if (activity.type == "FOLLOWED_USER") {
-//                val username = activity.username
-//                val followedUsername = activity.followedUsername
-//                val fullText = "$username started following $followedUsername"
-//
-//                val spannableString = SpannableString(fullText)
-//
-//                val semiBoldTypeface = ResourcesCompat.getFont(context, R.font.plus_jakarta_sans_semi_bold)
-//                if (username != null && followedUsername != null) {
-//                    spannableString.setSpan(semiBoldTypeface, 0, username.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-//                    spannableString.setSpan(semiBoldTypeface, username.length + 18, fullText.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-//                }
-//
-//                binding.activityTv.text = spannableString
-//            } else if (activity.type == "REVIEWED_MOVIE") {
-//                binding.activityTv.text = activity.description
-//            }
             binding.activityTv.text = activity.description
-            binding.timeTv.text = activity.createdAt
+            binding.timeTv.text = activity.date
         }
     }
 

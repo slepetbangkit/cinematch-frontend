@@ -5,29 +5,29 @@ import com.google.gson.annotations.SerializedName
 data class ProfileResponse(
 
 	@field:SerializedName("following_count")
-	val followingCount: Int? = null,
+	val followingCount: Int,
 
 	@field:SerializedName("is_followed")
-	val isFollowed: Boolean? = null,
+	val isFollowed: Boolean,
 
 	@field:SerializedName("playlists")
-	val playlists: List<Any?>? = null,
+	val playlists: List<Any>,
 
 	@field:SerializedName("bio")
-	val bio: String? = null,
+	val bio: String,
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: String? = null,
+	val profilePicture: String,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("is_self")
-	val isSelf: Boolean? = null,
+	val isSelf: Boolean,
 
 	@field:SerializedName("follower_count")
-	val followerCount: Int? = null,
+	val followerCount: Int,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String
 )

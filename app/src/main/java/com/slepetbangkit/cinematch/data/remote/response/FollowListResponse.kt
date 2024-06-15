@@ -5,23 +5,23 @@ import com.google.gson.annotations.SerializedName
 data class FollowListResponse(
 
 	@field:SerializedName("followers")
-	val followers: List<FollowListItem?>? = null,
+	val followers: List<FollowListItem?>,
 
 	@field:SerializedName("following_count")
-	val followingCount: Int? = null,
+	val followingCount: Int,
 
 	@field:SerializedName("followings")
-	val followings: List<FollowListItem?>? = null,
+	val followings: List<FollowListItem?>,
 
 	@field:SerializedName("follower_count")
-	val followerCount: Int? = null
+	val followerCount: Int
 )
 
 data class FollowListItem(
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String
 )

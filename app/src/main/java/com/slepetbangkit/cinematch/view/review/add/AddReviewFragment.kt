@@ -6,20 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
-import com.slepetbangkit.cinematch.data.remote.response.Movie
+import com.slepetbangkit.cinematch.data.preferences.dataStore
+import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentAddReviewBinding
-import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
-import com.slepetbangkit.cinematch.view.review.MovieReviewsViewModel
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.MovieViewModelFactory
+import kotlinx.coroutines.launch
 
 class AddReviewFragment : Fragment() {
     private var _binding: FragmentAddReviewBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
+    private lateinit var movieRepository: MovieRepository
     private lateinit var factory: MovieViewModelFactory
     private lateinit var addReviewViewModel: AddReviewViewModel
     private lateinit var navController: NavController
@@ -37,8 +39,9 @@ class AddReviewFragment : Fragment() {
         }
 
         _binding = FragmentAddReviewBinding.inflate(inflater, container, false)
-        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        factory = MovieViewModelFactory.getInstance(sessionRepository, tmdbId)
+        sessionRepository = Injection.provideSessionRepository(requireContext())
+        movieRepository = Injection.provideMovieRepository(requireContext())
+        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository, tmdbId)
 
         addReviewViewModel = ViewModelProvider(this, factory)[AddReviewViewModel::class.java]
         navController = findNavController()
@@ -69,6 +72,8 @@ class AddReviewFragment : Fragment() {
     private fun handleAddReview() {
         val review = binding.edtReview.text.toString()
 
-        addReviewViewModel.addReview(review)
+        lifecycleScope.launch {
+            addReviewViewModel.addReview(review)
+        }
     }
 }

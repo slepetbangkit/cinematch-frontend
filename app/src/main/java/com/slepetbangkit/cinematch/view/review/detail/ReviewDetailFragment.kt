@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.dataStore
+import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentReviewDetailBinding
-import com.slepetbangkit.cinematch.helpers.ReviewDetailsViewModelFactory
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.ReviewDetailsViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ReviewDetailFragment : Fragment() {
     private var _binding: FragmentReviewDetailBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sessionRepository: SessionRepository
+    private lateinit var movieRepository: MovieRepository
     private lateinit var reviewDetailViewModel: ReviewDetailViewModel
 
     override fun onCreateView(
@@ -28,8 +32,9 @@ class ReviewDetailFragment : Fragment() {
         val releaseDate = arguments?.getString("releaseDate")
 
         _binding = FragmentReviewDetailBinding.inflate(inflater, container, false)
-        val sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        val factory = ReviewDetailsViewModelFactory.getInstance(sessionRepository, reviewId)
+        sessionRepository = Injection.provideSessionRepository(requireContext())
+        movieRepository = Injection.provideMovieRepository(requireContext())
+        val factory = ReviewDetailsViewModelFactory.getInstance(sessionRepository, movieRepository, reviewId)
 
         reviewDetailViewModel = ViewModelProvider(this, factory)[ReviewDetailViewModel::class.java]
 
@@ -49,11 +54,11 @@ class ReviewDetailFragment : Fragment() {
 
     private fun observeViewModel() {
         reviewDetailViewModel.reviewDetails.observe(viewLifecycleOwner) { review ->
-            review.data?.apply {
-                username?.let { binding.tvUsername.text = it }
-                description?.let { binding.tvReview.text = it }
-                rating?.let { binding.tvRating.text = it.toString() }
-                createdAt?.let { binding.tvDate.text = formatDate(it) }
+            review.data.apply {
+                username.let { binding.tvUsername.text = it }
+                description.let { binding.tvReview.text = it }
+                rating.let { binding.tvRating.text = it.toString() }
+                createdAt.let { binding.tvDate.text = formatDate(it) }
             }
         }
 

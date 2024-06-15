@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding

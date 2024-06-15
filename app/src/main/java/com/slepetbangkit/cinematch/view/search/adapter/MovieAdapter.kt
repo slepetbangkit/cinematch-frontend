@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.SearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
 
-class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter: ListAdapter<MovieSearchResponseItem, MovieAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -34,7 +34,7 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
     }
 
     class MyViewHolder(val binding: ItemSearchMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: SearchResponseItem) {
+        fun bind(movie: MovieSearchResponseItem) {
             Glide.with(binding.moviePosterIv.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
@@ -44,7 +44,7 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
             binding.movieTitleTv.text = movie.title
 
             val releaseDate = movie.releaseDate
-            val year = if (releaseDate != null && releaseDate.length >= 4) {
+            val year = if (releaseDate.length >= 4) {
                 releaseDate.substring(0, 4)
             } else {
                 "Unknown"
@@ -56,16 +56,16 @@ class MovieAdapter: ListAdapter<SearchResponseItem, MovieAdapter.MyViewHolder>(D
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: SearchResponseItem)
+        fun onItemClicked(data: MovieSearchResponseItem)
     }
 
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SearchResponseItem>() {
-            override fun areItemsTheSame(oldItem: SearchResponseItem, newItem: SearchResponseItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieSearchResponseItem>() {
+            override fun areItemsTheSame(oldItem: MovieSearchResponseItem, newItem: MovieSearchResponseItem): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: SearchResponseItem, newItem: SearchResponseItem): Boolean {
+            override fun areContentsTheSame(oldItem: MovieSearchResponseItem, newItem: MovieSearchResponseItem): Boolean {
                 return oldItem == newItem
             }
         }

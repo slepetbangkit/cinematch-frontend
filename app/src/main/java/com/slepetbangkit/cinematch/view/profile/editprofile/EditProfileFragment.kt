@@ -8,35 +8,40 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
-import com.slepetbangkit.cinematch.helpers.ViewModelFactory
-import com.slepetbangkit.cinematch.view.profile.ProfileViewModel
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.SelfProfileViewModelFactory
+import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
+import kotlinx.coroutines.launch
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
-    private lateinit var factory: ViewModelFactory
-    private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var userRepository: UserRepository
+    private lateinit var factory: SelfProfileViewModelFactory
     private lateinit var editProfileViewModel: EditProfileViewModel
+    private lateinit var selfProfileViewModel: SelfProfileViewModel
     private lateinit var navController: NavController
+    private var newUsername: String = ""
+    private var newBio: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_profile)
-
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-        profileViewModel = ViewModelProvider(navBackStackEntry)[ProfileViewModel::class.java]
-        sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        factory = ViewModelFactory.getInstance(sessionRepository)
+        sessionRepository = Injection.provideSessionRepository(requireContext())
+        userRepository = Injection.provideUserRepository(requireContext())
+        factory = SelfProfileViewModelFactory.getInstance(sessionRepository, userRepository)
         editProfileViewModel = ViewModelProvider(this, factory)[EditProfileViewModel::class.java]
+        selfProfileViewModel = ViewModelProvider(requireActivity())[SelfProfileViewModel::class.java]
         navController = findNavController()
 
         return binding.root
@@ -51,7 +56,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        profileViewModel.profile.observe(viewLifecycleOwner) {
+        selfProfileViewModel.profile.observe(viewLifecycleOwner) {
             binding.edtUname.setText(it.username)
             binding.edtBio.setText(it.bio)
         }
@@ -75,6 +80,9 @@ class EditProfileFragment : Fragment() {
 
         editProfileViewModel.message.observe(viewLifecycleOwner) { message ->
             if (message != null) {
+                selfProfileViewModel.setProfileUsername(newUsername)
+                selfProfileViewModel.setProfileBio(newBio)
+
                 AlertDialog.Builder(requireContext(), R.style.AlertDialog)
                     .setTitle(message.message)
                     .setPositiveButton("OK") { dialog, _ ->
@@ -99,18 +107,19 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener {
-            editProfileViewModel.updateProfile()
-            profileViewModel.setProfileUpdated(true)
+            lifecycleScope.launch {
+                editProfileViewModel.updateSelfProfile(newUsername, newBio)
+            }
         }
     }
 
     private fun setupTextChangedListeners() {
         binding.edtUname.addTextChangedListener { text ->
-            editProfileViewModel.setNewUsername(text.toString())
+            newUsername = text.toString()
         }
 
         binding.edtBio.addTextChangedListener { text ->
-            editProfileViewModel.setNewBio(text.toString())
+            newBio = text.toString()
         }
     }
 }

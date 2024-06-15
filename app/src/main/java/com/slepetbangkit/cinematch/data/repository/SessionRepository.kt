@@ -2,37 +2,70 @@ package com.slepetbangkit.cinematch.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
+import com.slepetbangkit.cinematch.data.preferences.SessionPreferences
+import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
+import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
+import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
+import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.supervisorScope
+import retrofit2.HttpException
 
-class SessionRepository(dataStore: DataStore<Preferences>) {
-    private val sessionPreferences = SessionPreferences.getInstance(dataStore)
-
-    fun getAccessToken(): Flow<String> {
+class SessionRepository(
+    private val sessionPreferences: SessionPreferences,
+    private val apiService: ApiService
+) {
+    fun getAccessTokenFlow(): Flow<String> {
         return sessionPreferences.getAccessToken()
+    }
+
+    suspend fun getAccessToken(): String {
+        return sessionPreferences.getAccessToken().first()
     }
 
     suspend fun saveAccessToken(accessToken: String) {
         sessionPreferences.saveAccessToken(accessToken)
     }
 
-    fun getRefreshToken(): Flow<String> {
-        return sessionPreferences.getRefreshToken()
+    private suspend fun getRefreshToken(): String {
+        return sessionPreferences.getRefreshToken().first()
     }
 
     suspend fun saveRefreshToken(refreshToken: String) {
         sessionPreferences.saveRefreshToken(refreshToken)
     }
 
-    fun getUsername(): Flow<String> {
-        return sessionPreferences.getUsername()
+    suspend fun getUsername(): String {
+        return sessionPreferences.getUsername().first()
     }
 
     suspend fun saveUsername(accessToken: String) {
         sessionPreferences.saveUsername(accessToken)
     }
 
-    suspend fun clear() {
+    suspend fun register(username: String, email: String, password: String): RegisterResponse {
+        return apiService.register(username, email, password)
+    }
+
+    suspend fun login(username: String, password: String): LoginResponse {
+        return apiService.login(username, password)
+    }
+
+    suspend fun refresh() {
+        try {
+            val refreshToken = getRefreshToken()
+            val response = apiService.refresh(refreshToken)
+            response.let {
+                saveAccessToken(it.access)
+                saveRefreshToken(it.refresh)
+            }
+        } catch (e: HttpException) {
+            logout()
+        }
+    }
+
+    suspend fun logout() {
         sessionPreferences.clear()
     }
 
@@ -40,9 +73,12 @@ class SessionRepository(dataStore: DataStore<Preferences>) {
         @Volatile
         private var INSTANCE: SessionRepository? = null
 
-        fun getInstance(dataStore: DataStore<Preferences>): SessionRepository {
+        fun getInstance(
+            sessionPreferences: SessionPreferences,
+            apiService: ApiService
+        ): SessionRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = SessionRepository(dataStore)
+                val instance = SessionRepository(sessionPreferences, apiService)
                 INSTANCE = instance
                 instance
             }

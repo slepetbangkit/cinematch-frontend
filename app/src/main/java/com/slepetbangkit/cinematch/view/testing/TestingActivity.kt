@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.SessionPreferences
+import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.databinding.ActivityTestingBinding
 import com.slepetbangkit.cinematch.view.login.LoginActivity
 import com.slepetbangkit.cinematch.view.register.RegisterActivity

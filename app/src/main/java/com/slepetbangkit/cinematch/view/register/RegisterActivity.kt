@@ -6,20 +6,23 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.ActivityRegisterBinding
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.AuthViewModelFactory
 import com.slepetbangkit.cinematch.view.main.MainActivity
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var sessionRepository: SessionRepository
-    private val registerViewModel: RegisterViewModel by viewModels()
+    private lateinit var factory: AuthViewModelFactory
+    private lateinit var registerViewModel: RegisterViewModel
 
     private var isUsernameValid = false
     private var isEmailValid = false
@@ -28,7 +31,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        sessionRepository = SessionRepository.getInstance(this.dataStore)
+        sessionRepository = Injection.provideSessionRepository(this)
+        factory = AuthViewModelFactory.getInstance(sessionRepository)
+        registerViewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
         setContentView(binding.root)
 
         setupUI()
@@ -91,9 +96,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun handleRegisterResponse(registerResponse: RegisterResponse) {
         lifecycleScope.launch {
-            registerResponse.token?.access?.let { sessionRepository.saveAccessToken(it) }
-            registerResponse.token?.refresh?.let { sessionRepository.saveRefreshToken(it) }
-            registerResponse.token?.access?.let { sessionRepository.saveUsername(it) }
+            registerResponse.token.access.let { sessionRepository.saveAccessToken(it) }
+            registerResponse.token.refresh.let { sessionRepository.saveRefreshToken(it) }
+            registerResponse.token.access.let { sessionRepository.saveUsername(it) }
 
             val intent = Intent(this@RegisterActivity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

@@ -8,15 +8,18 @@ import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.data.repository.UserRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
-class SearchUserViewModel(sessionRepository: SessionRepository) : ViewModel() {
-    private lateinit var accessToken: String
-
+class SearchUserViewModel(
+    private val sessionRepository: SessionRepository,
+    private val userRepository: UserRepository
+) : ViewModel() {
     private val _searchUserResult = MutableLiveData<List<UsersItem>>()
     val searchUserResult: LiveData<List<UsersItem>> = _searchUserResult
 
@@ -26,30 +29,20 @@ class SearchUserViewModel(sessionRepository: SessionRepository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    init {
-        viewModelScope.launch {
-            accessToken = sessionRepository.getAccessToken().first()
+    suspend fun searchUser(username: String) {
+        try {
+            _isLoading.value = true
+            val response = userRepository.searchUser(username)
+            _searchUserResult.value = response.users
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                sessionRepository.refresh()
+                searchUser(username)
+            } else {
+                _error.value = e.message()
+            }
+        } finally {
+            _isLoading.value = false
         }
-    }
-
-    fun getSearchUsers(username: String) {
-        _isLoading.value = true
-
-        val client = ApiConfig.getApiService().searchUser("Bearer $accessToken", username)
-        client.enqueue(object : Callback<UserSearchResponse> {
-            override fun onResponse(call: Call<UserSearchResponse>, response: Response<UserSearchResponse>) {
-                if (response.isSuccessful) {
-                    _searchUserResult.value = response.body()?.users?.filterNotNull() ?: emptyList()
-                } else {
-                    _error.value = "Error fetching data"
-                }
-                _isLoading.value = false
-            }
-
-            override fun onFailure(call: Call<UserSearchResponse>, t: Throwable) {
-                _error.value = "Failed fetching data: ${t.message}"
-                _isLoading.value = false
-            }
-        })
     }
 }

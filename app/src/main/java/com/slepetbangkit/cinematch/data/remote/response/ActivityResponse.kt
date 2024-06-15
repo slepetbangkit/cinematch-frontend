@@ -5,32 +5,32 @@ import com.google.gson.annotations.SerializedName
 data class ActivityResponse(
 
 	@field:SerializedName("activities")
-	val activities: List<ActivitiesItem?>? = null,
+	val activities: List<ActivitiesItem?>,
 
 	@field:SerializedName("error")
-	val error: Boolean? = null
+	val error: Boolean
 )
 
 data class ActivitiesItem(
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	val description: String,
 
-	@field:SerializedName("created_at")
-	val createdAt: String? = null,
+	@field:SerializedName("date")
+	val date: String,
 
 	@field:SerializedName("followed_username")
-	val followedUsername: String? = null,
+	val followedUsername: String,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("type")
-	val type: String? = null,
+	val type: String,
 
 	@field:SerializedName("movie_tmdb_id")
-	val movieTmdbId: Any? = null,
+	val movieTmdbId: Any,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String
 )

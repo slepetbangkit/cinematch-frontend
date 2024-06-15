@@ -10,17 +10,22 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
+import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentReviewBinding
-import com.slepetbangkit.cinematch.helpers.MovieViewModelFactory
-import com.slepetbangkit.cinematch.view.review.MovieReviewsViewModel
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.MovieViewModelFactory
 
 class ReviewFragment : Fragment() {
     private var _binding: FragmentReviewBinding? = null
     private val binding get() = _binding!!
-    private lateinit var movieReviewsViewModel: MovieReviewsViewModel
+    private lateinit var sessionRepository: SessionRepository
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var factory: MovieViewModelFactory
+    private lateinit var reviewViewModel: ReviewViewModel
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var navController: NavController
     private var movieTitle: String? = ""
@@ -35,10 +40,11 @@ class ReviewFragment : Fragment() {
         releaseDate = arguments?.getString("releaseDate")
 
         _binding = FragmentReviewBinding.inflate(inflater, container, false)
-        val sessionRepository = SessionRepository.getInstance(requireContext().dataStore)
-        val factory = MovieViewModelFactory.getInstance(sessionRepository, tmdbId)
+        sessionRepository = Injection.provideSessionRepository(requireContext())
+        movieRepository = Injection.provideMovieRepository(requireContext())
+        factory = MovieViewModelFactory.getInstance(sessionRepository, movieRepository, tmdbId)
 
-        movieReviewsViewModel = ViewModelProvider(this, factory)[MovieReviewsViewModel::class.java]
+        reviewViewModel = ViewModelProvider(this, factory)[ReviewViewModel::class.java]
         navController = findNavController()
 
         setupViews(tmdbId)
@@ -66,10 +72,10 @@ class ReviewFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        movieReviewsViewModel.apply {
+        reviewViewModel.apply {
             movieReviews.observe(viewLifecycleOwner) { reviews ->
                 reviewAdapter.submitList(reviews.reviews)
-                binding.tvNoReviews.visibility = if (reviews.reviews.isNullOrEmpty()) View.VISIBLE else View.GONE
+                binding.tvNoReviews.visibility = if (reviews.reviews.isEmpty()) View.VISIBLE else View.GONE
             }
             isLoading.observe(viewLifecycleOwner) { isLoading ->
                 binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -79,7 +85,7 @@ class ReviewFragment : Fragment() {
     }
 
     private fun fetchReviews() {
-        movieReviewsViewModel.fetchMovieReviews()
+        reviewViewModel.getMovieReviews()
     }
 
     private fun setupRecyclerView() {
@@ -90,9 +96,7 @@ class ReviewFragment : Fragment() {
         }
         reviewAdapter.setOnItemClickCallback(object : ReviewAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ReviewsItem) {
-                data.id?.let { reviewId ->
-                    navigateToReviewDetail(reviewId)
-                }
+                navigateToReviewDetail(data.id)
             }
         })
     }

@@ -37,8 +37,8 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
+        android:name="com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_self_profile" />
 
 </navigation>

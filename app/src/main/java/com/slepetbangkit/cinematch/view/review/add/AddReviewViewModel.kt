@@ -7,16 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
+import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
-class AddReviewViewModel(private val sessionRepository: SessionRepository, private val movie: Int) : ViewModel() {
-    private lateinit var accessToken: String
-
+class AddReviewViewModel(
+    private val sessionRepository: SessionRepository,
+    private val movieRepository: MovieRepository,
+    private val movie: Int
+) : ViewModel() {
     private val _tmdbId = MutableLiveData<Int>()
     val tmdbId: LiveData<Int> = _tmdbId
 
@@ -31,36 +35,24 @@ class AddReviewViewModel(private val sessionRepository: SessionRepository, priva
 
     init {
         viewModelScope.launch {
-            accessToken = sessionRepository.getAccessToken().first()
             _tmdbId.value = movie
         }
     }
-    fun addReview(description: String) {
-        _isLoading.value = true
 
-        val client = ApiConfig.getApiService().addReview(
-            "Bearer $accessToken", _tmdbId.value!!.toInt(), description
-        )
-        client.enqueue(object : Callback<AddReviewResponse> {
-            override fun onResponse(
-                call: Call<AddReviewResponse>,
-                response: Response<AddReviewResponse>
-            ) {
-                if (response.isSuccessful) {
-                    _reviewResponse.value = response.body()
-                    _error.value = null
-                } else {
-                    _error.value = response.message()
-                    _reviewResponse.value = null
-                }
-                _isLoading.value = false
+    suspend fun addReview(description: String) {
+        try {
+            _isLoading.value = true
+            val response = movieRepository.addReview(movie, description)
+            _reviewResponse.value = response
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                sessionRepository.refresh()
+                addReview(description)
+            } else {
+                _error.value = e.message()
             }
-
-            override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
-                _isLoading.value = false
-                _error.value = t.message
-                _reviewResponse.value = null
-            }
-        })
+        } finally {
+            _isLoading.value = false
+        }
     }
 }

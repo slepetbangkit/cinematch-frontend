@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName
 data class UserSearchResponse(
 
 	@field:SerializedName("error")
-	val error: Boolean? = null,
+	val error: Boolean,
 
 	@field:SerializedName("users")
-	val users: List<UsersItem?>? = null
+	val users: List<UsersItem>
 )
 
 data class UsersItem(
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: String? = null,
+	val profilePicture: String,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String
 )

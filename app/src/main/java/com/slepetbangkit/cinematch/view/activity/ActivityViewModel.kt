@@ -4,14 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
+import com.slepetbangkit.cinematch.data.repository.ActivityRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
-class ActivityViewModel(private val sessionRepository: SessionRepository): ViewModel() {
-    private lateinit var accessToken: String
-
+class ActivityViewModel(
+    private val sessionRepository: SessionRepository,
+    private val activityRepository: ActivityRepository
+): ViewModel() {
     private val _activity = MutableLiveData<ActivityResponse>()
     val activity: MutableLiveData<ActivityResponse> = _activity
 
@@ -23,32 +26,24 @@ class ActivityViewModel(private val sessionRepository: SessionRepository): ViewM
 
     init {
         viewModelScope.launch {
-            accessToken = sessionRepository.getAccessToken().first()
-
-            fetchActivity()
+            getActivities()
         }
     }
 
-    private fun fetchActivity() {
-        _isLoading.value = true
-
-        val client = Injection.provideApiService().getActivities("Bearer $accessToken")
-        client.enqueue(object : retrofit2.Callback<ActivityResponse> {
-            override fun onResponse(call: retrofit2.Call<ActivityResponse>, response: retrofit2.Response<ActivityResponse>) {
-                if (response.isSuccessful) {
-                    _activity.value = response.body()
-                } else {
-                    _error.value = response.message()
-                }
-
-                _isLoading.value = false
+    private suspend fun getActivities() {
+        try {
+            _isLoading.value = true
+            val response = activityRepository.getActivities()
+            _activity.value = response
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                sessionRepository.refresh()
+                getActivities()
+            } else {
+                _error.value = e.message
             }
-
-            override fun onFailure(call: retrofit2.Call<ActivityResponse>, t: Throwable) {
-                _error.value = t.message
-
-                _isLoading.value = false
-            }
-        })
+        } finally {
+            _isLoading.value = false
+        }
     }
 }

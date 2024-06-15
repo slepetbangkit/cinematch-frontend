@@ -2,25 +2,26 @@ package com.slepetbangkit.cinematch.view.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.local.preferences.SessionPreferences
-import com.slepetbangkit.cinematch.data.local.preferences.dataStore
+import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.ActivityLoginBinding
+import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.AuthViewModelFactory
 import com.slepetbangkit.cinematch.view.main.MainActivity
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sessionRepository: SessionRepository
-    private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var factory: AuthViewModelFactory
+    private lateinit var loginViewModel: LoginViewModel
 
     private var isUsernameValid = false
     private var isPasswordValid = false
@@ -28,7 +29,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        sessionRepository = SessionRepository.getInstance(this.dataStore)
+        sessionRepository = Injection.provideSessionRepository(this)
+        factory = AuthViewModelFactory.getInstance(sessionRepository)
+        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
@@ -43,9 +46,9 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginResult.observe(this) { loginResponse ->
             lifecycleScope.launch {
-                loginResponse.access?.let { sessionRepository.saveAccessToken(it) }
-                loginResponse.refresh?.let { sessionRepository.saveRefreshToken(it) }
-                loginResponse.access?.let { sessionRepository.saveUsername(it) }
+                loginResponse.access.let { sessionRepository.saveAccessToken(it) }
+                loginResponse.refresh.let { sessionRepository.saveRefreshToken(it) }
+                loginResponse.access.let { sessionRepository.saveUsername(it) }
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

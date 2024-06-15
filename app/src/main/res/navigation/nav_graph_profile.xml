@@ -3,32 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_profile"
-    app:startDestination="@id/navigation_profile">
+    app:startDestination="@id/navigation_self_profile">
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.slepetbangkit.cinematch.view.profile.ProfileFragment"
+        android:id="@+id/navigation_self_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_self_profile" >
         <action
-            android:id="@+id/action_navigation_profile_to_navigation_settings"
+            android:id="@+id/action_navigation_self_profile_to_navigation_settings"
             app:destination="@id/navigation_settings" />
         <action
-            android:id="@+id/action_navigation_profile_to_navigation_edit_profile"
+            android:id="@+id/action_navigation_self_profile_to_navigation_edit_profile"
             app:destination="@id/navigation_edit_profile" />
         <action
-            android:id="@+id/action_navigation_profile_to_navigation_follow_list"
-            app:destination="@id/navigation_follow_list" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_follow_list"
-        android:name="com.slepetbangkit.cinematch.view.profile.followlist.FollowListFragment"
-        android:label="@string/follow_list"
-        tools:layout="@layout/fragment_follow_list" >
-        <action
-            android:id="@+id/action_navigation_follow_list_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            android:id="@+id/action_navigation_self_profile_to_navigation_self_follow_list"
+            app:destination="@id/navigation_self_follow_list" />
     </fragment>
 
     <fragment
@@ -52,4 +42,37 @@
         android:name="com.slepetbangkit.cinematch.view.profile.aboutus.AboutUsFragment"
         android:label="@string/about_us"
         tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/navigation_self_follow_list"
+        android:name="com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.SelfFollowListFragment"
+        android:label="@string/follow_list"
+        tools:layout="@layout/fragment_self_follow_list" >
+        <action
+            android:id="@+id/action_navigation_self_follow_list_to_navigation_other_profile"
+            app:destination="@id/navigation_other_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_other_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.otherprofile.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile"  >
+        <action
+            android:id="@+id/action_navigation_other_profile_to_navigation_other_follow_list"
+            app:destination="@id/navigation_other_follow_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_other_follow_list"
+        android:name="com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.OtherFollowListFragment"
+        android:label="@string/follow_list"
+        tools:layout="@layout/fragment_other_follow_list" >
+        <action
+            android:id="@+id/action_navigation_other_follow_list_to_navigation_other_profile"
+            app:destination="@id/navigation_other_profile" />
+        <action
+            android:id="@+id/action_navigation_other_follow_list_to_navigation_self_profile"
+            app:destination="@id/navigation_self_profile" />
+    </fragment>
 </navigation>
