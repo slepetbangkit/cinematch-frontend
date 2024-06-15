@@ -34,7 +34,7 @@ class ReviewAdapter : ListAdapter<ReviewsItem, ReviewAdapter.ReviewViewHolder>(D
 
         fun bind(reviewItem: ReviewsItem) {
             binding.tvUsername.text = reviewItem.username
-            binding.tvRating.text = reviewItem.rating.toString()
+            binding.tvSentiment.text = reviewItem.sentiment
             binding.tvReview.text = reviewItem.description
 
             binding.root.setOnClickListener {

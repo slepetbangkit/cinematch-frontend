@@ -71,6 +71,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/primary"
+        android:visibility="gone"
         android:src="@drawable/baseline_add_24" />
 
     <ProgressBar

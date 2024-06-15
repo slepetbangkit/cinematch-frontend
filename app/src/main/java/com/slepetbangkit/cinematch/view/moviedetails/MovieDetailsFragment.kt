@@ -50,34 +50,34 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeViewModel()
+        fetchMovieDetails() // Fetch data when the view is created
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchMovieDetails() // Fetch data when the fragment resumes
     }
 
     private fun observeViewModel() {
         movieDetailsViewModel.movieDetail.observe(viewLifecycleOwner) { movie ->
             movie.apply {
-                title.let { binding.movieDetailsView.setMovieTitle(it) }
-                releaseDate.let { binding.movieDetailsView.setReleaseYear(it) }
-                director.let { binding.movieDetailsView.setDirector(it) }
-                posterUrl.let { binding.movieDetailsView.setMoviePoster(it) }
-                description.let { binding.movieDetailsView.setSynopsis(it) }
-                overallSentiment.let { binding.movieDetailsView.setVerdict(it) }
-                cast.let { binding.movieDetailsView.setCast(it) }
-                crew.let { binding.movieDetailsView.setCrew(it) }
-                trailerLink.let { binding.movieDetailsView.setTrailerLink(it) } ?: binding.movieDetailsView.setTrailerLink(null)
-                backdropUrl.let { binding.movieDetailsView.setTrailerBackdrop(it) }
-                originCountries.let { binding.movieDetailsView.setOriginCountries(it) }
-                genres.let { binding.movieDetailsView.setGenres(it) }
-                languages.let { binding.movieDetailsView.setLanguage(it) }
-                releaseDate.let { binding.movieDetailsView.setReleaseDate(it) }
-                tmdbId.let { id ->
-                    title.let { title ->
-                        releaseDate.let { releaseDate ->
-                            binding.movieDetailsView.setReviewButtonClickListener(id, title, releaseDate)
-                        }
-                    }
-                }
-                runtime.let { binding.movieDetailsView.setRuntime(it) }
-                similarMovies?.let { setupSimilarMovies(it) }
+                binding.movieDetailsView.setMovieTitle(title)
+                binding.movieDetailsView.setReleaseYear(releaseDate)
+                binding.movieDetailsView.setDirector(director)
+                binding.movieDetailsView.setMoviePoster(posterUrl)
+                binding.movieDetailsView.setSynopsis(description)
+                binding.movieDetailsView.setVerdict(overallSentiment)
+                binding.movieDetailsView.setCast(cast)
+                binding.movieDetailsView.setCrew(crew)
+                binding.movieDetailsView.setTrailerLink(trailerLink)
+                binding.movieDetailsView.setTrailerBackdrop(backdropUrl)
+                binding.movieDetailsView.setOriginCountries(originCountries)
+                binding.movieDetailsView.setGenres(genres)
+                binding.movieDetailsView.setLanguage(languages)
+                binding.movieDetailsView.setReleaseDate(releaseDate)
+                binding.movieDetailsView.setRuntime(runtime)
+                binding.movieDetailsView.setReviewButtonClickListener(tmdbId, title, releaseDate)
+                setupSimilarMovies(similarMovies)
             }
         }
 
@@ -85,6 +85,11 @@ class MovieDetailsFragment : Fragment() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.movieDetailsView.visibility = if (isLoading) View.GONE else View.VISIBLE
         }
+    }
+
+    private fun fetchMovieDetails() {
+        val tmdbId = arguments?.getInt("tmdbId") ?: 0
+        movieDetailsViewModel.fetchMovieDetails(tmdbId)
     }
 
     private fun setupSimilarMovies(similarMovies: List<SimilarMoviesItem?>) {

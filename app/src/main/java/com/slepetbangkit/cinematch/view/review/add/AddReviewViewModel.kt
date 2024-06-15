@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class AddReviewViewModel(
     private val sessionRepository: SessionRepository,
@@ -51,7 +52,10 @@ class AddReviewViewModel(
             } else {
                 _error.value = e.message()
             }
-        } finally {
+        } catch (e: SocketTimeoutException) {
+            _error.value = "Request timed out. Please try again."
+        }
+            finally {
             _isLoading.value = false
         }
     }

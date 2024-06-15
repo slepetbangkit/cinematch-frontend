@@ -83,6 +83,9 @@ class ReviewFragment : Fragment() {
                 binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
                 binding.reviewContainer.visibility = if (isLoading) View.GONE else View.VISIBLE
             }
+            isReviewed.observe(viewLifecycleOwner) { isReviewed ->
+                binding.fab.visibility = if (isReviewed) View.GONE else View.VISIBLE
+            }
         }
     }
 

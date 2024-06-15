@@ -25,24 +25,31 @@ class MovieDetailsViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isLiked = MutableLiveData<Boolean>()
+    val isLiked: LiveData<Boolean> = _isLiked
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
     init {
+        fetchMovieDetails(selectedMovie)
+    }
+
+    fun fetchMovieDetails(tmdbId: Int) {
         viewModelScope.launch {
-            getMovieDetails()
+            getMovieDetails(tmdbId)
         }
     }
 
-    private suspend fun getMovieDetails() {
+    private suspend fun getMovieDetails(tmdbId: Int) {
         try {
             _isLoading.value = true
-            val response = movieRepository.getMovieDetails(selectedMovie)
+            val response = movieRepository.getMovieDetails(tmdbId)
             _movieDetail.value = response
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
-                getMovieDetails()
+                getMovieDetails(tmdbId)
             } else {
                 _error.value = "Error fetching data"
             }

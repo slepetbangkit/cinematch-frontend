@@ -37,6 +37,14 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
+    <style name="ButtonNeutral" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:backgroundTint">@color/neutral_variant</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
     <style name="ButtonIcon" parent="Widget.MaterialComponents.Button">
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>

@@ -35,7 +35,7 @@ class MovieDetailsView @JvmOverloads constructor(
         binding = ViewMovieDetailsBinding.inflate(inflater, this, true)
     }
 
-    fun setMoviePoster(url: String?) {
+    fun setMoviePoster(url: String) {
         Glide.with(binding.moviePosterIv.context)
             .load(url)
             .placeholder(R.drawable.poster_empty_placeholder)
@@ -43,21 +43,21 @@ class MovieDetailsView @JvmOverloads constructor(
             .into(binding.moviePosterIv)
     }
 
-    fun setMovieTitle(title: String?) {
+    fun setMovieTitle(title: String) {
         binding.movieTitleTv.text = title
     }
 
-    fun setReleaseYear(releaseDate: String?): String {
-        return if (releaseDate.isNullOrEmpty()) {
-            return "Unknown"
+    fun setReleaseYear(releaseDate: String): String {
+        return if (releaseDate.isEmpty()) {
+            "Unknown"
         } else {
             binding.releaseYearTv.text = releaseDate.substring(0, 4)
-            return releaseDate.substring(0, 4)
+            releaseDate.substring(0, 4)
         }
     }
 
-    fun setDirector(director: String?) {
-        if (director.isNullOrEmpty()) {
+    fun setDirector(director: String) {
+        if (director.isEmpty()) {
             binding.directorTv.text = context.getString(R.string.unknown)
         }
         else {
@@ -65,8 +65,8 @@ class MovieDetailsView @JvmOverloads constructor(
         }
     }
 
-    fun setSynopsis(description: String?) {
-        if (description.isNullOrEmpty()) {
+    fun setSynopsis(description: String) {
+        if (description.isEmpty()) {
             binding.synopsisTv.text = context.getString(R.string.plot_unknown)
         }
         else {
@@ -74,12 +74,12 @@ class MovieDetailsView @JvmOverloads constructor(
         }
     }
 
-    fun setVerdict(sentiment: String?) {
+    fun setVerdict(sentiment: String) {
         binding.verdictTv.text = sentiment
     }
 
-    fun setTrailerLink(trailerUrl: String?) {
-        if (trailerUrl.isNullOrEmpty()) {
+    fun setTrailerLink(trailerUrl: String) {
+        if (trailerUrl.isEmpty()) {
             binding.trailerFrame.visibility = View.GONE
             binding.trailerDivider.visibility = View.GONE
             binding.trailerTv.visibility = View.GONE
@@ -95,7 +95,7 @@ class MovieDetailsView @JvmOverloads constructor(
         }
     }
 
-    fun setTrailerBackdrop(backdropUrl: String?) {
+    fun setTrailerBackdrop(backdropUrl: String) {
         Glide.with(binding.trailerIb.context)
             .load(backdropUrl)
             .placeholder(R.drawable.trailer_placeholder)
@@ -103,44 +103,40 @@ class MovieDetailsView @JvmOverloads constructor(
             .into(binding.trailerIb)
     }
 
-    fun setCast(castList: List<CastItem?>?) {
-        if (castList != null) {
-            if (castList.isEmpty()) {
-                binding.castRv.visibility = View.GONE
-                binding.castDivider.visibility = View.GONE
-                binding.castTv.visibility = View.GONE
-            } else {
-                binding.castRv.visibility = View.VISIBLE
-                binding.castDivider.visibility = View.VISIBLE
-                binding.castTv.visibility = View.VISIBLE
+    fun setCast(castList: List<CastItem?>) {
+        if (castList.isEmpty()) {
+            binding.castRv.visibility = View.GONE
+            binding.castDivider.visibility = View.GONE
+            binding.castTv.visibility = View.GONE
+        } else {
+            binding.castRv.visibility = View.VISIBLE
+            binding.castDivider.visibility = View.VISIBLE
+            binding.castTv.visibility = View.VISIBLE
 
-                binding.castRv.apply {
-                    adapter = CastAdapter().apply {
-                        submitList(castList)
-                    }
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.castRv.apply {
+                adapter = CastAdapter().apply {
+                    submitList(castList)
                 }
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
         }
     }
 
-    fun setCrew(crewList: List<CrewItem?>?) {
-        if (crewList != null) {
-            if (crewList.isEmpty()) {
-                binding.crewRv.visibility = View.GONE
-                binding.crewDivider.visibility = View.GONE
-                binding.crewTv.visibility = View.GONE
-            } else {
-                binding.crewRv.visibility = View.VISIBLE
-                binding.crewDivider.visibility = View.VISIBLE
-                binding.crewTv.visibility = View.VISIBLE
+    fun setCrew(crewList: List<CrewItem?>) {
+        if (crewList.isEmpty()) {
+            binding.crewRv.visibility = View.GONE
+            binding.crewDivider.visibility = View.GONE
+            binding.crewTv.visibility = View.GONE
+        } else {
+            binding.crewRv.visibility = View.VISIBLE
+            binding.crewDivider.visibility = View.VISIBLE
+            binding.crewTv.visibility = View.VISIBLE
 
-                binding.crewRv.apply {
-                    adapter = CrewAdapter().apply {
-                        submitList(crewList)
-                    }
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.crewRv.apply {
+                adapter = CrewAdapter().apply {
+                    submitList(crewList)
                 }
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
         }
     }
@@ -164,59 +160,55 @@ class MovieDetailsView @JvmOverloads constructor(
         }
     }
 
-    fun setReviewButtonClickListener(tmdbId: Int?, title: String?, releaseDate: String?) {
+    fun setReviewButtonClickListener(tmdbId: Int, title: String, releaseDate: String) {
         binding.reviewsBtn.setOnClickListener {
             val bundle = Bundle().apply {
-                if (tmdbId != null) {
-                    putInt("tmdbId", tmdbId)
-                }
+                putInt("tmdbId", tmdbId)
                 putString("movieTitle", title)
-                putString("releaseDate", setReleaseYear(releaseDate.toString()))
+                putString("releaseDate", setReleaseYear(releaseDate))
             }
             val navController = findNavController()
             navController.navigate(R.id.action_movieDetailsFragment_to_reviewFragment, bundle)
         }
     }
 
-    fun setOriginCountries(countries: List<String?>?) {
-        if (countries.isNullOrEmpty()) {
+    fun setOriginCountries(countries: List<String?>) {
+        if (countries.isEmpty()) {
             binding.countriesOfOriginTv.text = context.getString(R.string.unknown)
         } else {
             binding.countriesOfOriginTv.text = countries.joinToString(", ")
         }
     }
 
-    fun setGenres(genres: List<String?>?) {
-        if (genres != null) {
-            if (genres.isEmpty()) {
-                binding.genreTv.text = context.getString(R.string.unknown)
-            } else {
-                binding.genreTv.text = genres.joinToString(", ")
-            }
+    fun setGenres(genres: List<String?>) {
+        if (genres.isEmpty()) {
+            binding.genreTv.text = context.getString(R.string.unknown)
+        } else {
+            binding.genreTv.text = genres.joinToString(", ")
         }
     }
 
-    fun setLanguage(language: String?) {
-        if (language.isNullOrEmpty()) {
+    fun setLanguage(language: String) {
+        if (language.isEmpty()) {
             binding.languagesTv.text = context.getString(R.string.unknown)
         } else {
             binding.languagesTv.text = language
         }
     }
 
-    private fun formatReleaseDate(releaseDate: String?): String {
+    private fun formatReleaseDate(releaseDate: String): String {
         return try {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val outputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
-            val date = inputFormat.parse(releaseDate.toString())
+            val date = inputFormat.parse(releaseDate)
             date?.let { outputFormat.format(it) } ?: "Unknown"
         } catch (e: Exception) {
             "Unknown"
         }
     }
 
-     fun setReleaseDate(releaseDate: String?) {
-         if (releaseDate.isNullOrEmpty()) {
+     fun setReleaseDate(releaseDate: String) {
+         if (releaseDate.isEmpty()) {
              binding.releaseDateTv.text = context.getString(R.string.unknown)
          } else {
              binding.releaseDateTv.text = formatReleaseDate(releaseDate)
@@ -224,12 +216,8 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     @SuppressLint("StringFormatMatches")
-    fun setRuntime(runtime: Int?) {
-        if (runtime == null) {
-            binding.runtimeTv.text = context.getString(R.string.unknown)
-        } else {
-            binding.runtimeTv.text = context.getString(R.string.minutes, runtime)
-        }
+    fun setRuntime(runtime: Int) {
+        binding.runtimeTv.text = context.getString(R.string.minutes, runtime)
     }
 
 }

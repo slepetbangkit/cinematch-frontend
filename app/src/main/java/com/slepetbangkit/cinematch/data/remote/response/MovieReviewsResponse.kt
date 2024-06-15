@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieReviewsResponse(
 
+	@field:SerializedName("is_reviewed")
+	val isReviewed: Boolean,
+
 	@field:SerializedName("movie")
 	val movie: Movie,
 
@@ -24,6 +27,9 @@ data class Movie(
 )
 
 data class ReviewsItem(
+
+	@field:SerializedName("sentiment")
+	val sentiment: String,
 
 	@field:SerializedName("movie")
 	val movie: String,

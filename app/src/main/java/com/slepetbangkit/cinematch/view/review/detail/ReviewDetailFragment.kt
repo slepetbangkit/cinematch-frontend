@@ -55,10 +55,10 @@ class ReviewDetailFragment : Fragment() {
     private fun observeViewModel() {
         reviewDetailViewModel.reviewDetails.observe(viewLifecycleOwner) { review ->
             review.data.apply {
-                username.let { binding.tvUsername.text = it }
-                description.let { binding.tvReview.text = it }
-                rating.let { binding.tvRating.text = it.toString() }
-                createdAt.let { binding.tvDate.text = formatDate(it) }
+                binding.tvUsername.text = username
+                binding.tvReview.text = description
+                binding.tvSentiment.text = sentiment
+                binding.tvDate.text = formatDate(createdAt)
             }
         }
 

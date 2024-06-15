@@ -50,12 +50,12 @@
                     android:layout_gravity="center_vertical"
                     tools:text="●"/>
                 <TextView
-                    android:id="@+id/tv_rating"
+                    android:id="@+id/tv_sentiment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/plus_jakarta_sans_semi_bold"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textColor="@color/primary"
                     android:layout_gravity="center_vertical"
                     tools:text="5.0"/>

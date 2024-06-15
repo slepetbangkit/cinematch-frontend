@@ -13,6 +13,9 @@ data class ReviewDetailsResponse(
 
 data class Data(
 
+	@field:SerializedName("sentiment")
+	val sentiment: String,
+
 	@field:SerializedName("movie")
 	val movie: String,
 

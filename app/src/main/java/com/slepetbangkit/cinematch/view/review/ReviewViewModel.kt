@@ -28,6 +28,9 @@ class ReviewViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isReviewed = MutableLiveData<Boolean>()
+    val isReviewed: LiveData<Boolean> = _isReviewed
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
@@ -50,6 +53,7 @@ class ReviewViewModel(
             _isLoading.value = true
             val response = movieRepository.getMovieReviews(movie)
             _movieReviews.value = response
+            _isReviewed.value = response.isReviewed
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()

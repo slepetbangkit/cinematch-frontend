@@ -66,4 +66,6 @@
     <string name="search_not_found">Sorry, we couldn\'t find what you were looking for.</string>
     <string name="follow_list">Follow List</string>
     <string name="unfollow">Unfollow</string>
+    <string name="their_lists">Their Lists</string>
+    <string name="your_lists">Your Lists</string>
 </resources>
