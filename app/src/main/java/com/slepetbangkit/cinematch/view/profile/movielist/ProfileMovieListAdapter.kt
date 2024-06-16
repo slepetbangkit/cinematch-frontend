@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile.selfprofile
+package com.slepetbangkit.cinematch.view.profile.movielist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,9 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
 import com.slepetbangkit.cinematch.databinding.ItemListBinding
 
-class ProfileMovieListAdapter : ListAdapter<PlaylistsItem, ProfileMovieListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ProfileMovieListAdapter : ListAdapter<PlaylistsItem, ProfileMovieListAdapter.MyViewHolder>(
+    DIFF_CALLBACK
+) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 

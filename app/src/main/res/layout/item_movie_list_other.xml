@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:orientation="vertical"
+    android:background="@color/neutral">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="105dp"
+            android:layout_height="155dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poster_empty_placeholder"
+            app:shapeAppearanceOverlay="@style/RoundedPoster" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="16sp"
+                android:textColor="@color/on_neutral"
+                tools:text="Movie Title"/>
+            <TextView
+                android:id="@+id/tv_release_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plus_jakarta_sans_regular"
+                android:textSize="13sp"
+                android:textColor="@color/on_neutral"
+                tools:text="Release year"/>
+            <TextView
+                android:id="@+id/director_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="13sp"
+                android:textColor="@color/on_neutral"
+                tools:text="Director"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/neutral_variant" />
+</LinearLayout>

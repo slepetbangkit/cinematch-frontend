@@ -1,4 +1,4 @@
-package com.slepetbangkit.cinematch.view.profile.movielist
+package com.slepetbangkit.cinematch.view.profile.movielist.otherprofile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,24 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
-import com.slepetbangkit.cinematch.databinding.ItemMovieListBinding
+import com.slepetbangkit.cinematch.databinding.ItemMovieListOtherBinding
 
-class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class OtherProfileMovieListAdapter: ListAdapter<MoviesItem, OtherProfileMovieListAdapter.MyViewHolder>(
+    DIFF_CALLBACK
+) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
-    private lateinit var onRemoveClickCallback: OnRemoveClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setOnRemoveClickCallback(onRemoveClickCallback: OnRemoveClickCallback) {
-        this.onRemoveClickCallback = onRemoveClickCallback
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemMovieListBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
+        val binding = ItemMovieListOtherBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -36,13 +33,10 @@ class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(D
             holder.itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(movie)
             }
-            holder.binding.btnRemoveMovie.setOnClickListener {
-                onRemoveClickCallback.onRemoveClicked(movie)
-            }
         }
     }
 
-    class MyViewHolder(val binding: ItemMovieListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(val binding: ItemMovieListOtherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MoviesItem) {
             Glide.with(binding.moviePoster.context)
                 .load(movie.posterUrl)
@@ -66,10 +60,6 @@ class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(D
 
     interface OnItemClickCallback {
         fun onItemClicked(data: MoviesItem)
-    }
-
-    interface OnRemoveClickCallback {
-        fun onRemoveClicked(data: MoviesItem)
     }
 
     companion object {

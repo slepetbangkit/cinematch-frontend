@@ -49,7 +49,8 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     fun setReleaseYear(releaseDate: String): String {
-        return if (releaseDate.isEmpty()) {
+        return if (releaseDate.isBlank()) {
+            binding.releaseYearTv.text = context.getString(R.string.unknown)
             "Unknown"
         } else {
             binding.releaseYearTv.text = releaseDate.substring(0, 4)
