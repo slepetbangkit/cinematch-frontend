@@ -82,7 +82,7 @@ class MovieListOtherFragment : Fragment() {
                             val bundle = Bundle().apply {
                                 putInt("tmdbId", tmdbId)
                             }
-                            navController.navigate(R.id.action_movieListFragment_to_movieDetailsFragment2, bundle)
+                            navController.navigate(R.id.action_navigation_movie_list_other_to_movieDetailsFragment, bundle)
                         }
                     }
                 })

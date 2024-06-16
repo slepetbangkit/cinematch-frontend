@@ -135,5 +135,9 @@
         android:id="@+id/navigation_movie_list_other"
         android:name="com.slepetbangkit.cinematch.view.profile.movielist.selfprofile.MovieListFragment"
         android:label="fragment_movie_list_other"
-        tools:layout="@layout/fragment_movie_list_other" />
+        tools:layout="@layout/fragment_movie_list_other" >
+        <action
+            android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
 </navigation>

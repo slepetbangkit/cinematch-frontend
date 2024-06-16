@@ -102,5 +102,9 @@
     <fragment
         android:id="@+id/navigation_movie_list_other"
         android:name="com.slepetbangkit.cinematch.view.profile.movielist.otherprofile.MovieListOtherFragment"
-        android:label="MovieListOtherFragment" />
+        android:label="MovieListOtherFragment" >
+        <action
+            android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment2" />
+    </fragment>
 </navigation>
