@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class MovieDetailsResponse(
 
 	@field:SerializedName("trailer_link")
-	val trailerLink: String,
+	val trailerLink: String?,
 
 	@field:SerializedName("tmdb_id")
 	val tmdbId: Int,

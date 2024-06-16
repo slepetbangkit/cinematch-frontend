@@ -14,7 +14,7 @@ import retrofit2.HttpException
 class MovieDetailsViewModel(
     private val sessionRepository: SessionRepository,
     private val movieRepository: MovieRepository,
-    private val selectedMovie: Int
+    selectedMovie: Int
 ) : ViewModel() {
     private val _tmdbId = MutableLiveData<Int>()
     val tmdbId: LiveData<Int> = _tmdbId

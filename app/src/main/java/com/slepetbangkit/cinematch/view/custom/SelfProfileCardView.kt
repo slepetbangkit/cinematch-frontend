@@ -1,9 +1,12 @@
 package com.slepetbangkit.cinematch.view.custom
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.databinding.ViewCardSelfProfileBinding
 
 class SelfProfileCardView @JvmOverloads constructor(

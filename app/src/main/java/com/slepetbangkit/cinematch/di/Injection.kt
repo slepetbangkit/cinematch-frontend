@@ -6,6 +6,7 @@ import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 import com.slepetbangkit.cinematch.data.repository.ActivityRepository
+import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
@@ -37,5 +38,11 @@ object Injection {
         val sessionRepository = provideSessionRepository(context)
         val apiService = provideApiService()
         return UserRepository.getInstance(sessionRepository, apiService)
+    }
+
+    fun provideMovieListRepository(context: Context): MovieListRepository {
+        val sessionRepository = provideSessionRepository(context)
+        val apiService = provideApiService()
+        return MovieListRepository.getInstance(sessionRepository, apiService)
     }
 }

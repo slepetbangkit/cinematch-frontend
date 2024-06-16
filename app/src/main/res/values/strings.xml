@@ -69,4 +69,10 @@
     <string name="your_lists">Your Lists</string>
     <string name="follow_back">Follow Back</string>
     <string name="their_lists">Their Lists</string>
+    <string name="delete_movie_list">Delete Movie List</string>
+    <string name="empty_list">Your movie list is empty. Browse and add movies to your list!</string>
+    <string name="create_a_new_list">Create a new list</string>
+    <string name="playlist_name">Playlist Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 </resources>

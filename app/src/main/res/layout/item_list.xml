@@ -31,7 +31,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/plus_jakarta_sans_semi_bold"
                 android:textColor="@color/on_neutral"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 tools:text="List Name"/>
             <TextView
                 android:id="@+id/count_tv"

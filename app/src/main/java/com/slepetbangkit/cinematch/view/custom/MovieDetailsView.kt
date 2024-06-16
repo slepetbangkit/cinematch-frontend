@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
@@ -78,8 +79,8 @@ class MovieDetailsView @JvmOverloads constructor(
         binding.verdictTv.text = sentiment
     }
 
-    fun setTrailerLink(trailerUrl: String) {
-        if (trailerUrl.isEmpty()) {
+    fun setTrailerLink(trailerUrl: String?) {
+        if (trailerUrl.isNullOrBlank()) {
             binding.trailerFrame.visibility = View.GONE
             binding.trailerDivider.visibility = View.GONE
             binding.trailerTv.visibility = View.GONE

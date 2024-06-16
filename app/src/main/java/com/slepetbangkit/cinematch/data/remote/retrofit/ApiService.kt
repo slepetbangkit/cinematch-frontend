@@ -8,6 +8,7 @@ import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
+import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
@@ -120,4 +121,17 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("username") username: String
     ): MessageResponse
+
+    @GET("movies/playlists/{list_id}/")
+    suspend fun getMovieListDetails(
+        @Header("Authorization") token: String,
+        @Path("list_id") listId: String
+    ): PlaylistsItem
+
+    @FormUrlEncoded
+    @POST("movies/playlists/")
+    suspend fun createMovieList(
+        @Header("Authorization") token: String,
+        @Field("title") title: String
+    ): PlaylistsItem
 }

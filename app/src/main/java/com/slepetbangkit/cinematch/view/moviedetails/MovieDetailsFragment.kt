@@ -69,7 +69,7 @@ class MovieDetailsFragment : Fragment() {
                 binding.movieDetailsView.setVerdict(overallSentiment)
                 binding.movieDetailsView.setCast(cast)
                 binding.movieDetailsView.setCrew(crew)
-                binding.movieDetailsView.setTrailerLink(trailerLink)
+                trailerLink?.let { binding.movieDetailsView.setTrailerLink(it) } ?: binding.movieDetailsView.setTrailerLink(null)
                 binding.movieDetailsView.setTrailerBackdrop(backdropUrl)
                 binding.movieDetailsView.setOriginCountries(originCountries)
                 binding.movieDetailsView.setGenres(genres)
