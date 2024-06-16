@@ -14,7 +14,7 @@ data class UserSearchResponse(
 data class UsersItem(
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: String,
+	val profilePicture: String? = null,
 
 	@field:SerializedName("id")
 	val id: String,

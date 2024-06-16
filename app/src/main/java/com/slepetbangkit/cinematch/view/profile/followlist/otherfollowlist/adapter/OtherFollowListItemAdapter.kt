@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding
 
@@ -33,12 +35,13 @@ class OtherFollowListItemAdapter: ListAdapter<FollowListItem, OtherFollowListIte
 
     class FollowListHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: FollowListItem) {
-//            Glide.with(binding.ivProfilePicture.context)
-//                .load(user.)
-//                .placeholder(R.drawable.image_broken_poster)
-//                .error(R.drawable.image_broken_poster)
-//                .into(binding.moviePosterIv)
-
+            if (user.profilePicture != null) {
+                Glide.with(binding.ivProfilePicture.context)
+                    .load(user.profilePicture)
+                    .error(R.drawable.baseline_account_circle_24)
+                    .circleCrop()
+                    .into(binding.ivProfilePicture)
+            }
             binding.tvUsername.text = user.username
         }
     }

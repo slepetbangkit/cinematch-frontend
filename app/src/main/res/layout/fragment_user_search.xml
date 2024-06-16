@@ -18,12 +18,23 @@
             android:id="@+id/search_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:autofillHints=""
             android:fontFamily="@font/plus_jakarta_sans_regular"
             android:textSize="12sp"
             android:hint="@string/search_users"
             android:textColorHint="@color/neutral"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <include
+                layout="@layout/skeleton_user_search" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userRecyclerView"
@@ -33,15 +44,18 @@
             tools:listitem="@layout/item_user"/>
     </LinearLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:id="@+id/progressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:visibility="gone"
-        android:indeterminateTint="@color/primary"
+    <TextView
+        android:id="@+id/noResultsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:visibility="visible" />
-
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:textSize="16sp"
+        android:textColor="@color/on_neutral"
+        android:alpha="0.7"
+        android:visibility="gone"
+        android:text="@string/search_not_found"/>
 </FrameLayout>
 

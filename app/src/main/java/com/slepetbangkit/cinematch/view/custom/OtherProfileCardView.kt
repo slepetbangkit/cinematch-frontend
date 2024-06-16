@@ -1,11 +1,18 @@
 package com.slepetbangkit.cinematch.view.custom
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.databinding.ViewCardOtherProfileBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class OtherProfileCardView @JvmOverloads constructor(
     context: Context,
@@ -19,8 +26,14 @@ class OtherProfileCardView @JvmOverloads constructor(
         binding = ViewCardOtherProfileBinding.inflate(inflater, this, true)
     }
 
-    fun setProfileImage() {
-        // TO-DO: Set profile image
+    fun setProfileImage(imageUrl: String?) {
+        if (imageUrl == "null") return
+
+        GlideApp.with(binding.imgProfile.context)
+            .load(imageUrl)
+            .error(R.drawable.baseline_account_circle_24)
+            .circleCrop()
+            .into(binding.imgProfile)
     }
 
     fun setFollowingCount(count: Int) {

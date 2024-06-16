@@ -17,6 +17,8 @@ class SelfProfileViewModel(
     private val sessionRepository: SessionRepository,
     private val userRepository: UserRepository,
 ) : ViewModel() {
+    private var isFetched = false
+
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
 
@@ -25,12 +27,6 @@ class SelfProfileViewModel(
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
-
-    init {
-        viewModelScope.launch {
-            getSelfProfile()
-        }
-    }
 
     fun setProfileImage(newProfileImageUrl: String) {
         val oldProfile = _profile.value
@@ -69,7 +65,9 @@ class SelfProfileViewModel(
 
     suspend fun getSelfProfile() {
         try {
-            _isLoading.value = true
+            if (!isFetched) {
+                _isLoading.value = true
+            }
             val profileResponse = userRepository.getSelfProfile()
             _profile.value = profileResponse
         } catch (e: SocketTimeoutException) {
@@ -85,7 +83,10 @@ class SelfProfileViewModel(
                 _error.value = e.message
             }
         } finally {
-            _isLoading.value = false
+            if (!isFetched) {
+                _isLoading.value = false
+            }
+            isFetched = true
         }
     }
 }

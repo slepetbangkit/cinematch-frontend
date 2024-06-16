@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.view.profile.otherprofile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,8 @@ class OtherProfileViewModel(
     private val userRepository: UserRepository,
     private val username: String
 ): ViewModel() {
+    private var isFetched = false
+
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
 
@@ -26,12 +29,6 @@ class OtherProfileViewModel(
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
-
-    init {
-        viewModelScope.launch {
-            getOtherProfile()
-        }
-    }
 
     fun setIsFollowed(isFollowed: Boolean) {
         val oldProfile = _profile.value
@@ -44,9 +41,11 @@ class OtherProfileViewModel(
         }
     }
 
-    private suspend fun getOtherProfile() {
+    suspend fun getOtherProfile() {
         try {
-            _isLoading.value = true
+            if (!isFetched) {
+                _isLoading.value = true
+            }
             val profileResponse = userRepository.getOtherProfile(username)
             _profile.value = profileResponse
         } catch (e: SocketTimeoutException) {
@@ -63,6 +62,7 @@ class OtherProfileViewModel(
             }
         } finally {
             _isLoading.value = false
+            isFetched = true
         }
     }
 

@@ -92,7 +92,6 @@
         android:background="@color/primary_variant"
         android:src="@drawable/baseline_account_circle_24"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        app:tint="@color/primary"
         app:layout_constraintStart_toStartOf="@id/movie_review_tv"
         app:layout_constraintBottom_toBottomOf="parent" />
 

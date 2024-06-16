@@ -20,7 +20,7 @@ data class ActivitiesItem(
 	val date: String,
 
 	@field:SerializedName("followed_username")
-	val followedUsername: String,
+	val followedUsername: String? = null,
 
 	@field:SerializedName("id")
 	val id: String,
@@ -29,8 +29,11 @@ data class ActivitiesItem(
 	val type: String,
 
 	@field:SerializedName("movie_tmdb_id")
-	val movieTmdbId: Any,
+	val movieTmdbId: Int? = null,
 
 	@field:SerializedName("username")
-	val username: String
+	val username: String,
+
+	@field:SerializedName("profile_picture")
+	val profilePicture: String? = null
 )

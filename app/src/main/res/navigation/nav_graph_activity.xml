@@ -13,7 +13,47 @@
         <action
             android:id="@+id/action_navigation_activity_to_navigation_other_profile"
             app:destination="@id/navigation_other_profile" />
+        <action
+            android:id="@+id/action_navigation_activity_to_navigation_movie_details"
+            app:destination="@id/navigation_movie_details" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movie_details"
+        android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/navigation_movie_details" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_reviewFragment"
+            app:destination="@id/navigation_review" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_review"
+        android:name="com.slepetbangkit.cinematch.view.review.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" >
+        <action
+            android:id="@+id/action_reviewFragment_to_reviewDetailFragment"
+            app:destination="@id/navigation_review_detail" />
+        <action
+            android:id="@+id/action_reviewFragment_to_addReviewFragment"
+            app:destination="@id/navigation_add_review" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_review_detail"
+        android:name="com.slepetbangkit.cinematch.view.review.detail.ReviewDetailFragment"
+        android:label="fragment_review_detail"
+        tools:layout="@layout/fragment_review_detail" />
+
+    <fragment
+        android:id="@+id/navigation_add_review"
+        android:name="com.slepetbangkit.cinematch.view.review.add.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" />
 
     <fragment
         android:id="@+id/navigation_self_profile"

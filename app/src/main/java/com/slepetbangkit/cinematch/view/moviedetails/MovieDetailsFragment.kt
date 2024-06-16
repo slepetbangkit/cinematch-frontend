@@ -50,12 +50,6 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeViewModel()
-        fetchMovieDetails() // Fetch data when the view is created
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fetchMovieDetails() // Fetch data when the fragment resumes
     }
 
     private fun observeViewModel() {
@@ -82,20 +76,26 @@ class MovieDetailsFragment : Fragment() {
         }
 
         movieDetailsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.movieDetailsView.visibility = if (isLoading) View.GONE else View.VISIBLE
+            if (isLoading) {
+                binding.shimmerViewContainer.let {
+                    it.startShimmer()
+                    it.visibility = View.VISIBLE
+                }
+                binding.movieDetailsView.visibility = View.GONE
+            } else {
+                binding.shimmerViewContainer.let {
+                    it.stopShimmer()
+                    it.visibility = View.GONE
+                }
+                binding.movieDetailsView.visibility = View.VISIBLE
+            }
         }
-    }
-
-    private fun fetchMovieDetails() {
-        val tmdbId = arguments?.getInt("tmdbId") ?: 0
-        movieDetailsViewModel.fetchMovieDetails(tmdbId)
     }
 
     private fun setupSimilarMovies(similarMovies: List<SimilarMoviesItem?>) {
         binding.movieDetailsView.setSimilarMovies(similarMovies) { similarMovie ->
             val bundle = Bundle().apply {
-                similarMovie.tmdbId?.let { putInt("tmdbId", it) }
+                putInt("tmdbId", similarMovie.tmdbId)
             }
             navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
         }
@@ -104,9 +104,5 @@ class MovieDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val MOVIE_ID = "movie_id"
     }
 }

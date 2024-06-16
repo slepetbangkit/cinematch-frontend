@@ -17,11 +17,8 @@ import java.net.SocketTimeoutException
 class MovieDetailsViewModel(
     private val sessionRepository: SessionRepository,
     private val movieRepository: MovieRepository,
-    selectedMovie: Int
+    private val tmdbId: Int
 ) : ViewModel() {
-    private val _tmdbId = MutableLiveData<Int>()
-    val tmdbId: LiveData<Int> = _tmdbId
-
     private val _movieDetail = MutableLiveData<MovieDetailsResponse>()
     val movieDetail: LiveData<MovieDetailsResponse> get() = _movieDetail
 
@@ -35,29 +32,25 @@ class MovieDetailsViewModel(
     val error: LiveData<String> = _error
 
     init {
-        fetchMovieDetails(selectedMovie)
-    }
-
-    fun fetchMovieDetails(tmdbId: Int) {
         viewModelScope.launch {
-            getMovieDetails(tmdbId)
+            getMovieDetails()
         }
     }
 
-    private suspend fun getMovieDetails(tmdbId: Int) {
+    private suspend fun getMovieDetails() {
         try {
             _isLoading.value = true
             val response = movieRepository.getMovieDetails(tmdbId)
             _movieDetail.value = response
         } catch (e: SocketTimeoutException) {
             _error.value = "Error fetching data"
-            getMovieDetails(tmdbId)
+            getMovieDetails()
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 withContext(Dispatchers.IO) {
                     sessionRepository.refresh()
                 }
-                getMovieDetails(tmdbId)
+                getMovieDetails()
             } else {
                 _error.value = "Error fetching data"
             }

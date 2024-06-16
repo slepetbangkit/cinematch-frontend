@@ -18,6 +18,8 @@ class ActivityViewModel(
     private val sessionRepository: SessionRepository,
     private val activityRepository: ActivityRepository
 ): ViewModel() {
+    private var isFetched = false
+
     private val _activity = MutableLiveData<ActivityResponse>()
     val activity: MutableLiveData<ActivityResponse> = _activity
 
@@ -27,15 +29,11 @@ class ActivityViewModel(
     private val _error = MutableLiveData<String>()
     val error: MutableLiveData<String> = _error
 
-    init {
-        viewModelScope.launch {
-            getActivities()
-        }
-    }
-
-    private suspend fun getActivities() {
+    suspend fun getActivities() {
         try {
-            _isLoading.value = true
+            if (!isFetched) {
+                _isLoading.value = true
+            }
             val response = activityRepository.getActivities()
             _activity.value = response
         } catch (e: SocketTimeoutException) {
@@ -52,6 +50,9 @@ class ActivityViewModel(
             }
         } finally {
             _isLoading.value = false
+            if (!isFetched) {
+                isFetched = true
+            }
         }
     }
 }

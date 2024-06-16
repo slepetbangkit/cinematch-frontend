@@ -56,6 +56,7 @@ class OtherProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         otherProfileViewModel.profile.observe(viewLifecycleOwner) {
+            it.profilePicture.let { profilePicture -> binding.profileCard.setProfileImage(profilePicture.toString()) }
             it.followingCount.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
             it.followerCount.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
             it.username.let { username -> binding.profileCard.setUsername(username) }
@@ -68,12 +69,15 @@ class OtherProfileFragment : Fragment() {
             if (isLoading) {
                 binding.profileCard.visibility = View.GONE
                 binding.listsTv.visibility = View.GONE
+                binding.btnCreateBlend.visibility = View.GONE
                 binding.shimmerViewContainer.let {
                     it.startShimmer()
                     it.visibility = View.VISIBLE
                 }
             } else {
                 binding.profileCard.visibility = View.VISIBLE
+                binding.listsTv.visibility = View.VISIBLE
+                binding.btnCreateBlend.visibility = View.VISIBLE
                 binding.shimmerViewContainer.let {
                     it.stopShimmer()
                     it.visibility = View.GONE
@@ -114,8 +118,19 @@ class OtherProfileFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        fetchOtherProfile()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun fetchOtherProfile() {
+        lifecycleScope.launch {
+            otherProfileViewModel.getOtherProfile()
+        }
     }
 }

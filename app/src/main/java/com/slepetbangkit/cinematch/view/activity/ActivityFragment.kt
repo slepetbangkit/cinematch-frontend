@@ -53,31 +53,81 @@ class ActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupView()
+        setupObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchActivities()
+    }
+
+    private fun fetchActivities() {
+        lifecycleScope.launch {
+            activityViewModel.getActivities()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupView() {
         binding.activityRv.layoutManager = LinearLayoutManager(context)
         binding.activityRv.adapter = activityAdapter
-
-        activityViewModel.activity.observe(viewLifecycleOwner) { activityResponse ->
-            activityAdapter.submitList(activityResponse.activities)
-
-            activityAdapter.setOnItemClickCallback(object : ActivityAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: ActivitiesItem) {
-                    if (data.type == "FOLLOWED_USER") {
+        activityAdapter.setOnItemClickCallback(object : ActivityAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ActivitiesItem) {
+                when (data.type) {
+                    "LIKED_MOVIE" -> {
+                        val bundle = Bundle().apply {
+                            data.movieTmdbId?.let { putInt("tmbdId", it) }
+                        }
+                        navController.navigate(R.id.action_navigation_activity_to_navigation_movie_details, bundle)
+                    }
+                    "REVIEWED_MOVIE" -> {
+                        val bundle = Bundle().apply {
+                            data.movieTmdbId?.let { putInt("tmdbId", it) }
+                        }
+                        navController.navigate(R.id.action_navigation_activity_to_navigation_movie_details, bundle)
+                    }
+                    "FOLLOWED_USER" -> {
                         val bundle = if (data.followedUsername == sessionUsername) {
                             Bundle().apply {
                                 putString("username", data.username)
                             }
                         } else {
                             Bundle().apply {
-                                putString("username", data.followedUsername)
+                                data.followedUsername?.let { putString("username", it) }
                             }
                         }
                         navController.navigate(R.id.action_navigation_activity_to_navigation_other_profile, bundle)
-                    } else {
-                        return
+                    }
+                    "ADDED_MOVIE_TO_PLAYLIST" -> {
+                        val bundle = Bundle().apply {
+                            data.movieTmdbId?.let { putInt("tmdbId", it) }
+                        }
+                        navController.navigate(R.id.action_navigation_activity_to_navigation_movie_details, bundle)
                     }
                 }
-            })
+            }
+        })
+    }
+
+    private fun setupObservers() {
+        activityViewModel.activity.observe(viewLifecycleOwner) { activityResponse ->
+            if (activityResponse.activities.isEmpty()) {
+                binding.tvNoActivities.visibility = View.VISIBLE
+            } else {
+                binding.tvNoActivities.visibility = View.GONE
+            }
+
+            activityAdapter.submitList(activityResponse.activities)
         }
 
+        activityViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.activityRv.visibility = if (isLoading) View.GONE else View.VISIBLE
+        }
     }
 }

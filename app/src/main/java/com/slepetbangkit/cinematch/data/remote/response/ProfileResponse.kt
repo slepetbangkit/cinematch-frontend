@@ -20,7 +20,7 @@ data class ProfileResponse(
 	val bio: String,
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: Any? = null,
+	val profilePicture: String? = null,
 
 	@field:SerializedName("id")
 	val id: String,

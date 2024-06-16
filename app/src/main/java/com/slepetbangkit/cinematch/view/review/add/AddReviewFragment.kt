@@ -30,13 +30,9 @@ class AddReviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var tmdbId = arguments?.getInt("tmdbId")
+        var tmdbId = arguments?.getInt("tmdbId", 0)
         val movieTitle = arguments?.getString("movieTitle")
         val releaseDate = arguments?.getString("releaseDate")
-
-        if (tmdbId == null) {
-            tmdbId = 0
-        }
 
         _binding = FragmentAddReviewBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())

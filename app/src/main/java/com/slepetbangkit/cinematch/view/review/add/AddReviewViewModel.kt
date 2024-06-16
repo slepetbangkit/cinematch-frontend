@@ -24,9 +24,6 @@ class AddReviewViewModel(
     private val movieRepository: MovieRepository,
     private val movie: Int
 ) : ViewModel() {
-    private val _tmdbId = MutableLiveData<Int>()
-    val tmdbId: LiveData<Int> = _tmdbId
-
     private val _reviewResponse = MutableLiveData<AddReviewResponse?>()
     val reviewResponse: MutableLiveData<AddReviewResponse?> get() = _reviewResponse
 
@@ -35,12 +32,6 @@ class AddReviewViewModel(
 
     private val _error = MutableLiveData<String?>()
     val error: MutableLiveData<String?> = _error
-
-    init {
-        viewModelScope.launch {
-            _tmdbId.value = movie
-        }
-    }
 
     suspend fun addReview(description: String) {
         try {

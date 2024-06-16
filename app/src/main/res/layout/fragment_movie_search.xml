@@ -24,6 +24,16 @@
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/search_tv"/>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <include
+                layout="@layout/skeleton_movie_search" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movieRecyclerView"
             android:layout_width="match_parent"
@@ -45,15 +55,4 @@
         android:alpha="0.7"
         android:visibility="gone"
         android:text="@string/search_not_found"/>
-
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:id="@+id/progressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:visibility="gone"
-        android:indeterminateTint="@color/primary"
-        android:layout_gravity="center"
-        tools:visibility="visible" />
-
 </FrameLayout>

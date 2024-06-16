@@ -75,6 +75,7 @@ class SelfProfileFragment : Fragment() {
         }
 
         selfProfileViewModel.profile.observe(viewLifecycleOwner) {
+            it.profilePicture.let { profilePicture -> binding.profileCard.setProfileImage(profilePicture.toString()) }
             it.followingCount.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
             it.followerCount.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
             it.username.let { uname ->

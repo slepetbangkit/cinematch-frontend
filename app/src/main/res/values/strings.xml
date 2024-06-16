@@ -31,6 +31,7 @@
     <string name="similar_movies">Similar Movies</string>
     <string name="add_to_your_list">Add to your list</string>
     <string name="activity">Activity</string>
+    <string name="no_activities_yet">No activities yet. Follow a user to see their activities!</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -54,7 +55,7 @@
     <string name="popular_in_your_area">Popular in Your Area</string>
     <string name="follow">Follow</string>
     <string name="add_a_new_review">Add a new review</string>
-    <string name="add_review_hint">Add review...</string>
+    <string name="add_review_hint">Add review…</string>
     <string name="add_review">Add Review</string>
     <string name="movie_details">Movie Details</string>
     <string name="no_reviews_yet">No reviews yet. Be the first to share your thoughts!</string>

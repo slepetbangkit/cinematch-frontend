@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -73,6 +74,8 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
+    implementation("com.github.bumptech.glide:annotations:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     // Pager
     implementation(libs.material.v140)

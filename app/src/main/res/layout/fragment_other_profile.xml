@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/neutral">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/neutral"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
         tools:context=".view.profile.selfprofile.SelfProfileFragment">
 
         <com.slepetbangkit.cinematch.view.custom.OtherProfileCardView
             android:id="@+id/profile_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,10 +53,7 @@
             android:id="@+id/btn_create_blend"
             android:layout_width="0dp"
             android:layout_height="46dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/create_a_blend"
             app:cornerRadius="10dp"
             app:layout_constraintTop_toBottomOf="@id/lists_tv"
@@ -67,10 +65,7 @@
             android:id="@+id/btn_blended_list"
             android:layout_width="0dp"
             android:layout_height="46dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/blended"
             android:visibility="gone"
             app:cornerRadius="10dp"

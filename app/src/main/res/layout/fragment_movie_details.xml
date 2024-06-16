@@ -14,13 +14,14 @@
         android:visibility="gone"
         android:layout_height="match_parent" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:id="@+id/progressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:visibility="gone"
-        android:indeterminateTint="@color/primary"
-        android:layout_gravity="center"
-        tools:visibility="visible" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_auto_start="true">
+
+        <include
+            layout="@layout/skeleton_movie_details" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </FrameLayout>

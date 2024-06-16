@@ -66,10 +66,25 @@ class UserSearchFragment : Fragment(){
 
         searchUserViewModel.searchUserResult.observe(viewLifecycleOwner) { users ->
             userAdapter.submitList(users)
+
+            if (users.isEmpty()) {
+                binding.noResultsTextView.visibility = View.VISIBLE
+            } else {
+                binding.noResultsTextView.visibility = View.GONE
+            }
         }
 
         searchUserViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.shimmerViewContainer.let {
+                if (isLoading) {
+                    it.startShimmer()
+                    it.visibility = View.VISIBLE
+                } else {
+                    it.stopShimmer()
+                    it.visibility = View.GONE
+                }
+            }
+            if (isLoading) { binding.noResultsTextView.visibility = View.GONE }
         }
 
         searchUserViewModel.error.observe(viewLifecycleOwner) { error ->
