@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.ReviewDetailsResponse
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
@@ -46,7 +48,9 @@ class ReviewDetailViewModel (
             getReviewDetails()
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                sessionRepository.refresh()
+                withContext(Dispatchers.IO) {
+                    sessionRepository.refresh()
+                }
                 getReviewDetails()
             }
             else {

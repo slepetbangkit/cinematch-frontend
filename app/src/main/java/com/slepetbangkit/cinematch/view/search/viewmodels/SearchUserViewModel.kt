@@ -9,8 +9,10 @@ import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -40,7 +42,9 @@ class SearchUserViewModel(
             searchUser(username)
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                sessionRepository.refresh()
+                withContext(Dispatchers.IO) {
+                    sessionRepository.refresh()
+                }
                 searchUser(username)
             } else {
                 _error.value = e.message

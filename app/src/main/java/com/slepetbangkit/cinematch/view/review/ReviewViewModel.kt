@@ -8,7 +8,9 @@ import com.slepetbangkit.cinematch.data.remote.response.MovieReviewsResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -60,7 +62,9 @@ class ReviewViewModel(
             getReviews()
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                sessionRepository.refresh()
+                withContext(Dispatchers.IO) {
+                    sessionRepository.refresh()
+                }
                 getReviews()
             } else {
                 _error.value = "Error fetching data"
