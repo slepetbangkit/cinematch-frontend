@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class SearchUserViewModel(
     private val sessionRepository: SessionRepository,
@@ -34,12 +35,15 @@ class SearchUserViewModel(
             _isLoading.value = true
             val response = userRepository.searchUser(username)
             _searchUserResult.value = response.users
+        } catch (e: SocketTimeoutException) {
+            _error.value = e.message
+            searchUser(username)
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
                 searchUser(username)
             } else {
-                _error.value = e.message()
+                _error.value = e.message
             }
         } finally {
             _isLoading.value = false

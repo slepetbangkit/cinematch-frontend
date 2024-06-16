@@ -13,6 +13,7 @@ import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class EditProfileViewModel(
     private val sessionRepository: SessionRepository,
@@ -32,12 +33,14 @@ class EditProfileViewModel(
             _isLoading.value = true
             val response = userRepository.updateSelfProfile(newUsername, newBio)
             _message.value = response
+        } catch (e: SocketTimeoutException) {
+            _error.value = e.message
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
                 updateSelfProfile(newUsername, newBio)
             } else {
-                _error.value = e.message()
+                _error.value = e.message
             }
         } finally {
             _isLoading.value = false

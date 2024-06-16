@@ -45,17 +45,16 @@ class AddReviewViewModel(
             _isLoading.value = true
             val response = movieRepository.addReview(movie, description)
             _reviewResponse.value = response
+        } catch (e: SocketTimeoutException) {
+            _error.value = "Request timed out. Please try again."
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
                 addReview(description)
             } else {
-                _error.value = e.message()
+                _error.value = e.message
             }
-        } catch (e: SocketTimeoutException) {
-            _error.value = "Request timed out. Please try again."
-        }
-            finally {
+        } finally {
             _isLoading.value = false
         }
     }

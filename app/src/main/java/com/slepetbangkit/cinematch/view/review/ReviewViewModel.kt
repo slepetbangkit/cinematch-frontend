@@ -13,6 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class ReviewViewModel(
     private val sessionRepository: SessionRepository,
@@ -54,6 +55,9 @@ class ReviewViewModel(
             val response = movieRepository.getMovieReviews(movie)
             _movieReviews.value = response
             _isReviewed.value = response.isReviewed
+        } catch (e: SocketTimeoutException) {
+            _error.value = "Error fetching data"
+            getReviews()
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()

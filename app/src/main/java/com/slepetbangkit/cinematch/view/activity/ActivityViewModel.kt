@@ -10,6 +10,7 @@ import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class ActivityViewModel(
     private val sessionRepository: SessionRepository,
@@ -35,6 +36,9 @@ class ActivityViewModel(
             _isLoading.value = true
             val response = activityRepository.getActivities()
             _activity.value = response
+        } catch (e: SocketTimeoutException) {
+            _error.value = e.message
+            getActivities()
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()

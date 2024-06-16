@@ -9,6 +9,7 @@ import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class SelfProfileViewModel(
     private val sessionRepository: SessionRepository,
@@ -69,6 +70,8 @@ class SelfProfileViewModel(
             _isLoading.value = true
             val profileResponse = userRepository.getSelfProfile()
             _profile.value = profileResponse
+        } catch (e: SocketTimeoutException) {
+            _error.value = e.message
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()

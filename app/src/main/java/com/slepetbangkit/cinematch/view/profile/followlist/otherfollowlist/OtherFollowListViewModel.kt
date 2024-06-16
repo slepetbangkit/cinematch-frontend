@@ -10,6 +10,7 @@ import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class OtherFollowListViewModel(
     private val sessionRepository: SessionRepository,
@@ -39,12 +40,15 @@ class OtherFollowListViewModel(
             _isLoading.value = true
             val response = userRepository.getOtherFollowList(username)
             _followList.value = response
+        } catch (e: SocketTimeoutException) {
+            _error.value = e.message
+            getOtherFollowList()
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
                 getOtherFollowList()
             } else {
-                _error.value = e.message()
+                _error.value = e.message
             }
         } finally {
             _isLoading.value = false

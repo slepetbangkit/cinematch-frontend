@@ -67,6 +67,7 @@ class OtherProfileFragment : Fragment() {
         otherProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
                 binding.profileCard.visibility = View.GONE
+                binding.listsTv.visibility = View.GONE
                 binding.shimmerViewContainer.let {
                     it.startShimmer()
                     it.visibility = View.VISIBLE

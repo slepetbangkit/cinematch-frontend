@@ -69,4 +69,6 @@
     <string name="your_lists">Your Lists</string>
     <string name="follow_back">Follow Back</string>
     <string name="their_lists">Their Lists</string>
+    <string name="create_a_blend">Create a Blend</string>
+    <string name="blended">Blended!</string>
 </resources>

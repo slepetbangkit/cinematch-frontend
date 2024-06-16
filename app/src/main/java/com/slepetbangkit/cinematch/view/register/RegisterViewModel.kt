@@ -8,6 +8,7 @@ import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class RegisterViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
     private val _registerResult = MutableLiveData<RegisterResponse>()
@@ -30,6 +31,8 @@ class RegisterViewModel(private val sessionRepository: SessionRepository) : View
             try {
                 val response = sessionRepository.register(username, email, password)
                 _registerResult.value = response
+            } catch (e: SocketTimeoutException) {
+                _error.value = "Register Failed: ${e.message}"
             } catch (e: HttpException) {
                 _error.value = "Register Failed: ${e.message}"
             } finally {

@@ -10,6 +10,7 @@ import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class MovieDetailsViewModel(
     private val sessionRepository: SessionRepository,
@@ -46,6 +47,9 @@ class MovieDetailsViewModel(
             _isLoading.value = true
             val response = movieRepository.getMovieDetails(tmdbId)
             _movieDetail.value = response
+        } catch (e: SocketTimeoutException) {
+            _error.value = "Error fetching data"
+            getMovieDetails(tmdbId)
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 sessionRepository.refresh()
