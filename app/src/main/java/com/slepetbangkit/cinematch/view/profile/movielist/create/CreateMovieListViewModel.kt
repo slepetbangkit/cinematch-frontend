@@ -10,6 +10,7 @@ import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class CreateMovieListViewModel(private val movieListRepository: MovieListRepository) : ViewModel() {
     private val _createMovieListResult = MutableLiveData<PlaylistsItem>()
@@ -30,6 +31,8 @@ class CreateMovieListViewModel(private val movieListRepository: MovieListReposit
             try {
                 val response = movieListRepository.createNewMovieList(name)
                 _createMovieListResult.value = response
+            } catch(e: SocketTimeoutException) {
+                _error.value = "Create Movie List Failed: ${e.message}"
             } catch (e: HttpException) {
                 _error.value = "Create Movie List Failed: ${e.message}"
             } finally {

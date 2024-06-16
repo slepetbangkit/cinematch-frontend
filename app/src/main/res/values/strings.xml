@@ -75,4 +75,6 @@
     <string name="playlist_name">Playlist Name</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="create_a_blend">Create a Blend</string>
+    <string name="blended">Blended!</string>
 </resources>

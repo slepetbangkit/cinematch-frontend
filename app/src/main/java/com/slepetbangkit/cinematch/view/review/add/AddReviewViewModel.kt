@@ -9,8 +9,10 @@ import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -45,17 +47,18 @@ class AddReviewViewModel(
             _isLoading.value = true
             val response = movieRepository.addReview(movie, description)
             _reviewResponse.value = response
-        } catch (e: HttpException) {
-            if (e.code() == 401) {
-                sessionRepository.refresh()
-                addReview(description)
-            } else {
-                _error.value = e.message()
-            }
         } catch (e: SocketTimeoutException) {
             _error.value = "Request timed out. Please try again."
-        }
-            finally {
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                withContext(Dispatchers.IO) {
+                    sessionRepository.refresh()
+                }
+                addReview(description)
+            } else {
+                _error.value = e.message
+            }
+        } finally {
             _isLoading.value = false
         }
     }

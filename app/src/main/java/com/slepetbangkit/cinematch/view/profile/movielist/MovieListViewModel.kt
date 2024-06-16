@@ -10,8 +10,11 @@ import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class MovieListViewModel(
     private val sessionRepository: SessionRepository,
@@ -46,9 +49,14 @@ class MovieListViewModel(
             val listResponse = movieListRepository.getMovieListDetails(listId)
             _movieListDetails.value = listResponse
             _movies.value = listResponse.movies
+        } catch(e: SocketTimeoutException) {
+            _error.value = e.message
+            getMovieListDetails(listId)
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                sessionRepository.refresh()
+                withContext(Dispatchers.IO) {
+                    sessionRepository.refresh()
+                }
                 getMovieListDetails(listId)
             } else {
                 _error.value = e.message()

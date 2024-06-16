@@ -13,6 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class LoginViewModel(private val sessionRepository: SessionRepository): ViewModel() {
     private val _loginResult = MutableLiveData<LoginResponse>()
@@ -31,6 +32,8 @@ class LoginViewModel(private val sessionRepository: SessionRepository): ViewMode
             try {
                 val response = sessionRepository.login(username, password)
                 _loginResult.value = response
+            } catch (e: SocketTimeoutException) {
+                _error.value = "Login Failed: ${e.message}"
             } catch (e: HttpException) {
                 _error.value = "Login Failed: ${e.message}"
             } finally {
