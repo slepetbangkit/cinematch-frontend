@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plus_jakarta_sans_semi_bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/on_neutral"
                 tools:text="Movie Title"/>
             <TextView
@@ -54,8 +54,10 @@
                 tools:text="Director"/>
         </LinearLayout>
         <ImageButton
+            android:id="@+id/btn_remove_movie"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="16dp"
             android:background="@null"
             android:layout_gravity="center"
             android:src="@drawable/remove_movie_24px" />

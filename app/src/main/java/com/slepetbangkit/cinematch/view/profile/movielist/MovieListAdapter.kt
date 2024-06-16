@@ -13,10 +13,16 @@ import com.slepetbangkit.cinematch.databinding.ItemMovieListBinding
 class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onRemoveClickCallback: OnRemoveClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
+
+    fun setOnRemoveClickCallback(onRemoveClickCallback: OnRemoveClickCallback) {
+        this.onRemoveClickCallback = onRemoveClickCallback
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemMovieListBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
@@ -29,6 +35,9 @@ class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(D
             holder.bind(movie)
             holder.itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(movie)
+            }
+            holder.binding.btnRemoveMovie.setOnClickListener {
+                onRemoveClickCallback.onRemoveClicked(movie)
             }
         }
     }
@@ -59,6 +68,9 @@ class MovieListAdapter: ListAdapter<MoviesItem, MovieListAdapter.MyViewHolder>(D
         fun onItemClicked(data: MoviesItem)
     }
 
+    interface OnRemoveClickCallback {
+        fun onRemoveClicked(data: MoviesItem)
+    }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoviesItem>() {

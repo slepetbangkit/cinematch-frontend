@@ -1,6 +1,8 @@
 package com.slepetbangkit.cinematch.view.profile.movielist
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,12 +35,13 @@ class MovieListFragment : Fragment() {
     private lateinit var movieListViewModel: MovieListViewModel
     private lateinit var movieListAdapter: MovieListAdapter
     private lateinit var navController: NavController
+    private lateinit var listId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val listId = arguments?.getString("listId") ?: ""
+        listId = arguments?.getString("listId") ?: ""
 
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
@@ -87,6 +90,20 @@ class MovieListFragment : Fragment() {
                         }
                     }
                 })
+
+                movieListAdapter.setOnRemoveClickCallback(object : MovieListAdapter.OnRemoveClickCallback {
+                    override fun onRemoveClicked(data: MoviesItem) {
+                        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+                            .setTitle("Remove Movie")
+                            .setMessage("Are you sure you want to remove this movie from your list?")
+                            .setPositiveButton("Yes") { _, _ ->
+                                movieListViewModel.deleteMovieById(listId, data.tmdbId)
+                            }
+                            .setNegativeButton("No", null)
+                            .show()
+                    }
+                })
+
             }
         }
 

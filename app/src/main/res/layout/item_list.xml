@@ -42,17 +42,17 @@
                 android:textColor="@color/on_neutral"
                 android:textSize="13sp"
                 tools:text="36 movies"/>
-            <TextView
-                android:id="@+id/description_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/plus_jakarta_sans_regular"
-                android:textColor="@color/on_neutral"
-                android:alpha="0.7"
-                android:textSize="11sp"
-                tools:text="List description"/>
+<!--            <TextView-->
+<!--                android:id="@+id/description_tv"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:fontFamily="@font/plus_jakarta_sans_regular"-->
+<!--                android:textColor="@color/on_neutral"-->
+<!--                android:alpha="0.7"-->
+<!--                android:textSize="11sp"-->
+<!--                tools:text="List description"/>-->
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
