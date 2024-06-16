@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_self_follow_list"
             app:destination="@id/navigation_self_follow_list" />
+        <action
+            android:id="@+id/action_navigation_self_profile_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
     </fragment>
 
     <fragment
@@ -74,5 +77,23 @@
         <action
             android:id="@+id/action_navigation_other_follow_list_to_navigation_self_profile"
             app:destination="@id/navigation_self_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.slepetbangkit.cinematch.view.profile.movielist.MovieListFragment"
+        android:label="fragment_movie_list"
+        tools:layout="@layout/fragment_movie_list" >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailsFragment2"
+            app:destination="@id/movieDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment2"
+        android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/movieDetailsFragment2" />
     </fragment>
 </navigation>

@@ -65,7 +65,7 @@ class SelfProfileViewModel(
         }
     }
 
-    private suspend fun getSelfProfile() {
+    suspend fun getSelfProfile() {
         try {
             _isLoading.value = true
             val profileResponse = userRepository.getSelfProfile()

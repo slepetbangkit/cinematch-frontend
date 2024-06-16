@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/primary"
+    android:layout_gravity="center"
+    app:cardElevation="20dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textSize="16sp"
+            android:textColor="@color/on_primary"
+            android:layout_gravity="center"
+            android:text="@string/create_a_new_list"/>
+
+        <EditText
+            style="@style/EditTextPopup"
+            android:id="@+id/edt_list_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:textColorHint="@color/neutral_variant"
+            android:textSize="12sp"
+            android:hint="@string/playlist_name"
+            android:inputType="text"
+            app:fieldType="username"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonOutlinePopup"
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:textSize="16sp"
+                android:text="@string/cancel"
+                app:strokeColor="@color/primary_variant"
+                app:strokeWidth="1dp"
+                app:cornerRadius="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonVariant"
+                android:id="@+id/btn_create"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+                android:text="@string/create"
+                android:textSize="16sp"
+                app:cornerRadius="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
