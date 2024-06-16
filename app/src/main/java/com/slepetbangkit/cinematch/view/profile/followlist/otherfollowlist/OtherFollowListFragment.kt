@@ -52,6 +52,8 @@ class OtherFollowListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.usernameTv.text = username
+
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
 

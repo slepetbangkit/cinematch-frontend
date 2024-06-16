@@ -1,5 +1,7 @@
 package com.slepetbangkit.cinematch.data.repository
 
+import android.util.Log
+import com.slepetbangkit.cinematch.data.remote.request.UpdatePlaylistRequest
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 
@@ -16,6 +18,17 @@ class MovieListRepository (
         val accessToken = sessionRepository.getAccessToken()
         return apiService.createMovieList("Bearer $accessToken", name)
     }
+
+    suspend fun deleteMovieById(listId: String, tmdbId: Int): PlaylistsItem {
+        val accessToken = sessionRepository.getAccessToken()
+        val request = UpdatePlaylistRequest(delete_movie_tmdb_id = listOf(tmdbId))
+        return apiService.updatePlaylist(
+            "Bearer $accessToken",
+            listId,
+            request
+        )
+    }
+
 
     companion object {
         @Volatile

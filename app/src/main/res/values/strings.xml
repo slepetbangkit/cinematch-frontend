@@ -78,4 +78,5 @@
     <string name="create">Create</string>
     <string name="create_a_blend">Create a Blend</string>
     <string name="blended">Blended!</string>
+    <string name="other_empty_list">This movie list is empty.</string>
 </resources>

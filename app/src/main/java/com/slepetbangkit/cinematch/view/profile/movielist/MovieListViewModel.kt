@@ -65,4 +65,24 @@ class MovieListViewModel(
             _isLoading.value = false
         }
     }
+
+    fun deleteMovieById(listId: String, tmdbId: Int) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                val listResponse = movieListRepository.deleteMovieById(listId, tmdbId)
+                _movieListDetails.value = listResponse
+                _movies.value = listResponse.movies
+            } catch (e: HttpException) {
+                if (e.code() == 401) {
+                    sessionRepository.refresh()
+                    getMovieListDetails(listId)
+                } else {
+                    _error.value = e.message()
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }

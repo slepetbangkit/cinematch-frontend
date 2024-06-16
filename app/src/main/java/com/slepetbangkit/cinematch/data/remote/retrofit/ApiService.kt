@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.data.remote.retrofit
 
+import com.slepetbangkit.cinematch.data.remote.request.UpdatePlaylistRequest
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
 import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
@@ -14,6 +15,7 @@ import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.response.ReviewDetailsResponse
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
+import retrofit2.http.Body
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.DELETE
@@ -147,5 +149,12 @@ interface ApiService {
     suspend fun createMovieList(
         @Header("Authorization") token: String,
         @Field("title") title: String
+    ): PlaylistsItem
+
+    @PATCH("movies/playlists/{list_id}/")
+    suspend fun updatePlaylist(
+        @Header("Authorization") token: String,
+        @Path("list_id") listId: String,
+        @Body request: UpdatePlaylistRequest
     ): PlaylistsItem
 }

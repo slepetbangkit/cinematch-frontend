@@ -114,6 +114,9 @@
         <action
             android:id="@+id/action_navigation_other_profile_to_navigation_other_follow_list"
             app:destination="@id/navigation_other_follow_list" />
+        <action
+            android:id="@+id/action_navigation_other_profile_to_movieListFragment"
+            app:destination="@id/navigation_movie_list_other" />
     </fragment>
 
     <fragment
@@ -127,5 +130,15 @@
         <action
             android:id="@+id/action_navigation_other_follow_list_to_navigation_self_profile"
             app:destination="@id/navigation_self_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movie_list_other"
+        android:name="com.slepetbangkit.cinematch.view.profile.movielist.selfprofile.MovieListFragment"
+        android:label="fragment_movie_list_other"
+        tools:layout="@layout/fragment_movie_list_other" >
+        <action
+            android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
+            app:destination="@id/navigation_movie_details" />
     </fragment>
 </navigation>

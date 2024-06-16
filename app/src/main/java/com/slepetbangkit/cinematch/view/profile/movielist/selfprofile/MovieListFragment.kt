@@ -1,5 +1,6 @@
-package com.slepetbangkit.cinematch.view.profile.movielist
+package com.slepetbangkit.cinematch.view.profile.movielist.selfprofile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,19 +11,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
-import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
-import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
 import com.slepetbangkit.cinematch.databinding.FragmentMovieListBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.MovieListViewModelFactory
-import com.slepetbangkit.cinematch.factories.MovieViewModelFactory
-import com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsViewModel
-import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
+import com.slepetbangkit.cinematch.view.profile.movielist.MovieListViewModel
 
 class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null
@@ -31,14 +26,15 @@ class MovieListFragment : Fragment() {
     private lateinit var movieListRepository: MovieListRepository
     private lateinit var factory: MovieListViewModelFactory
     private lateinit var movieListViewModel: MovieListViewModel
-    private lateinit var movieListAdapter: MovieListAdapter
+    private lateinit var selfProfileMovieListAdapter: SelfProfileMovieListAdapter
     private lateinit var navController: NavController
+    private lateinit var listId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val listId = arguments?.getString("listId") ?: ""
+        listId = arguments?.getString("listId") ?: ""
 
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
@@ -68,16 +64,17 @@ class MovieListFragment : Fragment() {
     private fun observeViewModel() {
         movieListViewModel.movieListDetails.observe(viewLifecycleOwner) { movie ->
             movie.apply {
-                movieListAdapter = MovieListAdapter()
+                selfProfileMovieListAdapter = SelfProfileMovieListAdapter()
                 binding.rvMovies.apply {
                     layoutManager = LinearLayoutManager(context)
-                    adapter = movieListAdapter
+                    adapter = selfProfileMovieListAdapter
                 }
-                movieListAdapter.submitList(movies)
+                selfProfileMovieListAdapter.submitList(movies)
 
                 binding.tvTitle.text = title
+                binding.tvUser.text = username
 
-                movieListAdapter.setOnItemClickCallback(object : MovieListAdapter.OnItemClickCallback {
+                selfProfileMovieListAdapter.setOnItemClickCallback(object : SelfProfileMovieListAdapter.OnItemClickCallback {
                     override fun onItemClicked(data: MoviesItem) {
                         data.tmdbId.let { tmdbId ->
                             val bundle = Bundle().apply {
@@ -87,6 +84,20 @@ class MovieListFragment : Fragment() {
                         }
                     }
                 })
+
+                selfProfileMovieListAdapter.setOnRemoveClickCallback(object : SelfProfileMovieListAdapter.OnRemoveClickCallback {
+                    override fun onRemoveClicked(data: MoviesItem) {
+                        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+                            .setTitle("Remove Movie")
+                            .setMessage("Are you sure you want to remove this movie from your list?")
+                            .setPositiveButton("Yes") { _, _ ->
+                                movieListViewModel.deleteMovieById(listId, data.tmdbId)
+                            }
+                            .setNegativeButton("No", null)
+                            .show()
+                    }
+                })
+
             }
         }
 

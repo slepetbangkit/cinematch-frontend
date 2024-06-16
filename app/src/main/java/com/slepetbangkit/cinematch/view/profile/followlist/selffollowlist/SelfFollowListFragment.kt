@@ -48,6 +48,10 @@ class SelfFollowListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        lifecycleScope.launch {
+            binding.usernameTv.text = sessionRepository.getUsername()
+        }
+
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
 

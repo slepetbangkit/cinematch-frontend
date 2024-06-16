@@ -23,6 +23,7 @@ import com.slepetbangkit.cinematch.databinding.FragmentSelfProfileBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.MovieListViewModelFactory
 import com.slepetbangkit.cinematch.factories.SelfProfileViewModelFactory
+import com.slepetbangkit.cinematch.view.profile.movielist.ProfileMovieListAdapter
 import com.slepetbangkit.cinematch.view.profile.movielist.create.CreateMovieListViewModel
 import kotlinx.coroutines.launch
 
