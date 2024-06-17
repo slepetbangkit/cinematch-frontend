@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_self_profile" >
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_settings"
-            app:destination="@id/navigation_settings" />
+            app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_edit_profile"
             app:destination="@id/navigation_edit_profile"
@@ -22,10 +26,18 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_self_follow_list"
-            app:destination="@id/navigation_self_follow_list" />
+            app:destination="@id/navigation_self_follow_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_self_profile_to_movieListFragment"
-            app:destination="@id/navigation_movie_list" />
+            app:destination="@id/navigation_movie_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -41,7 +53,11 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_navigation_settings_to_navigation_about_us"
-            app:destination="@id/navigation_about_us" />
+            app:destination="@id/navigation_about_us"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -57,7 +73,11 @@
         tools:layout="@layout/fragment_self_follow_list" >
         <action
             android:id="@+id/action_navigation_self_follow_list_to_navigation_other_profile"
-            app:destination="@id/navigation_other_profile" />
+            app:destination="@id/navigation_other_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -67,10 +87,18 @@
         tools:layout="@layout/fragment_other_profile"  >
         <action
             android:id="@+id/action_navigation_other_profile_to_navigation_other_follow_list"
-            app:destination="@id/navigation_other_follow_list" />
+            app:destination="@id/navigation_other_follow_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_other_profile_to_movieListFragment"
-            app:destination="@id/navigation_movie_list_other" />
+            app:destination="@id/navigation_movie_list_other"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -80,10 +108,18 @@
         tools:layout="@layout/fragment_other_follow_list" >
         <action
             android:id="@+id/action_navigation_other_follow_list_to_navigation_other_profile"
-            app:destination="@id/navigation_other_profile" />
+            app:destination="@id/navigation_other_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_other_follow_list_to_navigation_self_profile"
-            app:destination="@id/navigation_self_profile" />
+            app:destination="@id/navigation_self_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -93,10 +129,18 @@
         tools:layout="@layout/fragment_movie_list" >
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment2"
-            app:destination="@id/navigation_movie_details" />
+            app:destination="@id/navigation_movie_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_movie_list_to_editListFragment"
-            app:destination="@id/editListFragment" />
+            app:destination="@id/editListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -106,13 +150,25 @@
         tools:layout="@layout/fragment_movie_details" >
         <action
             android:id="@+id/action_movieDetailsFragment_self"
-            app:destination="@id/navigation_movie_details" />
+            app:destination="@id/navigation_movie_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment" />
+            app:destination="@id/reviewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_movie_details_to_addToListFragment"
-            app:destination="@id/addToListFragment2" />
+            app:destination="@id/addToListFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -121,7 +177,11 @@
         android:label="MovieListOtherFragment" >
         <action
             android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
-            app:destination="@id/navigation_movie_details" />
+            app:destination="@id/navigation_movie_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/editListFragment"
@@ -129,7 +189,11 @@
         android:label="EditListFragment" >
         <action
             android:id="@+id/action_editListFragment_to_navigation_self_profile"
-            app:destination="@id/navigation_self_profile" />
+            app:destination="@id/navigation_self_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
@@ -138,10 +202,18 @@
         tools:layout="@layout/fragment_review" >
         <action
             android:id="@+id/action_reviewFragment_to_reviewDetailFragment"
-            app:destination="@id/reviewDetailFragment" />
+            app:destination="@id/reviewDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_reviewFragment_to_addReviewFragment"
-            app:destination="@id/addReviewFragment" />
+            app:destination="@id/addReviewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/reviewDetailFragment"
