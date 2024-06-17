@@ -122,7 +122,11 @@
     <fragment
         android:id="@+id/editListFragment"
         android:name="com.slepetbangkit.cinematch.view.profile.movielist.editlist.EditListFragment"
-        android:label="EditListFragment" />
+        android:label="EditListFragment" >
+        <action
+            android:id="@+id/action_editListFragment_to_navigation_self_profile"
+            app:destination="@id/navigation_self_profile" />
+    </fragment>
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.slepetbangkit.cinematch.view.review.ReviewFragment"

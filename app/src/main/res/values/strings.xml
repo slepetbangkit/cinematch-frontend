@@ -83,5 +83,6 @@
     <string name="edit_movie_list">Edit Movie List</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+    <string name="edit_profile_image">Edit Profile Image</string>
     <string name="add_to_list">Add to List</string>
 </resources>

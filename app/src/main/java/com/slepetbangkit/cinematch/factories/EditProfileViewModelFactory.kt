@@ -1,26 +1,22 @@
 package com.slepetbangkit.cinematch.factories
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.view.profile.editprofile.EditProfileViewModel
-import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.SelfFollowListViewModel
-import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 
-class SelfProfileViewModelFactory private constructor(
+class EditProfileViewModelFactory private constructor(
+    private val application: Application,
     private val sessionRepository: SessionRepository,
     private val userRepository: UserRepository
 ) : ViewModelProvider.NewInstanceFactory() {
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(SelfProfileViewModel::class.java) -> {
-                SelfProfileViewModel(sessionRepository, userRepository) as T
-            }
-            modelClass.isAssignableFrom(SelfFollowListViewModel::class.java) -> {
-                SelfFollowListViewModel(sessionRepository, userRepository) as T
+            modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
+                EditProfileViewModel(application, sessionRepository, userRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
@@ -28,19 +24,20 @@ class SelfProfileViewModelFactory private constructor(
 
     companion object {
         @Volatile
-        private var INSTANCE: SelfProfileViewModelFactory? = null
+        private var INSTANCE: EditProfileViewModelFactory? = null
 
         @JvmStatic
         fun getInstance(
+            application: Application,
             sessionRepository: SessionRepository,
             userRepository: UserRepository
-        ): SelfProfileViewModelFactory {
+        ): EditProfileViewModelFactory {
             if (INSTANCE == null) {
-                synchronized(SelfProfileViewModelFactory::class.java) {
-                    INSTANCE = SelfProfileViewModelFactory(sessionRepository, userRepository)
+                synchronized(EditProfileViewModelFactory::class.java) {
+                    INSTANCE = EditProfileViewModelFactory(application, sessionRepository, userRepository)
                 }
             }
-            return INSTANCE as SelfProfileViewModelFactory
+            return INSTANCE as EditProfileViewModelFactory
         }
     }
 }

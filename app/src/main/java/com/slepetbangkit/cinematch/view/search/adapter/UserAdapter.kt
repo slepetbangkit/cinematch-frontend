@@ -43,7 +43,7 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
             if (user.profilePicture != null) {
                 Glide.with(binding.ivProfilePicture.context)
                     .load(user.profilePicture)
-                    .error(R.drawable.baseline_account_circle_24)
+                    .error(R.drawable.account_circle_24)
                     .circleCrop()
                     .into(binding.ivProfilePicture)
             }

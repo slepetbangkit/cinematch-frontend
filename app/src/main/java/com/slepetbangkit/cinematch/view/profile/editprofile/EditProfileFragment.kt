@@ -1,9 +1,14 @@
 package com.slepetbangkit.cinematch.view.profile.editprofile
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -16,7 +21,9 @@ import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
 import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.EditProfileViewModelFactory
 import com.slepetbangkit.cinematch.factories.SelfProfileViewModelFactory
+import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 import kotlinx.coroutines.launch
 
@@ -25,12 +32,15 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
     private lateinit var userRepository: UserRepository
-    private lateinit var factory: SelfProfileViewModelFactory
+    private lateinit var factory: EditProfileViewModelFactory
     private lateinit var editProfileViewModel: EditProfileViewModel
     private lateinit var selfProfileViewModel: SelfProfileViewModel
     private lateinit var navController: NavController
-    private var newUsername: String = ""
-    private var newBio: String = ""
+    private lateinit var launcherGallery: ActivityResultLauncher<PickVisualMediaRequest>
+    private var oldUsername: String = ""
+    private var oldBio: String = ""
+    private var newUsername: String? = null
+    private var newBio: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +49,22 @@ class EditProfileFragment : Fragment() {
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
-        factory = SelfProfileViewModelFactory.getInstance(sessionRepository, userRepository)
+
+        factory = EditProfileViewModelFactory.getInstance(requireActivity().application, sessionRepository, userRepository)
+
         editProfileViewModel = ViewModelProvider(this, factory)[EditProfileViewModel::class.java]
         selfProfileViewModel = ViewModelProvider(requireActivity())[SelfProfileViewModel::class.java]
         navController = findNavController()
+
+        launcherGallery = registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia()
+        ) { uri: Uri? ->
+            if (uri != null) {
+                editProfileViewModel.getResultGallery(uri)
+            } else {
+                Log.d("Photo Picker", "No media selected")
+            }
+        }
 
         return binding.root
     }
@@ -57,8 +79,19 @@ class EditProfileFragment : Fragment() {
 
     private fun setupObservers() {
         selfProfileViewModel.profile.observe(viewLifecycleOwner) {
+            oldUsername = it.username
             binding.edtUname.setText(it.username)
+
+            oldBio = it.bio
             binding.edtBio.setText(it.bio)
+        }
+
+        editProfileViewModel.currentImageUri.observe(viewLifecycleOwner) { uri ->
+            GlideApp.with(binding.imgProfile.context)
+                .load(uri)
+                .error(R.drawable.account_circle_24)
+                .circleCrop()
+                .into(binding.imgProfile)
         }
 
         editProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -80,8 +113,8 @@ class EditProfileFragment : Fragment() {
 
         editProfileViewModel.message.observe(viewLifecycleOwner) { message ->
             if (message != null) {
-                selfProfileViewModel.setProfileUsername(newUsername)
-                selfProfileViewModel.setProfileBio(newBio)
+                newUsername?.let { selfProfileViewModel.setProfileUsername(it) }
+                newBio?.let { selfProfileViewModel.setProfileBio(it) }
 
                 AlertDialog.Builder(requireContext(), R.style.AlertDialog)
                     .setTitle(message.message)
@@ -106,8 +139,15 @@ class EditProfileFragment : Fragment() {
                 .show()
         }
 
+        binding.edtImgContainer.setOnClickListener {
+            startGallery()
+        }
+
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
+                if (newUsername == oldUsername) newUsername = null
+                if (newBio == oldBio) newBio = null
+
                 editProfileViewModel.updateSelfProfile(newUsername, newBio)
             }
         }
@@ -121,5 +161,9 @@ class EditProfileFragment : Fragment() {
         binding.edtBio.addTextChangedListener { text ->
             newBio = text.toString()
         }
+    }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 }

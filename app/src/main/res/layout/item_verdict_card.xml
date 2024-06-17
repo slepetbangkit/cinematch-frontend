@@ -89,8 +89,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/primary_variant"
-        android:src="@drawable/baseline_account_circle_24"
+        android:src="@drawable/account_circle_24"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:layout_constraintStart_toStartOf="@id/movie_review_tv"
         app:layout_constraintBottom_toBottomOf="parent" />

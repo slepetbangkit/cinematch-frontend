@@ -106,11 +106,6 @@ class MovieListFragment : Fragment() {
             tvDesc.visibility = if (movie.description.isEmpty()) View.GONE else View.VISIBLE
             tvDesc.text = movie.description
 
-            btnDeleteList.visibility = if (movie.isFavorite) View.GONE else View.VISIBLE
-            btnDeleteList.setOnClickListener {
-                showDeleteListConfirmationDialog { movieListViewModel.deleteMovieListById(movie.id) }
-            }
-
             btnEditList.visibility = if (movie.isFavorite) View.GONE else View.VISIBLE
             btnBack.setOnClickListener { navController.navigateUp() }
         }
@@ -134,15 +129,6 @@ class MovieListFragment : Fragment() {
             val bundle = Bundle().apply { putString("listId", listId) }
             navController.navigate(R.id.action_navigation_movie_list_to_editListFragment, bundle)
         }
-    }
-
-    private fun showDeleteListConfirmationDialog(onConfirm: () -> Unit) {
-        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
-            .setTitle("Delete List")
-            .setMessage("Are you sure you want to delete this list?")
-            .setPositiveButton("Yes") { _, _ -> onConfirm() }
-            .setNegativeButton("No", null)
-            .show()
     }
 
     private fun showRemoveMovieConfirmationDialog(onConfirm: () -> Unit) {

@@ -90,6 +90,13 @@ class EditListFragment : Fragment() {
                 }
             }
         }
+
+        movieListViewModel.isDeleted.observe(viewLifecycleOwner) { isDeleted ->
+            if (isDeleted) {
+                navController.navigateUp()
+                navController.navigateUp()
+            }
+        }
     }
 
     private fun setupViews() {
@@ -108,6 +115,10 @@ class EditListFragment : Fragment() {
             lifecycleScope.launch {
                 movieListViewModel.editMovieList(listId, newName, newDesc)
             }
+        }
+
+        binding.btnDeleteList.setOnClickListener {
+            showDeleteListConfirmationDialog { movieListViewModel.deleteMovieListById(listId) }
         }
     }
 
@@ -129,6 +140,15 @@ class EditListFragment : Fragment() {
                 dialog.dismiss()
                 onPositiveClick?.invoke()
             }
+            .show()
+    }
+
+    private fun showDeleteListConfirmationDialog(onConfirm: () -> Unit) {
+        android.app.AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle("Delete List")
+            .setMessage("Are you sure you want to delete this list?")
+            .setPositiveButton("Yes") { _, _ -> onConfirm() }
+            .setNegativeButton("No", null)
             .show()
     }
 
