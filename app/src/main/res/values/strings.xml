@@ -80,4 +80,7 @@
     <string name="blended">Blended!</string>
     <string name="other_empty_list">This movie list is empty.</string>
     <string name="by_username">by %1$s</string>
+    <string name="edit_movie_list">Edit Movie List</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
 </resources>

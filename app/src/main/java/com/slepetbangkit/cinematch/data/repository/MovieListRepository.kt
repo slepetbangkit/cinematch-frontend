@@ -35,6 +35,19 @@ class MovieListRepository (
         return apiService.deleteListById("Bearer $accessToken", listId)
     }
 
+    suspend fun editMovieList(listId: String, title: String, desc: String): PlaylistsItem {
+        val accessToken = sessionRepository.getAccessToken()
+        val request = UpdatePlaylistRequest(
+            title = title,
+            description = desc
+        )
+        return apiService.updatePlaylist(
+            "Bearer $accessToken",
+            listId,
+            request
+        )
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: MovieListRepository? = null

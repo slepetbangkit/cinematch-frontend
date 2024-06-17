@@ -30,6 +30,9 @@ class MovieListViewModel(
     private val _isDeleted = MutableLiveData<Boolean>()
     val isDeleted: LiveData<Boolean> = _isDeleted
 
+    private val _isEdited = MutableLiveData<Boolean>()
+    val isEdited: LiveData<Boolean> = _isEdited
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -95,6 +98,26 @@ class MovieListViewModel(
                 _isLoading.value = true
                 movieListRepository.deleteMovieListById(listId)
                 _isDeleted.value = true
+            } catch (e: HttpException) {
+                if (e.code() == 401) {
+                    sessionRepository.refresh()
+                    getMovieListDetails(listId)
+                } else {
+                    _error.value = e.message()
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun editMovieList(listId: String, title: String, desc: String) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                val listResponse = movieListRepository.editMovieList(listId, title, desc)
+                _movieListDetails.value = listResponse
+                _isEdited.value = true
             } catch (e: HttpException) {
                 if (e.code() == 401) {
                     sessionRepository.refresh()

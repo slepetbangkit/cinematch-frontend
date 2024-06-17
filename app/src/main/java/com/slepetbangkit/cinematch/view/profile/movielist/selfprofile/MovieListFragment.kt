@@ -25,7 +25,6 @@ class MovieListFragment : Fragment() {
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var movieListViewModel: MovieListViewModel
     private lateinit var selfProfileMovieListAdapter: SelfProfileMovieListAdapter
     private lateinit var navController: NavController
@@ -112,6 +111,7 @@ class MovieListFragment : Fragment() {
                 showDeleteListConfirmationDialog { movieListViewModel.deleteMovieListById(movie.id) }
             }
 
+            btnEditList.visibility = if (movie.isFavorite) View.GONE else View.VISIBLE
             btnBack.setOnClickListener { navController.navigateUp() }
         }
         selfProfileMovieListAdapter.submitList(movie.movies)
@@ -129,6 +129,11 @@ class MovieListFragment : Fragment() {
                 showRemoveMovieConfirmationDialog { movieListViewModel.deleteMovieById(listId, data.tmdbId) }
             }
         })
+
+        binding.btnEditList.setOnClickListener {
+            val bundle = Bundle().apply { putString("listId", listId) }
+            navController.navigate(R.id.action_navigation_movie_list_to_editListFragment, bundle)
+        }
     }
 
     private fun showDeleteListConfirmationDialog(onConfirm: () -> Unit) {

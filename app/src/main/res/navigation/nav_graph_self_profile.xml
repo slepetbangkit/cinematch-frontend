@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment2"
             app:destination="@id/navigation_movie_details" />
+        <action
+            android:id="@+id/action_navigation_movie_list_to_editListFragment"
+            app:destination="@id/editListFragment" />
     </fragment>
 
     <fragment
@@ -110,4 +113,8 @@
             android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
             app:destination="@id/navigation_movie_details" />
     </fragment>
+    <fragment
+        android:id="@+id/editListFragment"
+        android:name="com.slepetbangkit.cinematch.view.profile.movielist.editlist.EditListFragment"
+        android:label="EditListFragment" />
 </navigation>
