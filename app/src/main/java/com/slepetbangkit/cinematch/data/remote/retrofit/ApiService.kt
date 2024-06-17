@@ -154,4 +154,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("list_id") listId: String
     ): MessageResponse
+
+    @GET("/movies/playlists/")
+    suspend fun getListUser(
+        @Header("Authorization") token: String,
+    ): List<PlaylistsItem>
 }

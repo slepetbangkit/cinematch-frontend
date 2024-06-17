@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.CastItem
 import com.slepetbangkit.cinematch.databinding.ItemCastCrewBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class CastAdapter: ListAdapter<CastItem, CastAdapter.CastViewHolder>(DIFF_CALLBACK) {
 
@@ -26,7 +27,7 @@ class CastAdapter: ListAdapter<CastItem, CastAdapter.CastViewHolder>(DIFF_CALLBA
         fun bind(castItem: CastItem) {
             binding.nameCastCrew.text = castItem.name
             binding.detailCastCrew.text = castItem.character
-            Glide.with(binding.photoCastCrew.context)
+            GlideApp.with(binding.photoCastCrew.context)
                 .load(castItem.profileUrl)
                 .placeholder(R.drawable.profile_placeholder)
                 .error(R.drawable.profile_placeholder)

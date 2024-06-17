@@ -16,6 +16,7 @@ import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -41,7 +42,7 @@ class UserAdapter: ListAdapter<UsersItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
     class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: UsersItem) {
             if (user.profilePicture != null) {
-                Glide.with(binding.ivProfilePicture.context)
+                GlideApp.with(binding.ivProfilePicture.context)
                     .load(user.profilePicture)
                     .error(R.drawable.account_circle_24)
                     .circleCrop()

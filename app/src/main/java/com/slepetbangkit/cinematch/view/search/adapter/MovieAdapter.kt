@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.databinding.ItemSearchMovieBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class MovieAdapter: ListAdapter<MovieSearchResponseItem, MovieAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -35,7 +36,7 @@ class MovieAdapter: ListAdapter<MovieSearchResponseItem, MovieAdapter.MyViewHold
 
     class MyViewHolder(val binding: ItemSearchMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieSearchResponseItem) {
-            Glide.with(binding.moviePosterIv.context)
+            GlideApp.with(binding.moviePosterIv.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)

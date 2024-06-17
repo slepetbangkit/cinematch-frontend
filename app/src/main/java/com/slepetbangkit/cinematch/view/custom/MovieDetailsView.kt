@@ -16,8 +16,10 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.CastItem
 import com.slepetbangkit.cinematch.data.remote.response.CrewItem
+import com.slepetbangkit.cinematch.data.remote.response.PlaylistItem
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ViewMovieDetailsBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.CastAdapter
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.CrewAdapter
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.SimilarMoviesAdapter
@@ -37,7 +39,7 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     fun setMoviePoster(url: String) {
-        Glide.with(binding.moviePosterIv.context)
+        GlideApp.with(binding.moviePosterIv.context)
             .load(url)
             .placeholder(R.drawable.poster_empty_placeholder)
             .error(R.drawable.image_broken_poster)
@@ -98,7 +100,7 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     fun setTrailerBackdrop(backdropUrl: String) {
-        Glide.with(binding.trailerIb.context)
+        GlideApp.with(binding.trailerIb.context)
             .load(backdropUrl)
             .placeholder(R.drawable.trailer_placeholder)
             .error(R.drawable.trailer_placeholder)
@@ -215,6 +217,17 @@ class MovieDetailsView @JvmOverloads constructor(
          } else {
              binding.releaseDateTv.text = formatReleaseDate(releaseDate)
          }
+    }
+
+    fun setAddToListButton(tmdbId: Int) {
+        binding.addToListIb.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("tmdbId", tmdbId)
+
+            }
+            val navController = findNavController()
+            navController.navigate(R.id.action_navigation_movie_details_to_addToListFragment, bundle)
+        }
     }
 
     @SuppressLint("StringFormatMatches")

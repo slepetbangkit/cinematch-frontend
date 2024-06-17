@@ -35,7 +35,7 @@ data class MovieDetailsResponse(
 	val runtime: Int,
 
 	@field:SerializedName("in_playlists")
-	val inPlaylists: List<Any>,
+	val inPlaylists: List<PlaylistItem>,
 
 	@field:SerializedName("title")
 	val title: String,
@@ -96,4 +96,19 @@ data class CrewItem(
 
 	@field:SerializedName("job")
 	val job: String
+)
+
+data class PlaylistItem(
+
+	@field:SerializedName("id")
+	val id: String,
+
+	@field:SerializedName("title")
+	val title: String,
+
+	@field:SerializedName("description")
+	val description: String,
+
+	@field:SerializedName("poster_url")
+	val posterUrl: String
 )

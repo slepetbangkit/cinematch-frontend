@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_to_reviewFragment"
             app:destination="@id/navigation_review" />
+        <action
+            android:id="@+id/action_navigation_movie_details_to_addToListFragment"
+            app:destination="@id/addToListFragment" />
     </fragment>
 
     <fragment
@@ -141,4 +144,8 @@
             android:id="@+id/action_navigation_movie_list_other_to_movieDetailsFragment"
             app:destination="@id/navigation_movie_details" />
     </fragment>
+    <fragment
+        android:id="@+id/addToListFragment"
+        android:name="com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddToListFragment"
+        android:label="AddToListFragment" />
 </navigation>

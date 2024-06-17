@@ -15,22 +15,10 @@
         android:theme="@style/Theme.Cinematch"
         tools:targetApi="31">
         <activity
-            android:name=".view.login.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.review.ReviewActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.testing.TestingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.activity.ActivityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"
@@ -41,9 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.profile.ProfileActivity"
-            android:exported="false" />
         <activity
             android:name=".view.register.RegisterActivity"
             android:exported="false" />

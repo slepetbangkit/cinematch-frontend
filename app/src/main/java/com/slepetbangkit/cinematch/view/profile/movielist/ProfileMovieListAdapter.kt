@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
 import com.slepetbangkit.cinematch.databinding.ItemListBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class ProfileMovieListAdapter : ListAdapter<PlaylistsItem, ProfileMovieListAdapter.MyViewHolder>(
     DIFF_CALLBACK
@@ -42,13 +43,13 @@ class ProfileMovieListAdapter : ListAdapter<PlaylistsItem, ProfileMovieListAdapt
             binding.descriptionTv.text = list.description
 
             if (list.movies.isNotEmpty()) {
-                Glide.with(binding.moviePosterIv.context)
+                GlideApp.with(binding.moviePosterIv.context)
                     .load(list.movies[0].posterUrl)
                     .placeholder(R.drawable.poster_empty_placeholder)
                     .error(R.drawable.image_broken_poster)
                     .into(binding.moviePosterIv)
             } else {
-                Glide.with(binding.moviePosterIv.context)
+                GlideApp.with(binding.moviePosterIv.context)
                     .load(R.drawable.poster_list_placeholder)
                     .placeholder(R.drawable.poster_empty_placeholder)
                     .into(binding.moviePosterIv)

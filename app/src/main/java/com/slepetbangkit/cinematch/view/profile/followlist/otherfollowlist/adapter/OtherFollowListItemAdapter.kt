@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.databinding.ItemUserBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class OtherFollowListItemAdapter: ListAdapter<FollowListItem, OtherFollowListItemAdapter.FollowListHolder>(
     DIFF_CALLBACK
@@ -36,7 +37,7 @@ class OtherFollowListItemAdapter: ListAdapter<FollowListItem, OtherFollowListIte
     class FollowListHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: FollowListItem) {
             if (user.profilePicture != null) {
-                Glide.with(binding.ivProfilePicture.context)
+                GlideApp.with(binding.ivProfilePicture.context)
                     .load(user.profilePicture)
                     .error(R.drawable.account_circle_24)
                     .circleCrop()
