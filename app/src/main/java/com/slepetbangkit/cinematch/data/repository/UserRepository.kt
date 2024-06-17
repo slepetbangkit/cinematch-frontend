@@ -5,6 +5,10 @@ import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.Multipart
+import java.io.File
 
 class UserRepository(
     private val sessionRepository: SessionRepository,
@@ -21,10 +25,14 @@ class UserRepository(
         return apiService.getProfile("Bearer $accessToken", username)
     }
 
-    suspend fun updateSelfProfile(newUsername: String, newBio: String): MessageResponse {
+    suspend fun updateSelfProfile(
+        newUsername: RequestBody?,
+        newBio: RequestBody?,
+        profilePicture: MultipartBody.Part?
+    ): MessageResponse {
         val accessToken = sessionRepository.getAccessToken()
         val username = sessionRepository.getUsername()
-        return apiService.updateSelfProfile("Bearer $accessToken", username, newUsername, newBio)
+        return apiService.updateSelfProfile("Bearer $accessToken", username, newUsername, newBio, profilePicture)
     }
 
     suspend fun getSelfFollowList(): FollowListResponse {

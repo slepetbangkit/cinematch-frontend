@@ -49,7 +49,7 @@ class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewH
         fun bind(activity: ActivitiesItem) {
             GlideApp.with(binding.ivProfilePicture.context)
                 .load(activity.profilePicture)
-                .error(R.drawable.baseline_account_circle_24)
+                .error(R.drawable.account_circle_24)
                 .circleCrop()
                 .into(binding.ivProfilePicture)
             binding.activityTv.text = activity.description

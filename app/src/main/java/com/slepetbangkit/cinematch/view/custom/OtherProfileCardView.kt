@@ -31,7 +31,7 @@ class OtherProfileCardView @JvmOverloads constructor(
 
         GlideApp.with(binding.imgProfile.context)
             .load(imageUrl)
-            .error(R.drawable.baseline_account_circle_24)
+            .error(R.drawable.account_circle_24)
             .circleCrop()
             .into(binding.imgProfile)
     }

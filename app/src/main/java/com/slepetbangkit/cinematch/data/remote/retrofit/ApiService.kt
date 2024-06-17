@@ -101,24 +101,15 @@ interface ApiService {
         @Path("username") username: String
     ): ProfileResponse
 
-    @FormUrlEncoded
+    @Multipart
     @PATCH("user/profile/{username}/")
     suspend fun updateSelfProfile(
         @Header("Authorization") token: String,
         @Path("username") username: String,
-        @Field("username") newUsername: String,
-        @Field("bio") newBio: String
+        @Part("username") newUsername: RequestBody?,
+        @Part("bio") newBio: RequestBody?,
+        @Part image: MultipartBody.Part?
     ): MessageResponse
-
-//    @Multipart
-//    @PATCH("user/profile/{username}/")
-//    suspend fun updateSelfProfile(
-//        @Header("Authorization") token: String,
-//        @Path("username") username: String,
-//        @Part("username") newUsername: RequestBody?,
-//        @Part("bio") newBio: RequestBody?,
-//        @Part image: MultipartBody.Part?
-//    ): MessageResponse
 
     @GET("user/profile/{username}/following/")
     suspend fun getFollowList(

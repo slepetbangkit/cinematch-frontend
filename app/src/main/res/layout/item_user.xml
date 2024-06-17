@@ -18,7 +18,7 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:contentDescription="@string/username"
-            android:src="@drawable/baseline_account_circle_24" />
+            android:src="@drawable/account_circle_24" />
 
         <TextView
             android:id="@+id/tv_username"
