@@ -19,6 +19,7 @@ import com.slepetbangkit.cinematch.data.remote.response.CrewItem
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistItem
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ViewMovieDetailsBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.CastAdapter
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.CrewAdapter
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.SimilarMoviesAdapter
@@ -38,7 +39,7 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     fun setMoviePoster(url: String) {
-        Glide.with(binding.moviePosterIv.context)
+        GlideApp.with(binding.moviePosterIv.context)
             .load(url)
             .placeholder(R.drawable.poster_empty_placeholder)
             .error(R.drawable.image_broken_poster)
@@ -99,7 +100,7 @@ class MovieDetailsView @JvmOverloads constructor(
     }
 
     fun setTrailerBackdrop(backdropUrl: String) {
-        Glide.with(binding.trailerIb.context)
+        GlideApp.with(binding.trailerIb.context)
             .load(backdropUrl)
             .placeholder(R.drawable.trailer_placeholder)
             .error(R.drawable.trailer_placeholder)

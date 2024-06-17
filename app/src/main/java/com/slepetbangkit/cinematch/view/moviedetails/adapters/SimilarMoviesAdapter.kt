@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ItemMoviePosterBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 
 class SimilarMoviesAdapter(private val onClick: (SimilarMoviesItem) -> Unit) :
     ListAdapter<SimilarMoviesItem, SimilarMoviesAdapter.MoviesViewHolder>(DIFF_CALLBACK) {
@@ -28,7 +29,7 @@ class SimilarMoviesAdapter(private val onClick: (SimilarMoviesItem) -> Unit) :
         private val onClick: (SimilarMoviesItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieItem: SimilarMoviesItem) {
-            Glide.with(binding.moviePoster.context)
+            GlideApp.with(binding.moviePoster.context)
                 .load(movieItem.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
