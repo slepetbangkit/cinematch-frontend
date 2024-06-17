@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.core.splashscreen)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -74,8 +75,8 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
-    implementation("com.github.bumptech.glide:annotations:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation(libs.annotations)
+    kapt(libs.compiler)
 
     // Pager
     implementation(libs.material.v140)
