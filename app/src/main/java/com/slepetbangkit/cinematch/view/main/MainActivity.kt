@@ -42,23 +42,6 @@ class MainActivity : AppCompatActivity() {
                 setupNavBar()
             }
         }
-
-        // Handle the back button press
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                val navController = navHostFragment.navController
-
-                // Check if we are not on the home screen
-                if (navController.currentDestination?.id != R.id.nav_graph_home) {
-                    // Navigate to the home screen
-                    navController.popBackStack(R.id.nav_graph_home, false)
-                } else {
-                    // If already on home screen, finish the activity
-                    finish()
-                }
-            }
-        })
     }
 
     private fun setupNavBar() {
