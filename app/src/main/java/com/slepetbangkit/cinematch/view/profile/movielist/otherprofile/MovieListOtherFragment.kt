@@ -68,7 +68,11 @@ class MovieListOtherFragment : Fragment() {
             movie.apply {
                 otherProfileMovieListAdapter = OtherProfileMovieListAdapter()
                 binding.rvMovies.apply {
-                    layoutManager = LinearLayoutManager(context)
+                    layoutManager = object : LinearLayoutManager(context) {
+                        override fun canScrollVertically(): Boolean {
+                            return false
+                        }
+                    }
                     adapter = otherProfileMovieListAdapter
                 }
                 otherProfileMovieListAdapter.submitList(movies)
