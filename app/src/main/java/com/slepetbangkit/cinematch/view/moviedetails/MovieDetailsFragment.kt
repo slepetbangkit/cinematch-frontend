@@ -12,11 +12,15 @@ import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
+import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieDetailsBinding
 import com.slepetbangkit.cinematch.di.Injection
+import com.slepetbangkit.cinematch.factories.MovieListViewModelFactory
 import com.slepetbangkit.cinematch.factories.MovieViewModelFactory
+import com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddMovieToListViewModel
+import com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddToListAdapter
 
 class MovieDetailsFragment : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -71,6 +75,7 @@ class MovieDetailsFragment : Fragment() {
                 binding.movieDetailsView.setReleaseDate(releaseDate)
                 binding.movieDetailsView.setRuntime(runtime)
                 binding.movieDetailsView.setReviewButtonClickListener(tmdbId, title, releaseDate)
+                binding.movieDetailsView.setAddToListButton(tmdbId)
                 setupSimilarMovies(similarMovies)
             }
         }
@@ -100,6 +105,12 @@ class MovieDetailsFragment : Fragment() {
             navController.navigate(R.id.action_movieDetailsFragment_self, bundle)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        movieDetailsViewModel.fetchMovieDetails()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

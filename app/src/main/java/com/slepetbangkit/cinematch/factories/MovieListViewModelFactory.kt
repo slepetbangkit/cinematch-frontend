@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
+import com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddMovieToListViewModel
 import com.slepetbangkit.cinematch.view.profile.movielist.MovieListViewModel
 import com.slepetbangkit.cinematch.view.profile.movielist.adapters.CreateMovieListViewModel
 
@@ -26,6 +27,9 @@ class MovieListViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(CreateMovieListViewModel::class.java) -> {
                 CreateMovieListViewModel(movieListRepository) as T
+            }
+            modelClass.isAssignableFrom(AddMovieToListViewModel::class.java) -> {
+                AddMovieToListViewModel(sessionRepository, movieListRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

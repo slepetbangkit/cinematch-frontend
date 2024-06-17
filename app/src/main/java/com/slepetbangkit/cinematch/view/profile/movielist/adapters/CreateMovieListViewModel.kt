@@ -25,7 +25,6 @@ class CreateMovieListViewModel(private val movieListRepository: MovieListReposit
     ) {
         viewModelScope.launch {
             _isLoading.value = true
-
             try {
                 val response = movieListRepository.createNewMovieList(name)
                 _createMovieListResult.value = response

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.CastItem
 import com.slepetbangkit.cinematch.data.remote.response.CrewItem
+import com.slepetbangkit.cinematch.data.remote.response.PlaylistItem
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ViewMovieDetailsBinding
 import com.slepetbangkit.cinematch.view.moviedetails.adapters.CastAdapter
@@ -215,6 +216,17 @@ class MovieDetailsView @JvmOverloads constructor(
          } else {
              binding.releaseDateTv.text = formatReleaseDate(releaseDate)
          }
+    }
+
+    fun setAddToListButton(tmdbId: Int) {
+        binding.addToListIb.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("tmdbId", tmdbId)
+
+            }
+            val navController = findNavController()
+            navController.navigate(R.id.action_navigation_movie_details_to_addToListFragment, bundle)
+        }
     }
 
     @SuppressLint("StringFormatMatches")

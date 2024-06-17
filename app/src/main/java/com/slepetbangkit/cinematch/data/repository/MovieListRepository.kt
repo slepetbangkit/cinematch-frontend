@@ -10,6 +10,12 @@ class MovieListRepository (
     private val sessionRepository: SessionRepository,
     private val apiService: ApiService
 ) {
+
+    suspend fun getMovieList(): List<PlaylistsItem> {
+        val accessToken = sessionRepository.getAccessToken()
+        return apiService.getListUser("Bearer $accessToken")
+    }
+
     suspend fun getMovieListDetails(listId: String): PlaylistsItem {
         val accessToken = sessionRepository.getAccessToken()
         return apiService.getMovieListDetails("Bearer $accessToken", listId)
@@ -30,10 +36,21 @@ class MovieListRepository (
         )
     }
 
+    suspend fun addMovieById(listId: String, tmdbId: Int): PlaylistsItem {
+        val accessToken = sessionRepository.getAccessToken()
+        val request = UpdatePlaylistRequest(new_movie_tmdb_id = listOf(tmdbId))
+        return apiService.updatePlaylist(
+            "Bearer $accessToken",
+            listId,
+            request
+        )
+    }
+
     suspend fun deleteMovieListById(listId: String): MessageResponse {
         val accessToken = sessionRepository.getAccessToken()
         return apiService.deleteListById("Bearer $accessToken", listId)
     }
+
 
     suspend fun editMovieList(listId: String, title: String, desc: String): PlaylistsItem {
         val accessToken = sessionRepository.getAccessToken()

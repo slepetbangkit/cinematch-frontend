@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_list_poster"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/poster_empty_placeholder"
@@ -24,31 +25,34 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_list_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plus_jakarta_sans_bold"
-                android:textColor="@color/on_primary"
+                android:textColor="@color/on_neutral"
                 android:textSize="13sp"
-                android:text="List Title"/>
+                tools:text="List Title"/>
             <TextView
+                android:id="@+id/tv_movie_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plus_jakarta_sans_regular"
-                android:textColor="@color/on_primary"
+                android:textColor="@color/on_neutral"
                 android:textSize="11sp"
-                android:text="24 movies"/>
+                tools:text="24 movies"/>
         </LinearLayout>
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_add_to_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:buttonTint="@color/on_primary"/>
+            app:buttonTint="@color/primary"
+            app:buttonIconTint="@color/on_primary"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="16dp"
-        android:background="@color/primary_variant"
-        android:alpha="0.125"/>
+        android:background="@color/neutral_variant"/>
 </LinearLayout>
