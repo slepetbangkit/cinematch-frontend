@@ -41,6 +41,10 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener {
+            navController.navigateUp()
+        }
+
         binding.aboutUsBtn.setOnClickListener {
             navController.navigate(R.id.action_navigation_settings_to_navigation_about_us)
         }

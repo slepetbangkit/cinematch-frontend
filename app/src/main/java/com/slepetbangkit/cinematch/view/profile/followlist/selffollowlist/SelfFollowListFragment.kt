@@ -48,6 +48,10 @@ class SelfFollowListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         lifecycleScope.launch {
             binding.usernameTv.text = sessionRepository.getUsername()
         }
