@@ -157,4 +157,10 @@ interface ApiService {
         @Path("list_id") listId: String,
         @Body request: UpdatePlaylistRequest
     ): PlaylistsItem
+
+    @DELETE("/movies/playlists/{list_id}/")
+    suspend fun deleteListById(
+        @Header("Authorization") token: String,
+        @Path("list_id") listId: String
+    ): MessageResponse
 }

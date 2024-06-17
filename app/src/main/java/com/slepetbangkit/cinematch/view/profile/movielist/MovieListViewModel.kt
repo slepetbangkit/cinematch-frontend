@@ -27,6 +27,9 @@ class MovieListViewModel(
     private val _movies = MutableLiveData<List<MoviesItem>>()
     val movies: LiveData<List<MoviesItem>> get() = _movies
 
+    private val _isDeleted = MutableLiveData<Boolean>()
+    val isDeleted: LiveData<Boolean> = _isDeleted
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -73,6 +76,25 @@ class MovieListViewModel(
                 val listResponse = movieListRepository.deleteMovieById(listId, tmdbId)
                 _movieListDetails.value = listResponse
                 _movies.value = listResponse.movies
+            } catch (e: HttpException) {
+                if (e.code() == 401) {
+                    sessionRepository.refresh()
+                    getMovieListDetails(listId)
+                } else {
+                    _error.value = e.message()
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun deleteMovieListById(listId: String) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                movieListRepository.deleteMovieListById(listId)
+                _isDeleted.value = true
             } catch (e: HttpException) {
                 if (e.code() == 401) {
                     sessionRepository.refresh()

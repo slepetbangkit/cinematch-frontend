@@ -60,7 +60,8 @@
             android:layout_marginStart="16dp"
             android:background="@null"
             android:layout_gravity="center"
-            android:src="@drawable/remove_movie_24px" />
+            android:src="@drawable/remove_movie_24px"
+            app:tint="@color/error" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

@@ -1,13 +1,11 @@
-package com.slepetbangkit.cinematch.view.profile.movielist.create
+package com.slepetbangkit.cinematch.view.profile.movielist.adapters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
-import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
-import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

@@ -39,7 +39,7 @@ class ProfileMovieListAdapter : ListAdapter<PlaylistsItem, ProfileMovieListAdapt
         fun bind(list: PlaylistsItem) {
             binding.titleTv.text = list.title
             binding.countTv.text = "${list.movies.count()} movies"
-            //binding.descriptionTv.text = list.description
+            binding.descriptionTv.text = list.description
 
             if (list.movies.isNotEmpty()) {
                 Glide.with(binding.moviePosterIv.context)

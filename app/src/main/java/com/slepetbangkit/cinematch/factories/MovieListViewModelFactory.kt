@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.view.profile.movielist.MovieListViewModel
-import com.slepetbangkit.cinematch.view.profile.movielist.create.CreateMovieListViewModel
+import com.slepetbangkit.cinematch.view.profile.movielist.adapters.CreateMovieListViewModel
 
 class MovieListViewModelFactory private constructor(
     private val sessionRepository: SessionRepository,

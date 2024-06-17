@@ -74,7 +74,12 @@ class MovieListOtherFragment : Fragment() {
                 otherProfileMovieListAdapter.submitList(movies)
 
                 binding.tvTitle.text = title
-                binding.tvUser.text = username
+                binding.tvUser.text = getString(R.string.by_username, movie.username)
+
+                binding.tvDesc.visibility = if (movie.description.isEmpty()) View.GONE else View.VISIBLE
+                binding.tvDesc.text = movie.description
+
+                binding.btnBack.setOnClickListener { navController.navigateUp() }
 
                 otherProfileMovieListAdapter.setOnItemClickCallback(object : OtherProfileMovieListAdapter.OnItemClickCallback {
                     override fun onItemClicked(data: MoviesItem) {
@@ -91,7 +96,7 @@ class MovieListOtherFragment : Fragment() {
 
         movieListViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.rvMovies.visibility = if (isLoading) View.GONE else View.VISIBLE
+            binding.movieListContainer.visibility = if (isLoading) View.GONE else View.VISIBLE
         }
 
         movieListViewModel.movies.observe(viewLifecycleOwner) { movies ->
