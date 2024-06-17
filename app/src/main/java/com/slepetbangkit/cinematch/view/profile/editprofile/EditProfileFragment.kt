@@ -79,6 +79,12 @@ class EditProfileFragment : Fragment() {
 
     private fun setupObservers() {
         selfProfileViewModel.profile.observe(viewLifecycleOwner) {
+            GlideApp.with(binding.imgProfile.context)
+                .load(it.profilePicture)
+                .error(R.drawable.account_circle_24)
+                .circleCrop()
+                .into(binding.imgProfile)
+
             oldUsername = it.username
             binding.edtUname.setText(it.username)
 

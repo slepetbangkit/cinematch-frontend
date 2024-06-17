@@ -15,7 +15,11 @@
             app:destination="@id/navigation_settings" />
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_edit_profile"
-            app:destination="@id/navigation_edit_profile" />
+            app:destination="@id/navigation_edit_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_self_profile_to_navigation_self_follow_list"
             app:destination="@id/navigation_self_follow_list" />

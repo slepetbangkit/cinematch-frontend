@@ -67,11 +67,7 @@ class SelfProfileFragment : Fragment() {
 
         movieListAdapter = ProfileMovieListAdapter()
         binding.movieListRv.apply {
-            layoutManager = object : LinearLayoutManager(context) {
-                override fun canScrollVertically(): Boolean {
-                    return false
-                }
-            }
+            layoutManager = LinearLayoutManager(context)
             adapter = movieListAdapter
         }
 
@@ -89,16 +85,14 @@ class SelfProfileFragment : Fragment() {
 
         selfProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                binding.profileCard.visibility = View.GONE
-                binding.listsTv.visibility = View.GONE
-                binding.btnAddMovielist.visibility = View.GONE
+                binding.profileCard.visibility = View.INVISIBLE
+                binding.listsTv.visibility = View.INVISIBLE
+                binding.btnAddMovielist.visibility = View.INVISIBLE
                 binding.shimmerViewContainer.let {
                     it.startShimmer()
                     it.visibility = View.VISIBLE
                 }
-                binding.movieListRv.visibility = View.GONE
-                binding.btnAddMovielist.visibility = View.GONE
-                binding.listsTv.visibility = View.GONE
+                binding.movieListRv.visibility = View.INVISIBLE
             } else {
                 binding.profileCard.visibility = View.VISIBLE
                 binding.listsTv.visibility = View.VISIBLE
@@ -108,8 +102,6 @@ class SelfProfileFragment : Fragment() {
                     it.visibility = View.GONE
                 }
                 binding.movieListRv.visibility = View.VISIBLE
-                binding.btnAddMovielist.visibility = View.VISIBLE
-                binding.listsTv.visibility = View.VISIBLE
             }
         }
 

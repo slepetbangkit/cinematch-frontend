@@ -69,11 +69,7 @@ class OtherProfileFragment : Fragment() {
 
         movieListAdapter = ProfileMovieListAdapter()
         binding.movieListRv.apply {
-            layoutManager = object : LinearLayoutManager(context) {
-                override fun canScrollVertically(): Boolean {
-                    return false
-                }
-            }
+            layoutManager = LinearLayoutManager(context)
             adapter = movieListAdapter
         }
 
