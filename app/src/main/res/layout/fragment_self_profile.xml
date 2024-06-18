@@ -20,21 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible"/>
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <include
-            layout="@layout/skeleton_profile_card" />
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
     <TextView
         android:id="@+id/lists_tv"
         android:layout_width="wrap_content"
@@ -48,6 +33,7 @@
         app:layout_constraintStart_toStartOf="@id/profile_card"
         app:layout_constraintTop_toBottomOf="@id/profile_card"
         tools:visibility="visible"/>
+
 
     <com.google.android.material.button.MaterialButton
         style="@style/ButtonNeutral"
@@ -77,4 +63,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_list" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <include
+            layout="@layout/skeleton_profile" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

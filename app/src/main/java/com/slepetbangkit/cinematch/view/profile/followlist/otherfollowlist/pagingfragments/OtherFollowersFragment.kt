@@ -87,7 +87,15 @@ class OtherFollowersFragment : Fragment() {
         }
 
         otherFollowListViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.shimmerViewContainer.let {
+                if (isLoading) {
+                    it.startShimmer()
+                    it.visibility = View.VISIBLE
+                } else {
+                    it.stopShimmer()
+                    it.visibility = View.GONE
+                }
+            }
         }
     }
 
