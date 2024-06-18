@@ -21,6 +21,7 @@ class ReviewDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
     private lateinit var movieRepository: MovieRepository
+    private lateinit var factory: ReviewDetailsViewModelFactory
     private lateinit var reviewDetailViewModel: ReviewDetailViewModel
 
     override fun onCreateView(
@@ -34,7 +35,8 @@ class ReviewDetailFragment : Fragment() {
         _binding = FragmentReviewDetailBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         movieRepository = Injection.provideMovieRepository(requireContext())
-        val factory = ReviewDetailsViewModelFactory.getInstance(sessionRepository, movieRepository, reviewId)
+        factory = ReviewDetailsViewModelFactory.getInstance(sessionRepository, movieRepository)
+        factory.updateReviewId(reviewId)
 
         reviewDetailViewModel = ViewModelProvider(this, factory)[ReviewDetailViewModel::class.java]
 

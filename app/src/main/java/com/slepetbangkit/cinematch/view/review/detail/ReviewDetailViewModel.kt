@@ -18,9 +18,6 @@ class ReviewDetailViewModel (
     private val movieRepository: MovieRepository,
     private val review: String
 ) : ViewModel() {
-    private val _reviewId = MutableLiveData<String>()
-    val reviewId: LiveData<String> = _reviewId
-
     private val _reviewDetails = MutableLiveData<ReviewDetailsResponse>()
     val reviewDetails: LiveData<ReviewDetailsResponse> get() = _reviewDetails
 
@@ -32,8 +29,6 @@ class ReviewDetailViewModel (
 
     init {
         viewModelScope.launch {
-            _reviewId.value = review
-
             getReviewDetails()
         }
     }

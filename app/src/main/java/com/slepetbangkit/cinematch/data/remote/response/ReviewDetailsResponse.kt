@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class ReviewDetailsResponse(
 
 	@field:SerializedName("data")
-	val data: Data,
+	val data: ReviewDetailsData,
 
 	@field:SerializedName("error")
 	val error: Boolean
 )
 
-data class Data(
+data class ReviewDetailsData(
 
 	@field:SerializedName("sentiment")
 	val sentiment: String,

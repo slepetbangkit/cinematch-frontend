@@ -50,5 +50,8 @@ data class ReviewsItem(
 	val user: String,
 
 	@field:SerializedName("username")
-	val username: String
+	val username: String,
+
+	@field:SerializedName("profile_picture")
+	val profilePicture: String
 )

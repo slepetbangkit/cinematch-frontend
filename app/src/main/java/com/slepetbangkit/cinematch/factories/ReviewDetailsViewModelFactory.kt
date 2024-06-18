@@ -9,8 +9,12 @@ import com.slepetbangkit.cinematch.view.review.detail.ReviewDetailViewModel
 class ReviewDetailsViewModelFactory private constructor(
     private val sessionRepository: SessionRepository,
     private val movieRepository: MovieRepository,
-    private val reviewId: String = ""
 ) : ViewModelProvider.NewInstanceFactory() {
+    private var reviewId: String = ""
+
+    fun updateReviewId(reviewId: String) {
+        this.reviewId = reviewId
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -30,11 +34,10 @@ class ReviewDetailsViewModelFactory private constructor(
         fun getInstance(
             sessionRepository: SessionRepository,
             movieRepository: MovieRepository,
-            reviewId: String
         ): ReviewDetailsViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ReviewDetailsViewModelFactory::class.java) {
-                    INSTANCE = ReviewDetailsViewModelFactory(sessionRepository, movieRepository, reviewId)
+                    INSTANCE = ReviewDetailsViewModelFactory(sessionRepository, movieRepository)
                 }
             }
             return INSTANCE as ReviewDetailsViewModelFactory

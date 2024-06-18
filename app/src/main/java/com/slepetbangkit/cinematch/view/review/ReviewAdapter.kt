@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
 import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.databinding.ItemReviewCardBinding
+import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
 
 class ReviewAdapter : ListAdapter<ReviewsItem, ReviewAdapter.ReviewViewHolder>(DIFF_CALLBACK) {
@@ -33,6 +35,12 @@ class ReviewAdapter : ListAdapter<ReviewsItem, ReviewAdapter.ReviewViewHolder>(D
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(reviewItem: ReviewsItem) {
+            GlideApp.with(binding.ivProfilePicture)
+                .load(reviewItem.profilePicture)
+                .error(R.drawable.account_circle_24)
+                .circleCrop()
+                .into(binding.ivProfilePicture)
+
             binding.tvUsername.text = reviewItem.username
             binding.tvSentiment.text = reviewItem.sentiment
             binding.tvReview.text = reviewItem.description
