@@ -111,5 +111,5 @@
         <item name="cornerSize">10%</item>
     </style>
 
-    <style name="Theme.Cinematch" parent="Base.Theme.Cinematch" />
+    <style name="AppTheme.Light" parent="Base.Theme.Cinematch" />
 </resources>
