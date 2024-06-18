@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
+import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
@@ -72,9 +74,21 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showDiscardDialog()
+            }
+        })
+
         setupObservers()
         setupViews()
         setupTextChangedListeners()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun setupObservers() {
@@ -108,12 +122,7 @@ class EditProfileFragment : Fragment() {
 
         editProfileViewModel.error.observe(viewLifecycleOwner) { error ->
             if (error != null) {
-                AlertDialog.Builder(requireContext(), R.style.AlertDialog)
-                    .setTitle(error)
-                    .setPositiveButton("Try Again") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .show()
+                showErrorDialog(error)
             }
         }
 
@@ -122,27 +131,14 @@ class EditProfileFragment : Fragment() {
                 newUsername?.let { selfProfileViewModel.setProfileUsername(it) }
                 newBio?.let { selfProfileViewModel.setProfileBio(it) }
 
-                AlertDialog.Builder(requireContext(), R.style.AlertDialog)
-                    .setTitle(message.message)
-                    .setPositiveButton("OK") { dialog, _ ->
-                        dialog.dismiss()
-                        navController.navigateUp()
-                    }
-                    .show()
+                showSuccessDialog(message)
             }
         }
     }
 
     private fun setupViews() {
         binding.btnBack.setOnClickListener {
-            AlertDialog.Builder(requireContext(), R.style.AlertDialog)
-                .setTitle("Discard Changes")
-                .setMessage("Are you sure you want to discard changes?")
-                .setPositiveButton("Yes") { _, _ ->
-                    navController.navigateUp()
-                }
-                .setNegativeButton("No", null)
-                .show()
+            showDiscardDialog()
         }
 
         binding.edtImgContainer.setOnClickListener {
@@ -171,5 +167,35 @@ class EditProfileFragment : Fragment() {
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private fun showErrorDialog(error: String) {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle(error)
+            .setPositiveButton("Try Again") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showSuccessDialog(message: MessageResponse) {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle(message.message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+                navController.navigateUp()
+            }
+            .show()
+    }
+
+    private fun showDiscardDialog() {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle("Discard Changes")
+            .setMessage("Are you sure you want to discard changes?")
+            .setPositiveButton("Yes") { _, _ ->
+                navController.navigateUp()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }

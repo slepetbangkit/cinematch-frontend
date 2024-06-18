@@ -29,11 +29,11 @@ class SimilarMoviesAdapter(private val onClick: (SimilarMoviesItem) -> Unit) :
         private val onClick: (SimilarMoviesItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieItem: SimilarMoviesItem) {
-            GlideApp.with(binding.moviePoster.context)
+            GlideApp.with(binding.moviePosterImg.context)
                 .load(movieItem.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
-                .into(binding.moviePoster)
+                .into(binding.moviePosterImg)
 
             binding.root.setOnClickListener {
                 onClick(movieItem)

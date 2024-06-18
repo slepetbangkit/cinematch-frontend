@@ -18,7 +18,7 @@
         app:shapeAppearanceOverlay="@style/RoundedCard" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/movie_poster"
+        android:id="@+id/movie_poster_img"
         android:layout_width="155dp"
         android:layout_height="227dp"
         android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
         android:textColor="@color/on_neutral"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/movie_poster"
+        app:layout_constraintStart_toEndOf="@id/movie_poster_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -53,18 +53,6 @@
         android:text="@string/year"
         app:layout_constraintStart_toStartOf="@id/movie_title_tv"
         app:layout_constraintTop_toBottomOf="@id/movie_title_tv" />
-
-    <TextView
-        android:id="@+id/movie_rating_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
-        android:textColor="@color/primary"
-        android:textSize="13sp"
-        android:text="@string/rating"
-        app:layout_constraintStart_toStartOf="@id/movie_year_tv"
-        app:layout_constraintTop_toBottomOf="@id/movie_year_tv" />
 
     <TextView
         android:id="@+id/movie_review_tv"
@@ -81,8 +69,8 @@
         app:layout_constraintBottom_toTopOf="@+id/profile_img"
         app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/movie_rating_tv"
-        app:layout_constraintTop_toBottomOf="@id/movie_rating_tv" />
+        app:layout_constraintStart_toStartOf="@id/movie_year_tv"
+        app:layout_constraintTop_toBottomOf="@id/movie_year_tv" />
     
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_img"

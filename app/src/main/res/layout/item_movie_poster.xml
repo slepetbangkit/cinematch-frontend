@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/movie_poster"
+        android:id="@+id/movie_poster_img"
         android:layout_width="105dp"
         android:layout_height="155dp"
         android:scaleType="centerCrop"

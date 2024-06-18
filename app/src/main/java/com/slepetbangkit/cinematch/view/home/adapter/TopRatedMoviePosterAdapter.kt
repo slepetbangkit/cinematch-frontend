@@ -5,15 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
-import com.slepetbangkit.cinematch.databinding.ItemLargeMoviePosterBinding
 import com.slepetbangkit.cinematch.databinding.ItemMoviePosterBinding
 import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
-class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedItem, LargeMoviePosterAdapter.MovieCardViewHolder>(
+class TopRatedMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.TopRatedItem, TopRatedMoviePosterAdapter.MovieCardViewHolder>(
     DIFF_CALLBACK
 ) {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -23,7 +20,7 @@ class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedI
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCardViewHolder {
-        val binding = ItemLargeMoviePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMoviePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieCardViewHolder(binding)
     }
 
@@ -35,8 +32,8 @@ class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedI
 //        }
     }
 
-    class MovieCardViewHolder(private val binding: ItemLargeMoviePosterBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: HomeViewModel.Companion.RecommendedItem) {
+    class MovieCardViewHolder(private val binding: ItemMoviePosterBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: HomeViewModel.Companion.TopRatedItem) {
             GlideApp.with(binding.moviePosterImg.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
@@ -46,23 +43,23 @@ class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedI
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: HomeViewModel.Companion.RecommendedItem)
+        fun onItemClicked(data: HomeViewModel.Companion.TopRatedItem)
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HomeViewModel.Companion.RecommendedItem>() {
-            override fun areItemsTheSame(oldItem: HomeViewModel.Companion.RecommendedItem, newItem: HomeViewModel.Companion.RecommendedItem): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HomeViewModel.Companion.TopRatedItem>() {
+            override fun areItemsTheSame(oldItem: HomeViewModel.Companion.TopRatedItem, newItem: HomeViewModel.Companion.TopRatedItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: HomeViewModel.Companion.RecommendedItem, newItem: HomeViewModel.Companion.RecommendedItem): Boolean {
+            override fun areContentsTheSame(oldItem: HomeViewModel.Companion.TopRatedItem, newItem: HomeViewModel.Companion.TopRatedItem): Boolean {
                 return oldItem == newItem
             }
         }
     }
 }
 
-//class LargeMoviePosterAdapter : ListAdapter<SimilarMoviesItem, LargeMoviePosterAdapter.LargeMovieCardViewHolder>(
+//class MoviePosterAdapter : ListAdapter<SimilarMoviesItem, MoviePosterAdapter.MovieCardViewHolder>(
 //    DIFF_CALLBACK
 //) {
 //    private lateinit var onItemClickCallback: OnItemClickCallback
@@ -70,12 +67,13 @@ class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedI
 //    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
 //        this.onItemClickCallback = onItemClickCallback
 //    }
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LargeMovieCardViewHolder {
-//        val binding = ItemLargeMoviePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return LargeMovieCardViewHolder(binding)
+//
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCardViewHolder {
+//        val binding = ItemMoviePosterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//        return MovieCardViewHolder(binding)
 //    }
 //
-//    override fun onBindViewHolder(holder: LargeMovieCardViewHolder, position: Int) {
+//    override fun onBindViewHolder(holder: MovieCardViewHolder, position: Int) {
 //        val movie = getItem(position)
 //        holder.bind(movie)
 //        holder.itemView.setOnClickListener {
@@ -83,7 +81,7 @@ class LargeMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.RecommendedI
 //        }
 //    }
 //
-//    class LargeMovieCardViewHolder(private val binding: ItemLargeMoviePosterBinding) : RecyclerView.ViewHolder(binding.root) {
+//    class MovieCardViewHolder(private val binding: ItemMoviePosterBinding) : RecyclerView.ViewHolder(binding.root) {
 //        fun bind(movie: SimilarMoviesItem) {
 //            GlideApp.with(binding.moviePoster.context)
 //                .load(movie.posterUrl)

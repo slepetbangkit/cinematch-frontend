@@ -47,11 +47,11 @@ class SelfProfileMovieListAdapter: ListAdapter<MoviesItem, SelfProfileMovieListA
 
     class MyViewHolder(val binding: ItemMovieListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MoviesItem) {
-            GlideApp.with(binding.moviePoster.context)
+            GlideApp.with(binding.moviePosterImg.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
-                .into(binding.moviePoster)
+                .into(binding.moviePosterImg)
 
             binding.tvMovieTitle.text = movie.title
 

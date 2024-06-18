@@ -12,7 +12,7 @@ import com.slepetbangkit.cinematch.databinding.FragmentAboutUsBinding
 
 class AboutUsFragment : Fragment() {
     private var _binding: FragmentAboutUsBinding? = null
-    private val binding = _binding!!
+    private val binding get() = _binding!!
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -21,6 +21,7 @@ class AboutUsFragment : Fragment() {
     ): View {
         _binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         navController = findNavController()
+
         return binding.root
     }
 

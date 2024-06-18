@@ -107,15 +107,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_uname" />
 
-    <com.slepetbangkit.cinematch.view.custom.EditText
+    <EditText
         style="@style/EditText"
         android:id="@+id/edt_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:maxLines="3"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:minHeight="48dp"
+        android:gravity="top"
+        android:maxLines="3"
+        android:maxLength="115"
         android:fontFamily="@font/plus_jakarta_sans_regular"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
