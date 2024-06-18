@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingHorizontal="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp">
 
         <!-- Movie Info -->
         <LinearLayout
@@ -203,7 +205,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:scrollbars="horizontal"
             tools:listitem="@layout/item_cast_crew"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
@@ -231,7 +232,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:scrollbars="horizontal"
             tools:listitem="@layout/item_cast_crew"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
@@ -386,7 +386,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:scrollbars="horizontal"
             tools:listitem="@layout/item_movie_poster"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>

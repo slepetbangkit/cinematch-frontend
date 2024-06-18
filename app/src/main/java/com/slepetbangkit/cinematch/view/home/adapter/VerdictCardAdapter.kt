@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.slepetbangkit.cinematch.R
+import com.slepetbangkit.cinematch.data.remote.response.VerdictItem
 import com.slepetbangkit.cinematch.databinding.ItemVerdictCardBinding
 import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
-class VerdictCardAdapter : ListAdapter<HomeViewModel.Companion.VerdictItem, VerdictCardAdapter.VerdictViewHolder>(
-    VerdictCardAdapter.DIFF_CALLBACK
+class VerdictCardAdapter : ListAdapter<VerdictItem, VerdictCardAdapter.VerdictViewHolder>(
+    DIFF_CALLBACK
 ) {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -31,54 +32,54 @@ class VerdictCardAdapter : ListAdapter<HomeViewModel.Companion.VerdictItem, Verd
     override fun onBindViewHolder(holder: VerdictViewHolder, position: Int) {
         val movie = getItem(position)
         holder.bind(movie)
-//        holder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(movie)
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(movie)
+        }
     }
 
     class VerdictViewHolder(private val binding: ItemVerdictCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: HomeViewModel.Companion.VerdictItem) {
+        fun bind(verdict: VerdictItem) {
             GlideApp.with(binding.moviePosterImg.context)
-                .load(movie.posterUrl)
+                .load(verdict.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
                 .into(binding.moviePosterImg)
 
-            binding.movieTitleTv.text = movie.title
-            binding.movieYearTv.text = movie.releaseDate
-            binding.movieReviewTv.text = movie.verdict
+            binding.movieTitleTv.text = verdict.title
+//            binding.movieYearTv.text = verdict.releaseDate
+//            binding.movieReviewTv.text = verdict.reviewId
+//
+//            GlideApp.with(binding.profileImg.context)
+//                .load(movie.profilePicture)
+//                .placeholder(R.drawable.account_circle_24)
+//                .error(R.drawable.account_circle_24)
+//                .circleCrop()
+//                .into(binding.profileImg)
 
-            GlideApp.with(binding.profileImg.context)
-                .load(movie.profilePicture)
-                .placeholder(R.drawable.account_circle_24)
-                .error(R.drawable.account_circle_24)
-                .circleCrop()
-                .into(binding.profileImg)
-
-            binding.usernameTv.text = movie.username
+            binding.usernameTv.text = verdict.username
         }
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: HomeViewModel.Companion.VerdictItem)
+        fun onItemClicked(data: VerdictItem)
     }
 
     companion object {
         private val DIFF_CALLBACK =
-            object : DiffUtil.ItemCallback<HomeViewModel.Companion.VerdictItem>() {
+            object : DiffUtil.ItemCallback<VerdictItem>() {
                 override fun areItemsTheSame(
-                    oldItem: HomeViewModel.Companion.VerdictItem,
-                    newItem: HomeViewModel.Companion.VerdictItem
+                    oldItem: VerdictItem,
+                    newItem: VerdictItem
                 ): Boolean {
-                    return oldItem == newItem
+                    return oldItem.reviewId == newItem.reviewId
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: HomeViewModel.Companion.VerdictItem,
-                    newItem: HomeViewModel.Companion.VerdictItem
+                    oldItem: VerdictItem,
+                    newItem: VerdictItem
                 ): Boolean {
-                    return oldItem == newItem
+                    return oldItem.reviewId == newItem.reviewId
                 }
             }
     }

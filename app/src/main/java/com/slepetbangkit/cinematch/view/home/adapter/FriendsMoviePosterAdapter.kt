@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.slepetbangkit.cinematch.R
+import com.slepetbangkit.cinematch.data.remote.response.FriendsItem
 import com.slepetbangkit.cinematch.databinding.ItemFriendActivityMoviePosterBinding
 import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
-class FriendsMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.FriendsItem, FriendsMoviePosterAdapter.MovieCardViewHolder>(
+class FriendsMoviePosterAdapter : ListAdapter<FriendsItem, FriendsMoviePosterAdapter.MovieCardViewHolder>(
     DIFF_CALLBACK
 ) {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -27,39 +28,39 @@ class FriendsMoviePosterAdapter : ListAdapter<HomeViewModel.Companion.FriendsIte
     override fun onBindViewHolder(holder: MovieCardViewHolder, position: Int) {
         val movie = getItem(position)
         holder.bind(movie)
-//        holder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(movie)
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(movie)
+        }
     }
 
     class MovieCardViewHolder(private val binding: ItemFriendActivityMoviePosterBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: HomeViewModel.Companion.FriendsItem) {
+        fun bind(movie: FriendsItem) {
             GlideApp.with(binding.moviePosterImg.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
                 .error(R.drawable.image_broken_poster)
                 .into(binding.moviePosterImg)
 
-            GlideApp.with(binding.profileImg.context)
-                .load(movie.profilePicture)
-                .placeholder(R.drawable.account_circle_24)
-                .error(R.drawable.account_circle_24)
-                .circleCrop()
-                .into(binding.profileImg)
+//            GlideApp.with(binding.profileImg.context)
+//                .load(movie.profilePicture)
+//                .placeholder(R.drawable.account_circle_24)
+//                .error(R.drawable.account_circle_24)
+//                .circleCrop()
+//                .into(binding.profileImg)
         }
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: HomeViewModel.Companion.FriendsItem)
+        fun onItemClicked(data: FriendsItem)
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HomeViewModel.Companion.FriendsItem>() {
-            override fun areItemsTheSame(oldItem: HomeViewModel.Companion.FriendsItem, newItem: HomeViewModel.Companion.FriendsItem): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FriendsItem>() {
+            override fun areItemsTheSame(oldItem: FriendsItem, newItem: FriendsItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: HomeViewModel.Companion.FriendsItem, newItem: HomeViewModel.Companion.FriendsItem): Boolean {
+            override fun areContentsTheSame(oldItem: FriendsItem, newItem: FriendsItem): Boolean {
                 return oldItem == newItem
             }
         }
