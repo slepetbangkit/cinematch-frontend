@@ -23,7 +23,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="24dp"
         android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:text="@string/uname_placeholder"
+        android:text="@string/username"
         android:textColor="@color/on_neutral"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/img_profile"

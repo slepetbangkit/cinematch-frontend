@@ -10,7 +10,6 @@
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="profile_picture">Profile Picture</string>
-    <string name="uname_placeholder">\@</string>
     <string name="following">Following</string>
     <string name="following_follower_count">0</string>
     <string name="followers">Followers</string>

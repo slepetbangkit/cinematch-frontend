@@ -50,10 +50,7 @@ class SelfProfileCardView @JvmOverloads constructor(
     }
 
     fun setUsername(username: String) {
-        binding.tvUname.text = buildString {
-            append("@")
-            append(username)
-        }
+        binding.tvUname.text = username
     }
 
     fun setBio(bio: String) {
