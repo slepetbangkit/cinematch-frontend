@@ -55,6 +55,12 @@ class AddToListAdapter(
                 binding.cbAddToList.isChecked = newCheckedState
                 onItemToggleCallback(list, newCheckedState)
             }
+
+            binding.cbAddToList.setOnClickListener {
+                val newCheckedState = binding.cbAddToList.isChecked
+                onItemToggleCallback(list, newCheckedState)
+            }
+
         }
     }
 
