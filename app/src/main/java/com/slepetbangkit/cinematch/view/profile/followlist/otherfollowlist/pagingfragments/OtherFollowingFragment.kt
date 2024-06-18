@@ -15,6 +15,7 @@ import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentFollowersBinding
+import com.slepetbangkit.cinematch.databinding.FragmentFollowingBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.OtherProfileViewModelFactory
 import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.OtherFollowListViewModel
@@ -22,8 +23,8 @@ import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.adapt
 import kotlinx.coroutines.launch
 
 class OtherFollowingFragment : Fragment() {
-    private var _binding: FragmentFollowersBinding? = null
-    private val binding: FragmentFollowersBinding get() = _binding!!
+    private var _binding: FragmentFollowingBinding? = null
+    private val binding: FragmentFollowingBinding get() = _binding!!
     private lateinit var sessionRepository: SessionRepository
     private lateinit var userRepository: UserRepository
     private lateinit var factory: OtherProfileViewModelFactory
@@ -40,7 +41,7 @@ class OtherFollowingFragment : Fragment() {
 
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_other_follow_list)
 
-        _binding = FragmentFollowersBinding.inflate(inflater, container, false)
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
         factory = OtherProfileViewModelFactory.getInstance(sessionRepository, userRepository)
@@ -59,7 +60,7 @@ class OtherFollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.followersRv.apply {
+        binding.followingRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = otherFollowListItemAdapter
         }
@@ -80,6 +81,11 @@ class OtherFollowingFragment : Fragment() {
         })
 
         otherFollowListViewModel.followList.observe(viewLifecycleOwner) {
+            if (it.followings.isEmpty()) {
+                binding.tvNoFollowing.visibility = View.VISIBLE
+            } else {
+                binding.tvNoFollowing.visibility = View.GONE
+            }
             otherFollowListItemAdapter.submitList(it.followings)
         }
 

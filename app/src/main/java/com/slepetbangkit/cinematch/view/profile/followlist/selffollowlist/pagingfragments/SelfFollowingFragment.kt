@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.databinding.FragmentFollowersBinding
+import com.slepetbangkit.cinematch.databinding.FragmentFollowingBinding
+import com.slepetbangkit.cinematch.databinding.FragmentOtherFollowListBinding
 import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.SelfFollowListViewModel
 import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.adapter.SelfFollowListItemAdapter
 
 class SelfFollowingFragment : Fragment() {
-    private var _binding: FragmentFollowersBinding? = null
-    private val binding: FragmentFollowersBinding get() = _binding!!
+    private var _binding: FragmentFollowingBinding? = null
+    private val binding: FragmentFollowingBinding get() = _binding!!
     private lateinit var selfFollowListViewModel: SelfFollowListViewModel
     private lateinit var selfFollowListItemAdapter: SelfFollowListItemAdapter
     private lateinit var navController: NavController
@@ -28,7 +30,7 @@ class SelfFollowingFragment : Fragment() {
     ): View {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.navigation_self_profile)
 
-        _binding = FragmentFollowersBinding.inflate(inflater, container, false)
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         selfFollowListViewModel = ViewModelProvider(navBackStackEntry)[SelfFollowListViewModel::class.java]
         selfFollowListItemAdapter = SelfFollowListItemAdapter()
         navController = findNavController()
@@ -39,7 +41,7 @@ class SelfFollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.followersRv.apply {
+        binding.followingRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = selfFollowListItemAdapter
         }
@@ -55,6 +57,11 @@ class SelfFollowingFragment : Fragment() {
         })
 
         selfFollowListViewModel.followList.observe(viewLifecycleOwner) {
+            if (it.followings.isEmpty()) {
+                binding.tvNoFollowing.visibility = View.VISIBLE
+            } else {
+                binding.tvNoFollowing.visibility = View.GONE
+            }
             selfFollowListItemAdapter.submitList(it.followings)
         }
 

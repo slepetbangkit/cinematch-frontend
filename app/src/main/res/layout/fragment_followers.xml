@@ -17,6 +17,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_user"/>
 
+    <TextView
+        android:id="@+id/tv_no_followers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:textSize="16sp"
+        android:textColor="@color/on_neutral"
+        android:alpha="0.7"
+        android:text="@string/this_user_does_not_have_any_followers_when_another_user_follows_this_account_they_ll_show_up_here"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
@@ -31,19 +48,4 @@
             layout="@layout/skeleton_user_follow" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/primary"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

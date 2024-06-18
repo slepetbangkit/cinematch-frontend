@@ -83,6 +83,11 @@ class OtherFollowersFragment : Fragment() {
         })
 
         otherFollowListViewModel.followList.observe(viewLifecycleOwner) {
+            if (it.followers.isEmpty()) {
+                binding.tvNoFollowers.visibility = View.VISIBLE
+            } else {
+                binding.tvNoFollowers.visibility = View.GONE
+            }
             otherFollowListItemAdapter.submitList(it.followers)
         }
 

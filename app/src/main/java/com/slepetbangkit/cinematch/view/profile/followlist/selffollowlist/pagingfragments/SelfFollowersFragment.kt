@@ -55,6 +55,11 @@ class SelfFollowersFragment : Fragment() {
         })
 
         selfFollowListViewModel.followList.observe(viewLifecycleOwner) {
+            if (it.followers.isEmpty()) {
+                binding.tvNoFollowers.visibility = View.VISIBLE
+            } else {
+                binding.tvNoFollowers.visibility = View.GONE
+            }
             selfFollowListItemAdapter.submitList(it.followers)
         }
 
