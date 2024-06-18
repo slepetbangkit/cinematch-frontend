@@ -216,6 +216,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/addToListFragment"
         android:name="com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddToListFragment"
