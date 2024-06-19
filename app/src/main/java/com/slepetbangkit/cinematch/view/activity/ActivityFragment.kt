@@ -44,16 +44,11 @@ class ActivityFragment : Fragment() {
 
         lifecycleScope.launch {
             sessionUsername = sessionRepository.getUsername()
+            setupView()
+            setupObservers()
         }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupView()
-        setupObservers()
     }
 
     override fun onResume() {

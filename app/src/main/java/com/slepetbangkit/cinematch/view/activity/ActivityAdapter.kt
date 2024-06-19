@@ -37,6 +37,7 @@ class ActivityAdapter(private val sessionUsername: String): ListAdapter<Activiti
                 .error(R.drawable.account_circle_24)
                 .circleCrop()
                 .into(binding.ivProfilePicture)
+
             if (activity.followedUsername == sessionUsername) {
                 val description = activity.description.substringBeforeLast(sessionUsername)
                 binding.activityTv.text = buildString {
@@ -46,6 +47,7 @@ class ActivityAdapter(private val sessionUsername: String): ListAdapter<Activiti
             } else {
                 binding.activityTv.text = activity.description
             }
+
             binding.timeTv.text = activity.date
         }
     }
