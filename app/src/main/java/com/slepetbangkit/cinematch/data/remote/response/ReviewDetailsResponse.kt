@@ -19,6 +19,12 @@ data class ReviewDetailsData(
 	@field:SerializedName("movie")
 	val movie: String,
 
+	@field:SerializedName("title")
+	val title: String,
+
+	@field:SerializedName("release_date")
+	val releaseDate: String,
+
 	@field:SerializedName("rating")
 	val rating: Any,
 

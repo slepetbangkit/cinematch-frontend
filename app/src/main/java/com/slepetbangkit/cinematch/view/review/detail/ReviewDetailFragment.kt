@@ -29,8 +29,6 @@ class ReviewDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val reviewId = arguments?.getString("reviewId") ?: ""
-        val movieTitle = arguments?.getString("movieTitle")
-        val releaseDate = arguments?.getString("releaseDate")
 
         _binding = FragmentReviewDetailBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
@@ -41,8 +39,6 @@ class ReviewDetailFragment : Fragment() {
         reviewDetailViewModel = ViewModelProvider(this, factory)[ReviewDetailViewModel::class.java]
 
         binding.apply {
-            tvTitle.text = movieTitle
-            tvYear.text = releaseDate
             btnBack.setOnClickListener { findNavController().navigateUp() }
         }
 
@@ -57,6 +53,8 @@ class ReviewDetailFragment : Fragment() {
     private fun observeViewModel() {
         reviewDetailViewModel.reviewDetails.observe(viewLifecycleOwner) { review ->
             review.data.apply {
+                binding.tvTitle.text = title
+                binding.tvYear.text = releaseDate.substring(0, 4)
                 binding.tvUsername.text = username
                 binding.tvReview.text = description
                 binding.tvSentiment.text = sentiment

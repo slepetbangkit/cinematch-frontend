@@ -31,6 +31,9 @@ data class ActivitiesItem(
 	@field:SerializedName("movie_tmdb_id")
 	val movieTmdbId: Int? = null,
 
+	@field:SerializedName("review_id")
+	val reviewId: String? = null,
+
 	@field:SerializedName("username")
 	val username: String,
 

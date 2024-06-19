@@ -78,15 +78,15 @@ class ActivityFragment : Fragment() {
                 when (data.type) {
                     "LIKED_MOVIE" -> {
                         val bundle = Bundle().apply {
-                            data.movieTmdbId?.let { putInt("tmbdId", it) }
+                            data.movieTmdbId?.let { putInt("tmdbId", it) }
                         }
                         navController.navigate(R.id.action_navigation_activity_to_navigation_movie_details, bundle)
                     }
                     "REVIEWED_MOVIE" -> {
                         val bundle = Bundle().apply {
-                            data.movieTmdbId?.let { putInt("tmdbId", it) }
+                            data.reviewId?.let { putString("reviewId", it) }
                         }
-                        navController.navigate(R.id.action_navigation_activity_to_navigation_movie_details, bundle)
+                        navController.navigate(R.id.action_navigation_activity_to_navigation_review_detail, bundle)
                     }
                     "FOLLOWED_USER" -> {
                         val bundle = if (data.followedUsername == sessionUsername) {
