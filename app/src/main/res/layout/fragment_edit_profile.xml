@@ -92,7 +92,7 @@
         android:minHeight="48dp"
         android:gravity="top"
         android:maxLines="3"
-        android:maxLength="115"
+        android:maxLength="100"
         android:fontFamily="@font/plus_jakarta_sans_regular"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
