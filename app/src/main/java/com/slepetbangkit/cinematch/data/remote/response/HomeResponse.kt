@@ -37,6 +37,9 @@ data class VerdictItem(
 	@field:SerializedName("poster_url")
 	val posterUrl: String,
 
+	@field:SerializedName("release_date")
+	val releaseDate: String,
+
 	@field:SerializedName("profile_picture")
 	val profilePicture: String,
 
@@ -49,8 +52,8 @@ data class VerdictItem(
 	@field:SerializedName("description")
 	val description: String,
 
-	@field:SerializedName("created_at")
-	val createdAt: String,
+	@field:SerializedName("reviewed_at")
+	val createdAt: String
 )
 
 data class RecommendedItem(

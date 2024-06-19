@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -100,6 +99,7 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString("reviewId", data.reviewId)
                 bundle.putString("movieTitle", data.title)
+                bundle.putString("releaseDate", data.releaseDate.substring(0, 4))
                 navController.navigate(R.id.action_navigation_home_to_navigation_review_detail, bundle)
             }
         })
@@ -138,13 +138,11 @@ class HomeFragment : Fragment() {
                 binding.friendsLikesRv.visibility = View.GONE
                 binding.divider2.visibility = View.GONE
             } else {
-                val friendsItem = it.data.friends.reversed()
-
                 binding.friendsLikesTv.visibility = View.VISIBLE
                 binding.friendsLikesRv.visibility = View.VISIBLE
                 binding.divider2.visibility = View.VISIBLE
 
-                friendsMoviesAdapter.submitList(friendsItem)
+                friendsMoviesAdapter.submitList(it.data.friends)
             }
             verdictCardAdapter.submitList(it.data.verdict)
             topRatedMoviesAdapter.submitList(it.data.topRated)

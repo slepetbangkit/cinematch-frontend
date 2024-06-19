@@ -46,7 +46,7 @@ class VerdictCardAdapter : ListAdapter<VerdictItem, VerdictCardAdapter.VerdictVi
                 .into(binding.moviePosterImg)
 
             binding.movieTitleTv.text = verdict.title
-//            binding.movieYearTv.text = verdict.releaseDate
+            binding.movieYearTv.text = verdict.releaseDate.substring(0, 4)
             binding.movieReviewTv.text = verdict.description
 
             GlideApp.with(binding.profileImg.context)
