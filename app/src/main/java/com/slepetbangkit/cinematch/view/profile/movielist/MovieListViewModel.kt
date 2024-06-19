@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
-import com.slepetbangkit.cinematch.data.remote.response.ProfileResponse
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.data.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

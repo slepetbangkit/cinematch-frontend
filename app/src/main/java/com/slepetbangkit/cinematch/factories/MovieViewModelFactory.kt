@@ -1,6 +1,5 @@
 package com.slepetbangkit.cinematch.factories
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.MovieRepository

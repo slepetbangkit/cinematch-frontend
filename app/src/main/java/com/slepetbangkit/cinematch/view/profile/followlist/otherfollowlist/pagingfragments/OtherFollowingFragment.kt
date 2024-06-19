@@ -1,10 +1,10 @@
 package com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.pagingfragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -14,7 +14,6 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FollowListItem
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
-import com.slepetbangkit.cinematch.databinding.FragmentFollowersBinding
 import com.slepetbangkit.cinematch.databinding.FragmentFollowingBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.OtherProfileViewModelFactory

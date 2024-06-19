@@ -3,20 +3,12 @@ package com.slepetbangkit.cinematch.view.search.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import com.slepetbangkit.cinematch.data.remote.response.UsersItem
-import com.slepetbangkit.cinematch.data.remote.retrofit.ApiConfig
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import java.net.SocketTimeoutException
 
 class SearchUserViewModel(

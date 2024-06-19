@@ -5,14 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.RecommendedItem
-import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ItemLargeMoviePosterBinding
-import com.slepetbangkit.cinematch.databinding.ItemMoviePosterBinding
 import com.slepetbangkit.cinematch.util.GlideApp
-import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
 class LargeMoviePosterAdapter : ListAdapter<RecommendedItem, LargeMoviePosterAdapter.MovieCardViewHolder>(
     DIFF_CALLBACK

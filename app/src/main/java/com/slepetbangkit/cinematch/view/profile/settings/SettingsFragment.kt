@@ -2,19 +2,17 @@ package com.slepetbangkit.cinematch.view.profile.settings
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentSettingsBinding
 import com.slepetbangkit.cinematch.di.Injection
-import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 import com.slepetbangkit.cinematch.view.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

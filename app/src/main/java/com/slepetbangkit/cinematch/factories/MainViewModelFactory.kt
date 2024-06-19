@@ -3,7 +3,6 @@ package com.slepetbangkit.cinematch.factories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.view.activity.ActivityViewModel
 import com.slepetbangkit.cinematch.view.main.MainViewModel
 
 class MainViewModelFactory private constructor(

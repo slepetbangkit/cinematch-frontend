@@ -9,7 +9,6 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.VerdictItem
 import com.slepetbangkit.cinematch.databinding.ItemVerdictCardBinding
 import com.slepetbangkit.cinematch.util.GlideApp
-import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
 class VerdictCardAdapter : ListAdapter<VerdictItem, VerdictCardAdapter.VerdictViewHolder>(
     DIFF_CALLBACK

@@ -9,7 +9,6 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.TopRatedItem
 import com.slepetbangkit.cinematch.databinding.ItemMoviePosterBinding
 import com.slepetbangkit.cinematch.util.GlideApp
-import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
 class TopRatedMoviePosterAdapter : ListAdapter<TopRatedItem, TopRatedMoviePosterAdapter.MovieCardViewHolder>(
     DIFF_CALLBACK

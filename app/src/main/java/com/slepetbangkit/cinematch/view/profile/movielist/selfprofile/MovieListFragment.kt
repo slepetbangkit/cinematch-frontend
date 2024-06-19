@@ -11,11 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.remote.response.Movie
 import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem
-import com.slepetbangkit.cinematch.data.repository.MovieListRepository
-import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieListBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.MovieListViewModelFactory

@@ -9,7 +9,6 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.FriendsItem
 import com.slepetbangkit.cinematch.databinding.ItemFriendActivityMoviePosterBinding
 import com.slepetbangkit.cinematch.util.GlideApp
-import com.slepetbangkit.cinematch.view.home.HomeViewModel
 
 class FriendsMoviePosterAdapter : ListAdapter<FriendsItem, FriendsMoviePosterAdapter.MovieCardViewHolder>(
     DIFF_CALLBACK

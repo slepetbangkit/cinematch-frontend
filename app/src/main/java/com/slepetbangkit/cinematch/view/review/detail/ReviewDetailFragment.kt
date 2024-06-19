@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.databinding.FragmentReviewDetailBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.ReviewDetailsViewModelFactory
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class ReviewDetailFragment : Fragment() {
     private var _binding: FragmentReviewDetailBinding? = null

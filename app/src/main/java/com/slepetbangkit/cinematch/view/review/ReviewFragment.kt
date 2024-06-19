@@ -10,11 +10,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slepetbangkit.cinematch.R
-import com.slepetbangkit.cinematch.data.preferences.dataStore
 import com.slepetbangkit.cinematch.data.remote.response.ReviewsItem
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentReviewBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.MovieViewModelFactory

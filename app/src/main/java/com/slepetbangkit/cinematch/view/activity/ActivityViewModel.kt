@@ -2,14 +2,10 @@ package com.slepetbangkit.cinematch.view.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
 import com.slepetbangkit.cinematch.data.repository.ActivityRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.di.Injection
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
