@@ -24,7 +24,6 @@ import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentEditProfileBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.EditProfileViewModelFactory
-import com.slepetbangkit.cinematch.factories.SelfProfileViewModelFactory
 import com.slepetbangkit.cinematch.util.GlideApp
 import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 import kotlinx.coroutines.launch

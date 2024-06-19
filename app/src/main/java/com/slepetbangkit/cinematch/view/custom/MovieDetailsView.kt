@@ -6,17 +6,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.CastItem
 import com.slepetbangkit.cinematch.data.remote.response.CrewItem
-import com.slepetbangkit.cinematch.data.remote.response.PlaylistItem
 import com.slepetbangkit.cinematch.data.remote.response.SimilarMoviesItem
 import com.slepetbangkit.cinematch.databinding.ViewMovieDetailsBinding
 import com.slepetbangkit.cinematch.util.GlideApp

@@ -1,6 +1,5 @@
 package com.slepetbangkit.cinematch.data.repository
 
-import android.util.Log
 import com.slepetbangkit.cinematch.data.remote.request.UpdatePlaylistRequest
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.PlaylistsItem

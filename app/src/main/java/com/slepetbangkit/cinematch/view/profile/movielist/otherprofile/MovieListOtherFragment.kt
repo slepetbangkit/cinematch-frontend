@@ -1,11 +1,10 @@
 package com.slepetbangkit.cinematch.view.profile.movielist.otherprofile
 
-import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -14,12 +13,10 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
 import com.slepetbangkit.cinematch.data.repository.MovieListRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.databinding.FragmentMovieListBinding
 import com.slepetbangkit.cinematch.databinding.FragmentMovieListOtherBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.MovieListViewModelFactory
 import com.slepetbangkit.cinematch.view.profile.movielist.MovieListViewModel
-import com.slepetbangkit.cinematch.view.profile.movielist.ProfileMovieListAdapter
 
 class MovieListOtherFragment : Fragment() {
     private var _binding: FragmentMovieListOtherBinding? = null

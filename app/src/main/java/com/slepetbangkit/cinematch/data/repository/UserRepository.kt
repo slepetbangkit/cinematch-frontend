@@ -7,8 +7,6 @@ import com.slepetbangkit.cinematch.data.remote.response.UserSearchResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Multipart
-import java.io.File
 
 class UserRepository(
     private val sessionRepository: SessionRepository,

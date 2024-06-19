@@ -1,15 +1,11 @@
 package com.slepetbangkit.cinematch.data.repository
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import com.slepetbangkit.cinematch.data.preferences.SessionPreferences
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
-import com.slepetbangkit.cinematch.data.remote.response.RefreshResponse
 import com.slepetbangkit.cinematch.data.remote.response.RegisterResponse
 import com.slepetbangkit.cinematch.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.supervisorScope
 import retrofit2.HttpException
 
 class SessionRepository(

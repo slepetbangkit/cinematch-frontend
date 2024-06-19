@@ -19,12 +19,11 @@ import com.slepetbangkit.cinematch.R
 import com.slepetbangkit.cinematch.data.remote.response.MovieSearchResponseItem
 import com.slepetbangkit.cinematch.data.repository.MovieRepository
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
-import com.slepetbangkit.cinematch.data.repository.UserRepository
 import com.slepetbangkit.cinematch.databinding.FragmentMovieSearchBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.SearchMovieViewModelFactory
-import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 import com.slepetbangkit.cinematch.view.search.adapter.MovieAdapter
+import com.slepetbangkit.cinematch.view.search.viewmodels.SearchMovieViewModel
 import kotlinx.coroutines.launch
 
 class MovieSearchFragment : Fragment() {

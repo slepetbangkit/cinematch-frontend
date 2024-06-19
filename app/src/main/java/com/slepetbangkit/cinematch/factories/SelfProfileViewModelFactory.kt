@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.slepetbangkit.cinematch.data.repository.SessionRepository
 import com.slepetbangkit.cinematch.data.repository.UserRepository
-import com.slepetbangkit.cinematch.view.profile.editprofile.EditProfileViewModel
 import com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.SelfFollowListViewModel
 import com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileViewModel
 
