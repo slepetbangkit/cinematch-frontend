@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.view.profile.otherprofile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -82,6 +83,17 @@ class OtherProfileFragment : Fragment() {
             it.isFollowed.let { isFollowed -> binding.profileCard.setIsFollowed(isFollowed) }
             it.isFollowingUser.let { isFollowingUser -> binding.profileCard.setIsFollowingUser(isFollowingUser) }
             it.playlists.let { playlists -> movieListAdapter.submitList(playlists) }
+
+            it.isBlended.let { isBlended ->
+                if (isBlended) {
+                    binding.btnCreateBlend.visibility = View.INVISIBLE
+                    binding.btnBlendedList.visibility = View.VISIBLE
+                    binding.btnBlendedList.isClickable = false
+                } else {
+                    binding.btnCreateBlend.visibility = View.VISIBLE
+                    binding.btnBlendedList.visibility = View.INVISIBLE
+                }
+            }
         }
 
         otherProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -104,6 +116,13 @@ class OtherProfileFragment : Fragment() {
                     it.stopShimmer()
                     it.visibility = View.GONE
                 }
+            }
+        }
+
+        otherProfileViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                showErrorDialog(it)
+                otherProfileViewModel.clearError()
             }
         }
 
@@ -139,6 +158,13 @@ class OtherProfileFragment : Fragment() {
             }
         }
 
+        binding.btnCreateBlend.setOnClickListener {
+            lifecycleScope.launch {
+                otherProfileViewModel.blendList()
+                showBlendListConfirmationDialog { fetchOtherProfile() }
+            }
+        }
+
         movieListAdapter.setOnItemClickCallback(object : ProfileMovieListAdapter.OnItemClickCallback {
             override fun onItemClicked(data: PlaylistsItem) {
                 data.id.let { listId ->
@@ -150,6 +176,23 @@ class OtherProfileFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun showBlendListConfirmationDialog(onConfirm: () -> Unit) {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle("Create a Blend Movie List")
+            .setMessage("Would you like to create a new blend movie list with $username?")
+            .setPositiveButton("Create") { _, _ -> onConfirm() }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showErrorDialog(message: String) {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialog)
+            .setTitle("Error")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     override fun onResume() {

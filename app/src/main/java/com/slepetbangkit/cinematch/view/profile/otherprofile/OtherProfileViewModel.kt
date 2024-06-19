@@ -90,4 +90,23 @@ class OtherProfileViewModel(
             }
         }
     }
+
+    suspend fun blendList() {
+        try {
+            val response = userRepository.blendList(username)
+            if (response.error) _error.value = response.message
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                sessionRepository.refresh()
+                blendList()
+            } else {
+                _error.value = e.message()
+            }
+        }
+    }
+
+    fun clearError() {
+        _error.value = null
+    }
+
 }

@@ -155,14 +155,20 @@ interface ApiService {
         @Body request: UpdatePlaylistRequest
     ): PlaylistsItem
 
-    @DELETE("/movies/playlists/{list_id}/")
+    @DELETE("movies/playlists/{list_id}/")
     suspend fun deleteListById(
         @Header("Authorization") token: String,
         @Path("list_id") listId: String
     ): MessageResponse
 
-    @GET("/movies/playlists/")
+    @GET("movies/playlists/")
     suspend fun getListUser(
         @Header("Authorization") token: String,
     ): List<PlaylistsItem>
+
+    @POST("movies/playlists/blend/{user_id}/")
+    suspend fun blendLists(
+        @Header("Authorization") token: String,
+        @Path("user_id") userId: String
+    ): MessageResponse
 }

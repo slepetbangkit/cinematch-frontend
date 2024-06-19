@@ -16,6 +16,9 @@ data class ProfileResponse(
 	@field:SerializedName("playlists")
 	val playlists: List<PlaylistsItem>,
 
+	@field:SerializedName("is_blended")
+	val isBlended: Boolean,
+
 	@field:SerializedName("bio")
 	val bio: String,
 

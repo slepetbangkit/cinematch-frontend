@@ -58,6 +58,11 @@ class UserRepository(
         return apiService.unfollowUser("Bearer $accessToken", username)
     }
 
+    suspend fun blendList(username: String): MessageResponse {
+        val accessToken = sessionRepository.getAccessToken()
+        return apiService.blendLists("Bearer $accessToken", username)
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserRepository? = null
