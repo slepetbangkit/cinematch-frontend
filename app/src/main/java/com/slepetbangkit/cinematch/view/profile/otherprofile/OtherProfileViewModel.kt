@@ -58,8 +58,10 @@ class OtherProfileViewModel(
                 _error.value = e.message
             }
         } finally {
-            _isLoading.value = false
-            isFetched = true
+            if (!isFetched) {
+                _isLoading.value = false
+                isFetched = true
+            }
         }
     }
 

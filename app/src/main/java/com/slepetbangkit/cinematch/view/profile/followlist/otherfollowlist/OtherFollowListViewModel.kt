@@ -35,7 +35,7 @@ class OtherFollowListViewModel(
 
     suspend fun getOtherFollowList() {
         try {
-            if (isFetched) {
+            if (!isFetched) {
                 _isLoading.value = true
             }
             val response = userRepository.getOtherFollowList(username)
@@ -54,8 +54,8 @@ class OtherFollowListViewModel(
             }
         } finally {
             if (!isFetched) {
-                isFetched = true
                 _isLoading.value = false
+                isFetched = true
             }
         }
     }
