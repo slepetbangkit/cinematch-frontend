@@ -19,6 +19,8 @@ class OtherFollowListViewModel(
     private val userRepository: UserRepository,
     private val username: String
 ): ViewModel() {
+    private var isFetched = false
+
     private val _followList = MutableLiveData<FollowListResponse>()
     val followList: LiveData<FollowListResponse> = _followList
 
@@ -31,15 +33,11 @@ class OtherFollowListViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    init {
-        viewModelScope.launch {
-            getOtherFollowList()
-        }
-    }
-
-    private suspend fun getOtherFollowList() {
+    suspend fun getOtherFollowList() {
         try {
-            _isLoading.value = true
+            if (isFetched) {
+                _isLoading.value = true
+            }
             val response = userRepository.getOtherFollowList(username)
             _followList.value = response
         } catch (e: SocketTimeoutException) {
@@ -55,8 +53,10 @@ class OtherFollowListViewModel(
                 _error.value = e.message
             }
         } finally {
-            _isLoading.value = false
-            Log.d("OtherFollowListViewModel", "followList: ${followList.value.toString()}")
+            if (!isFetched) {
+                isFetched = true
+                _isLoading.value = false
+            }
         }
     }
 }

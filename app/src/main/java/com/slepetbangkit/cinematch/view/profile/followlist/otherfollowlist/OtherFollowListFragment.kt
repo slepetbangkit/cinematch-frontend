@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.slepetbangkit.cinematch.R
@@ -16,6 +17,7 @@ import com.slepetbangkit.cinematch.databinding.FragmentOtherFollowListBinding
 import com.slepetbangkit.cinematch.di.Injection
 import com.slepetbangkit.cinematch.factories.OtherProfileViewModelFactory
 import com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.adapter.OtherFollowListAdapter
+import kotlinx.coroutines.launch
 
 class OtherFollowListFragment : Fragment() {
     private var _binding: FragmentOtherFollowListBinding? = null
@@ -73,8 +75,19 @@ class OtherFollowListFragment : Fragment() {
         viewPager.setCurrentItem(tabIndex ?: 0, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        fetchOtherFollowList()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun fetchOtherFollowList() {
+        lifecycleScope.launch {
+            otherFollowListViewModel.getOtherFollowList()
+        }
     }
 }

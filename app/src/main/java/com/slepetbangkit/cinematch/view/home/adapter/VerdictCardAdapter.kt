@@ -48,7 +48,7 @@ class VerdictCardAdapter : ListAdapter<VerdictItem, VerdictCardAdapter.VerdictVi
             binding.movieTitleTv.text = verdict.title
 //            binding.movieYearTv.text = verdict.releaseDate
             binding.movieReviewTv.text = verdict.description
-//
+
             GlideApp.with(binding.profileImg.context)
                 .load(verdict.profilePicture)
                 .placeholder(R.drawable.account_circle_24)

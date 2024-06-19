@@ -38,7 +38,9 @@ class SelfFollowListFragment : Fragment() {
         _binding = FragmentSelfFollowListBinding.inflate(inflater, container, false)
         sessionRepository = Injection.provideSessionRepository(requireContext())
         userRepository = Injection.provideUserRepository(requireContext())
+
         factory = SelfProfileViewModelFactory.getInstance(sessionRepository, userRepository)
+
         selfFollowListViewModel = ViewModelProvider(navBackStackEntry, factory)[SelfFollowListViewModel::class.java]
         selfProfileViewModel = ViewModelProvider(requireActivity())[SelfProfileViewModel::class.java]
 
@@ -73,16 +75,21 @@ class SelfFollowListFragment : Fragment() {
 
         val tabIndex = arguments?.getInt("tabIndex", 0)
         viewPager.setCurrentItem(tabIndex ?: 0, false)
+    }
 
-        selfProfileViewModel.profile.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                selfFollowListViewModel.getSelfFollowList()
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        fetchSelfFollowList()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun fetchSelfFollowList() {
+        lifecycleScope.launch {
+            selfFollowListViewModel.getSelfFollowList()
+        }
     }
 }

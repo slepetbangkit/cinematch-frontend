@@ -15,6 +15,8 @@ class SelfFollowListViewModel(
     private val sessionRepository: SessionRepository,
     private val userRepository: UserRepository,
 ): ViewModel() {
+    private var isFetched = false
+
     private val _followList = MutableLiveData<FollowListResponse>()
     val followList: LiveData<FollowListResponse> = _followList
 
@@ -27,15 +29,11 @@ class SelfFollowListViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    init {
-        viewModelScope.launch {
-            getSelfFollowList()
-        }
-    }
-
     suspend fun getSelfFollowList() {
         try {
-            _isLoading.value = true
+            if (!isFetched) {
+                _isLoading.value = true
+            }
             val response = userRepository.getSelfFollowList()
             _followList.value = response
         } catch (e: SocketTimeoutException) {
@@ -49,7 +47,10 @@ class SelfFollowListViewModel(
                 _error.value = e.message
             }
         } finally {
-            _isLoading.value = false
+            if (!isFetched) {
+                isFetched = true
+                _isLoading.value = false
+            }
         }
     }
 }
