@@ -4,6 +4,7 @@ import com.slepetbangkit.cinematch.data.remote.request.UpdatePlaylistRequest
 import com.slepetbangkit.cinematch.data.remote.response.ActivityResponse
 import com.slepetbangkit.cinematch.data.remote.response.AddReviewResponse
 import com.slepetbangkit.cinematch.data.remote.response.FollowListResponse
+import com.slepetbangkit.cinematch.data.remote.response.HomeResponse
 import com.slepetbangkit.cinematch.data.remote.response.MessageResponse
 import com.slepetbangkit.cinematch.data.remote.response.LoginResponse
 import com.slepetbangkit.cinematch.data.remote.response.MovieDetailsResponse
@@ -36,7 +37,8 @@ interface ApiService {
     suspend fun register(
         @Field("username") username: String,
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("bio") bio: String = ""
     ): RegisterResponse
 
     @FormUrlEncoded
@@ -51,6 +53,11 @@ interface ApiService {
     suspend fun refresh(
         @Field("refresh") refreshToken: String
     ): RefreshResponse
+
+    @GET("/movies/home/")
+    suspend fun getHomeMovies(
+        @Header("Authorization") token: String
+    ): HomeResponse
 
     @GET("movies/")
     suspend fun searchMovies(

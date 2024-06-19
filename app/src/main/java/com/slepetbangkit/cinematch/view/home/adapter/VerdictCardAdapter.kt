@@ -47,14 +47,14 @@ class VerdictCardAdapter : ListAdapter<VerdictItem, VerdictCardAdapter.VerdictVi
 
             binding.movieTitleTv.text = verdict.title
 //            binding.movieYearTv.text = verdict.releaseDate
-//            binding.movieReviewTv.text = verdict.reviewId
+            binding.movieReviewTv.text = verdict.description
 //
-//            GlideApp.with(binding.profileImg.context)
-//                .load(movie.profilePicture)
-//                .placeholder(R.drawable.account_circle_24)
-//                .error(R.drawable.account_circle_24)
-//                .circleCrop()
-//                .into(binding.profileImg)
+            GlideApp.with(binding.profileImg.context)
+                .load(verdict.profilePicture)
+                .placeholder(R.drawable.account_circle_24)
+                .error(R.drawable.account_circle_24)
+                .circleCrop()
+                .into(binding.profileImg)
 
             binding.usernameTv.text = verdict.username
         }

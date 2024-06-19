@@ -40,12 +40,12 @@ class FriendsMoviePosterAdapter : ListAdapter<FriendsItem, FriendsMoviePosterAda
                 .error(R.drawable.image_broken_poster)
                 .into(binding.moviePosterImg)
 
-//            GlideApp.with(binding.profileImg.context)
-//                .load(movie.profilePicture)
-//                .placeholder(R.drawable.account_circle_24)
-//                .error(R.drawable.account_circle_24)
-//                .circleCrop()
-//                .into(binding.profileImg)
+            GlideApp.with(binding.profileImg.context)
+                .load(movie.profilePicture)
+                .placeholder(R.drawable.account_circle_24)
+                .error(R.drawable.account_circle_24)
+                .circleCrop()
+                .into(binding.profileImg)
         }
     }
 

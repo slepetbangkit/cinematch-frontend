@@ -37,14 +37,20 @@ data class VerdictItem(
 	@field:SerializedName("poster_url")
 	val posterUrl: String,
 
-	@field:SerializedName("user_profile")
-	val userProfile: Any,
+	@field:SerializedName("profile_picture")
+	val profilePicture: String,
 
 	@field:SerializedName("title")
 	val title: String,
 
 	@field:SerializedName("username")
-	val username: String
+	val username: String,
+
+	@field:SerializedName("description")
+	val description: String,
+
+	@field:SerializedName("created_at")
+	val createdAt: String,
 )
 
 data class RecommendedItem(
@@ -67,8 +73,8 @@ data class FriendsItem(
 	@field:SerializedName("poster_url")
 	val posterUrl: String,
 
-	@field:SerializedName("user_profile")
-	val userProfile: Any,
+	@field:SerializedName("profile_picture")
+	val profilePicture: String,
 
 	@field:SerializedName("title")
 	val title: String,
