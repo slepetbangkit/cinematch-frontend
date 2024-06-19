@@ -1,5 +1,6 @@
 package com.slepetbangkit.cinematch.view.moviedetails.addtolist
 
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,6 +17,9 @@ class AddToListAdapter(
     private val onItemToggleCallback: (PlaylistsItem, Boolean) -> Unit
 ) : ListAdapter<PlaylistsItem, AddToListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
+    // SparseBooleanArray to manage local state
+    private val checkedStateArray = SparseBooleanArray()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemAddToListMovieBinding.inflate(parent.context.getSystemService(LayoutInflater::class.java), parent, false)
         return MyViewHolder(binding)
@@ -24,16 +28,22 @@ class AddToListAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val list = getItem(position)
         if (list != null) {
-            holder.bind(list, inPlaylists, onItemToggleCallback)
+            holder.bind(list, inPlaylists, checkedStateArray, onItemToggleCallback)
         }
     }
 
     class MyViewHolder(val binding: ItemAddToListMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(list: PlaylistsItem, inPlaylists: List<PlaylistItem>, onItemToggleCallback: (PlaylistsItem, Boolean) -> Unit) {
+        fun bind(
+            list: PlaylistsItem,
+            inPlaylists: List<PlaylistItem>,
+            checkedStateArray: SparseBooleanArray,
+            onItemToggleCallback: (PlaylistsItem, Boolean) -> Unit
+        ) {
             binding.tvListTitle.text = list.title
             binding.tvMovieCount.text = "${list.movies.count()} movies"
 
-            val isChecked = inPlaylists.any { it.id == list.id }
+            // Initialize checkbox state based on inPlaylists data
+            val isChecked = checkedStateArray.get(adapterPosition, inPlaylists.any { it.id == list.id })
             binding.cbAddToList.isChecked = isChecked
 
             if (list.movies.isNotEmpty()) {
@@ -52,14 +62,15 @@ class AddToListAdapter(
             binding.root.setOnClickListener {
                 val newCheckedState = !binding.cbAddToList.isChecked
                 binding.cbAddToList.isChecked = newCheckedState
+                checkedStateArray.put(adapterPosition, newCheckedState)
                 onItemToggleCallback(list, newCheckedState)
             }
 
             binding.cbAddToList.setOnClickListener {
                 val newCheckedState = binding.cbAddToList.isChecked
+                checkedStateArray.put(adapterPosition, newCheckedState)
                 onItemToggleCallback(list, newCheckedState)
             }
-
         }
     }
 

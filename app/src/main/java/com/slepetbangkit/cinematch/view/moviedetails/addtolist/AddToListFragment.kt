@@ -63,11 +63,7 @@ class AddToListFragment : Fragment() {
         }
 
         binding.movieListRv.apply {
-            layoutManager = object : LinearLayoutManager(context) {
-                override fun canScrollVertically(): Boolean {
-                    return false
-                }
-            }
+            layoutManager = LinearLayoutManager(context)
         }
 
         movieDetailsViewModel.movieDetail.observe(viewLifecycleOwner) { movieDetails ->
@@ -77,8 +73,7 @@ class AddToListFragment : Fragment() {
                 } else {
                     movielistViewModel.deleteMovieFromList(playlist.id, tmdbId)
                 }
-                movieDetailsViewModel.fetchMovieDetails()
-                movielistViewModel.fetchUserLists()
+                // No need to refetch movie details here since the local state is managed by the adapter
             }
             binding.movieListRv.adapter = movieListAdapter
 
