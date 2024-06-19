@@ -68,33 +68,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/uname_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/plus_jakarta_sans_bold"
-        android:textColor="@color/on_neutral"
-        android:textSize="16sp"
-        android:text="@string/username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_img_container" />
-
-    <com.slepetbangkit.cinematch.view.custom.EditText
-        style="@style/EditText"
-        android:id="@+id/edt_uname"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/plus_jakarta_sans_regular"
-        android:textSize="12sp"
-        app:fieldType="username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uname_label" />
-
-    <TextView
         android:id="@+id/bio_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,7 +78,7 @@
         android:textSize="16sp"
         android:text="@string/bio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_uname" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_img_container" />
 
     <EditText
         style="@style/EditText"

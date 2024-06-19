@@ -50,27 +50,5 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val bottomNavigationView: BottomNavigationView = binding.bottomNavigation
         bottomNavigationView.setupWithNavController(navController)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_graph_home -> {
-                    navController.navigate(R.id.nav_graph_home)
-                    true
-                }
-                R.id.nav_graph_search -> {
-                    navController.navigate(R.id.nav_graph_search)
-                    true
-                }
-                R.id.nav_graph_activity -> {
-                    navController.navigate(R.id.nav_graph_activity)
-                    true
-                }
-                R.id.nav_graph_profile -> {
-                    navController.navigate(R.id.nav_graph_profile)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 }

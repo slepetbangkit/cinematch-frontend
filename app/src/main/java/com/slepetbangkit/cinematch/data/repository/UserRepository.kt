@@ -26,13 +26,12 @@ class UserRepository(
     }
 
     suspend fun updateSelfProfile(
-        newUsername: RequestBody?,
         newBio: RequestBody?,
         profilePicture: MultipartBody.Part?
     ): MessageResponse {
         val accessToken = sessionRepository.getAccessToken()
         val username = sessionRepository.getUsername()
-        return apiService.updateSelfProfile("Bearer $accessToken", username, newUsername, newBio, profilePicture)
+        return apiService.updateSelfProfile("Bearer $accessToken", username, newBio, profilePicture)
     }
 
     suspend fun getSelfFollowList(): FollowListResponse {

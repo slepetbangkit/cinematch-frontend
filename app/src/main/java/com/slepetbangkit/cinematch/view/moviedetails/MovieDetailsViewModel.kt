@@ -19,6 +19,8 @@ class MovieDetailsViewModel(
     private val movieRepository: MovieRepository,
     private val tmdbId: Int
 ) : ViewModel() {
+    private var isFetched: Boolean = false
+
     private val _movieDetail = MutableLiveData<MovieDetailsResponse>()
     val movieDetail: LiveData<MovieDetailsResponse> get() = _movieDetail
 
@@ -43,7 +45,9 @@ class MovieDetailsViewModel(
 
     private suspend fun getMovieDetails() {
         try {
-            _isLoading.value = true
+            if (!isFetched) {
+                _isLoading.value = true
+            }
             val response = movieRepository.getMovieDetails(tmdbId)
             _movieDetail.value = response
         } catch (e: SocketTimeoutException) {
@@ -59,7 +63,10 @@ class MovieDetailsViewModel(
                 _error.value = "Error fetching data"
             }
         } finally {
-            _isLoading.value = false
+            if (!isFetched) {
+                _isLoading.value = false
+                isFetched = true
+            }
         }
     }
 }

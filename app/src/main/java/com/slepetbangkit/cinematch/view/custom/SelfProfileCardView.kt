@@ -31,14 +31,16 @@ class SelfProfileCardView @JvmOverloads constructor(
     }
 
     fun setProfileImage(imageUrl: String) {
-        if (imageUrl == "null" || imageUrl == tempImageUrl) return
+        val slicedImageUrl = imageUrl.substringBefore("?")
+
+        if (imageUrl == "null" || slicedImageUrl == tempImageUrl) return
 
         GlideApp.with(binding.imgProfile.context)
             .load(imageUrl)
             .error(R.drawable.account_circle_24)
             .circleCrop()
             .into(binding.imgProfile)
-        tempImageUrl = imageUrl
+        tempImageUrl = imageUrl.substringBefore("?")
     }
 
     fun setFollowingCount(count: Int) {

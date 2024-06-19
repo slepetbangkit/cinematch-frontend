@@ -85,8 +85,8 @@ class SelfProfileViewModel(
         } finally {
             if (!isFetched) {
                 _isLoading.value = false
+                isFetched = true
             }
-            isFetched = true
         }
     }
 }

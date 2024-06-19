@@ -27,8 +27,9 @@ class ActivityFragment : Fragment() {
     private lateinit var activityRepository: ActivityRepository
     private lateinit var factory: ActivityViewModelFactory
     private lateinit var activityViewModel: ActivityViewModel
-    private lateinit var activityAdapter: ActivityAdapter
     private lateinit var navController: NavController
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var activityAdapter: ActivityAdapter
     private var sessionUsername = ""
 
     override fun onCreateView(
@@ -40,7 +41,6 @@ class ActivityFragment : Fragment() {
         activityRepository = Injection.provideActivityRepository(requireContext())
         factory = ActivityViewModelFactory.getInstance(sessionRepository, activityRepository)
         activityViewModel = ViewModelProvider(this, factory)[ActivityViewModel::class.java]
-        activityAdapter = ActivityAdapter()
         navController = findNavController()
 
         lifecycleScope.launch {
@@ -62,19 +62,22 @@ class ActivityFragment : Fragment() {
         fetchActivities()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun fetchActivities() {
         lifecycleScope.launch {
             activityViewModel.getActivities()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun setupView() {
-        binding.activityRv.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+        activityAdapter = ActivityAdapter(sessionUsername)
+
+        binding.activityRv.layoutManager = layoutManager
         binding.activityRv.adapter = activityAdapter
         activityAdapter.setOnItemClickCallback(object : ActivityAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ActivitiesItem) {

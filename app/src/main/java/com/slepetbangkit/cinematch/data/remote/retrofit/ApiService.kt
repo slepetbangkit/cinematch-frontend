@@ -106,7 +106,6 @@ interface ApiService {
     suspend fun updateSelfProfile(
         @Header("Authorization") token: String,
         @Path("username") username: String,
-        @Part("username") newUsername: RequestBody?,
         @Part("bio") newBio: RequestBody?,
         @Part image: MultipartBody.Part?
     ): MessageResponse

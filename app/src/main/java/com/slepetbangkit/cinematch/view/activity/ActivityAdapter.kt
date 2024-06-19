@@ -25,7 +25,7 @@ import com.slepetbangkit.cinematch.util.GlideApp
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 
-class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewHolder>(DIFF_CALLBACK) {
+class ActivityAdapter(private val sessionUsername: String): ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -34,7 +34,7 @@ class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewH
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityViewHolder {
         val binding = ItemActivityCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ActivityViewHolder(binding)
+        return ActivityViewHolder(sessionUsername, binding)
     }
 
     override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
@@ -45,14 +45,22 @@ class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewH
         }
     }
 
-    class ActivityViewHolder(val binding: ItemActivityCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ActivityViewHolder(private val sessionUsername: String, val binding: ItemActivityCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(activity: ActivitiesItem) {
             GlideApp.with(binding.ivProfilePicture.context)
                 .load(activity.profilePicture)
                 .error(R.drawable.account_circle_24)
                 .circleCrop()
                 .into(binding.ivProfilePicture)
-            binding.activityTv.text = activity.description
+            if (activity.followedUsername == sessionUsername) {
+                val description = activity.description.substringBeforeLast(sessionUsername)
+                binding.activityTv.text = buildString {
+                    append(description)
+                    append("you")
+                }
+            } else {
+                binding.activityTv.text = activity.description
+            }
             binding.timeTv.text = activity.date
         }
     }
@@ -64,10 +72,10 @@ class ActivityAdapter: ListAdapter<ActivitiesItem, ActivityAdapter.ActivityViewH
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ActivitiesItem>() {
             override fun areItemsTheSame(oldItem: ActivitiesItem, newItem: ActivitiesItem): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
             override fun areContentsTheSame(oldItem: ActivitiesItem, newItem: ActivitiesItem): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
         }
     }

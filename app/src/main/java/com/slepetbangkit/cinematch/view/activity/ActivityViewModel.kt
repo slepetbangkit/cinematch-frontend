@@ -49,8 +49,8 @@ class ActivityViewModel(
                 _error.value = e.message
             }
         } finally {
-            _isLoading.value = false
             if (!isFetched) {
+                _isLoading.value = false
                 isFetched = true
             }
         }

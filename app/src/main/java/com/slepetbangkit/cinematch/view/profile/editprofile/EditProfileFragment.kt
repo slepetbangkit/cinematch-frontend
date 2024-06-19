@@ -39,9 +39,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var selfProfileViewModel: SelfProfileViewModel
     private lateinit var navController: NavController
     private lateinit var launcherGallery: ActivityResultLauncher<PickVisualMediaRequest>
-    private var oldUsername: String = ""
     private var oldBio: String = ""
-    private var newUsername: String? = null
     private var newBio: String? = null
 
     override fun onCreateView(
@@ -99,9 +97,6 @@ class EditProfileFragment : Fragment() {
                 .circleCrop()
                 .into(binding.imgProfile)
 
-            oldUsername = it.username
-            binding.edtUname.setText(it.username)
-
             oldBio = it.bio
             binding.edtBio.setText(it.bio)
         }
@@ -128,7 +123,6 @@ class EditProfileFragment : Fragment() {
 
         editProfileViewModel.message.observe(viewLifecycleOwner) { message ->
             if (message != null) {
-                newUsername?.let { selfProfileViewModel.setProfileUsername(it) }
                 newBio?.let { selfProfileViewModel.setProfileBio(it) }
 
                 showSuccessDialog(message)
@@ -147,19 +141,14 @@ class EditProfileFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
-                if (newUsername == oldUsername) newUsername = null
                 if (newBio == oldBio) newBio = null
 
-                editProfileViewModel.updateSelfProfile(newUsername, newBio)
+                editProfileViewModel.updateSelfProfile(newBio)
             }
         }
     }
 
     private fun setupTextChangedListeners() {
-        binding.edtUname.addTextChangedListener { text ->
-            newUsername = text.toString()
-        }
-
         binding.edtBio.addTextChangedListener { text ->
             newBio = text.toString()
         }

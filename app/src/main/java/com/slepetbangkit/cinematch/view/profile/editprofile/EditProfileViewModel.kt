@@ -48,8 +48,8 @@ class EditProfileViewModel(
         }
     }
 
-    suspend fun updateSelfProfile(newUsername: String?, newBio: String?) {
-        if (_currentImageUri.value == null && newUsername == null && newBio == null) {
+    suspend fun updateSelfProfile(newBio: String?) {
+        if (_currentImageUri.value == null && newBio == null) {
             _message.value = MessageResponse(false, "No changes detected")
             return
         }
@@ -58,10 +58,9 @@ class EditProfileViewModel(
             _isLoading.value = true
 
             val bioRequestBody = newBio?.toRequestBody("text/plain".toMediaType())
-            val unameRequestBody = newUsername?.toRequestBody("text/plain".toMediaType())
             val profPicRequestPart = buildImagePart(_currentImageUri.value)
 
-            val response = userRepository.updateSelfProfile(unameRequestBody, bioRequestBody, profPicRequestPart)
+            val response = userRepository.updateSelfProfile(bioRequestBody, profPicRequestPart)
             _message.value = response
         } catch (e: SocketTimeoutException) {
             _error.value = e.message
@@ -70,7 +69,7 @@ class EditProfileViewModel(
                 withContext(Dispatchers.IO) {
                     sessionRepository.refresh()
                 }
-                updateSelfProfile(newUsername, newBio)
+                updateSelfProfile(newBio)
             } else {
                 _error.value = e.message
             }
