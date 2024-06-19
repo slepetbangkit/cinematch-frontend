@@ -32,6 +32,13 @@ class AddMovieToListViewModel(
         }
     }
 
+    fun fetchUserLists() {
+        viewModelScope.launch {
+            getListUser()
+        }
+    }
+
+
     private suspend fun getListUser() {
         try {
             _isLoading.value = true

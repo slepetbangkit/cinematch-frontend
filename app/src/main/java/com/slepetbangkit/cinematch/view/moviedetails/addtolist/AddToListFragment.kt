@@ -74,11 +74,11 @@ class AddToListFragment : Fragment() {
             movieListAdapter = AddToListAdapter(movieDetails.inPlaylists) { playlist, isChecked ->
                 if (isChecked) {
                     movielistViewModel.addMovieToList(playlist.id, tmdbId)
-                    movieDetailsViewModel.fetchMovieDetails()
                 } else {
                     movielistViewModel.deleteMovieFromList(playlist.id, tmdbId)
-                    movieDetailsViewModel.fetchMovieDetails()
                 }
+                movieDetailsViewModel.fetchMovieDetails()
+                movielistViewModel.fetchUserLists()
             }
             binding.movieListRv.adapter = movieListAdapter
 
@@ -90,6 +90,12 @@ class AddToListFragment : Fragment() {
         movielistViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        movieDetailsViewModel.fetchMovieDetails()
+        movielistViewModel.fetchUserLists()
     }
 
     override fun onDestroyView() {
