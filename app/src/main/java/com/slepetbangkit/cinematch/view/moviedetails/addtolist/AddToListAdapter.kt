@@ -17,7 +17,6 @@ class AddToListAdapter(
     private val onItemToggleCallback: (PlaylistsItem, Boolean) -> Unit
 ) : ListAdapter<PlaylistsItem, AddToListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
-    // SparseBooleanArray to manage local state
     private val checkedStateArray = SparseBooleanArray()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -42,7 +41,6 @@ class AddToListAdapter(
             binding.tvListTitle.text = list.title
             binding.tvMovieCount.text = "${list.movies.count()} movies"
 
-            // Initialize checkbox state based on inPlaylists data
             val isChecked = checkedStateArray.get(adapterPosition, inPlaylists.any { it.id == list.id })
             binding.cbAddToList.isChecked = isChecked
 

@@ -1,6 +1,7 @@
 package com.slepetbangkit.cinematch.view.profile.movielist.selfprofile
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,8 @@ import com.slepetbangkit.cinematch.data.remote.response.MoviesItem
 import com.slepetbangkit.cinematch.databinding.ItemMovieListBinding
 import com.slepetbangkit.cinematch.util.GlideApp
 
-class SelfProfileMovieListAdapter: ListAdapter<MoviesItem, SelfProfileMovieListAdapter.MyViewHolder>(
+class SelfProfileMovieListAdapter(private val isBlend: Boolean):
+    ListAdapter<MoviesItem, SelfProfileMovieListAdapter.MyViewHolder>(
     DIFF_CALLBACK
 ) {
 
@@ -34,7 +36,7 @@ class SelfProfileMovieListAdapter: ListAdapter<MoviesItem, SelfProfileMovieListA
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie = getItem(position)
         if (movie != null) {
-            holder.bind(movie)
+            holder.bind(movie, isBlend)
             holder.itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(movie)
             }
@@ -45,7 +47,7 @@ class SelfProfileMovieListAdapter: ListAdapter<MoviesItem, SelfProfileMovieListA
     }
 
     class MyViewHolder(val binding: ItemMovieListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MoviesItem) {
+        fun bind(movie: MoviesItem, isBlend: Boolean) {
             GlideApp.with(binding.moviePosterImg.context)
                 .load(movie.posterUrl)
                 .placeholder(R.drawable.poster_empty_placeholder)
@@ -63,6 +65,8 @@ class SelfProfileMovieListAdapter: ListAdapter<MoviesItem, SelfProfileMovieListA
 
             binding.tvReleaseYear.text = year
             binding.directorTv.text = movie.director
+            binding.btnRemoveMovie.visibility = if (isBlend) View.GONE else View.VISIBLE
+
         }
     }
 

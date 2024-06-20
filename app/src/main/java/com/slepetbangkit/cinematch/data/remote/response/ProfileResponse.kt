@@ -76,6 +76,9 @@ data class PlaylistsItem(
 	@field:SerializedName("is_favorite")
 	val isFavorite: Boolean,
 
+	@field:SerializedName("is_blend")
+	val isBlend: Boolean,
+
 	@field:SerializedName("description")
 	val description: String,
 

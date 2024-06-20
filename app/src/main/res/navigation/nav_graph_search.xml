@@ -231,6 +231,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_movie_list_to_editListFragment"
+            app:destination="@id/editListFragment2" />
     </fragment>
 
     <fragment

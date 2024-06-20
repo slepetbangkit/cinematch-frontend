@@ -74,24 +74,42 @@ class OtherProfileFragment : Fragment() {
             adapter = movieListAdapter
         }
 
-        otherProfileViewModel.profile.observe(viewLifecycleOwner) {
-            it.profilePicture.let { profilePicture -> binding.profileCard.setProfileImage(profilePicture.toString()) }
-            it.followingCount.let { followingCount -> binding.profileCard.setFollowingCount(followingCount) }
-            it.followerCount.let { followersCount -> binding.profileCard.setFollowersCount(followersCount) }
-            it.username.let { username -> binding.profileCard.setUsername(username) }
-            it.bio.let { bio -> binding.profileCard.setBio(bio) }
-            it.isFollowed.let { isFollowed -> binding.profileCard.setIsFollowed(isFollowed) }
-            it.isFollowingUser.let { isFollowingUser -> binding.profileCard.setIsFollowingUser(isFollowingUser) }
-            it.playlists.let { playlists -> movieListAdapter.submitList(playlists) }
+        otherProfileViewModel.profile.observe(viewLifecycleOwner) { profile ->
+            profile.profilePicture?.let { binding.profileCard.setProfileImage(it) }
+            profile.followingCount.let { binding.profileCard.setFollowingCount(it) }
+            profile.followerCount.let { binding.profileCard.setFollowersCount(it) }
+            profile.username.let { binding.profileCard.setUsername(it) }
+            profile.bio.let { binding.profileCard.setBio(it) }
+            profile.isFollowed.let { binding.profileCard.setIsFollowed(it) }
+            profile.isFollowingUser.let { binding.profileCard.setIsFollowingUser(it) }
+            profile.playlists.let { movieListAdapter.submitList(it) }
 
-            it.isBlended.let { isBlended ->
+            profile.isBlended.let { isBlended ->
                 if (isBlended) {
                     binding.btnCreateBlend.visibility = View.INVISIBLE
                     binding.btnBlendedList.visibility = View.VISIBLE
-                    binding.btnBlendedList.isClickable = false
+                    binding.btnBlendedList.isEnabled = false
+                    binding.btnCreateBlend.isEnabled = false
                 } else {
                     binding.btnCreateBlend.visibility = View.VISIBLE
                     binding.btnBlendedList.visibility = View.INVISIBLE
+                    binding.btnCreateBlend.isEnabled = true
+                }
+            }
+
+            if (profile.isFollowed && profile.isFollowingUser) {
+                binding.btnCreateBlend.setOnClickListener {
+                    lifecycleScope.launch {
+                        otherProfileViewModel.blendList()
+                        showBlendListConfirmationDialog { fetchOtherProfile() }
+                    }
+                }
+            } else {
+                binding.btnCreateBlend.setOnClickListener {
+                    lifecycleScope.launch {
+                        showErrorDialog("You need to be mutuals first to create a blend list.")
+                        otherProfileViewModel.clearError()
+                    }
                 }
             }
         }
@@ -155,13 +173,6 @@ class OtherProfileFragment : Fragment() {
                 otherProfileViewModel.unfollow()
                 otherProfileViewModel.setIsFollowed(false)
                 selfProfileViewModel.decrementFollowingCount()
-            }
-        }
-
-        binding.btnCreateBlend.setOnClickListener {
-            lifecycleScope.launch {
-                otherProfileViewModel.blendList()
-                showBlendListConfirmationDialog { fetchOtherProfile() }
             }
         }
 

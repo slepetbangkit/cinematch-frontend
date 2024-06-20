@@ -60,6 +60,15 @@ class EditListFragment : Fragment() {
         movieListViewModel.movieListDetails.observe(viewLifecycleOwner) {
             binding.edtName.setText(it.title)
             binding.edtDesc.setText(it.description)
+
+            if (it.isBlend) {
+                binding.edtName.isEnabled = false
+                binding.edtDesc.isEnabled = false
+                binding.btnSave.isEnabled = false
+                binding.edtName.alpha = 0.3f
+                binding.edtDesc.alpha = 0.3f
+                binding.btnSave.alpha = 0.3f
+            }
         }
 
         movieListViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

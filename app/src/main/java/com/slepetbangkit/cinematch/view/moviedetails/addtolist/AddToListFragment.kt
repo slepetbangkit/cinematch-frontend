@@ -73,12 +73,12 @@ class AddToListFragment : Fragment() {
                 } else {
                     movielistViewModel.deleteMovieFromList(playlist.id, tmdbId)
                 }
-                // No need to refetch movie details here since the local state is managed by the adapter
             }
             binding.movieListRv.adapter = movieListAdapter
 
             movielistViewModel.movieListDetails.observe(viewLifecycleOwner) { playlists ->
-                movieListAdapter.submitList(playlists)
+                val filteredLists = playlists.filter { !it.isBlend }
+                movieListAdapter.submitList(filteredLists)
             }
         }
 

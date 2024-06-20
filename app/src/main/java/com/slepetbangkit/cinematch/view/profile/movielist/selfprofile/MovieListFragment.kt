@@ -64,7 +64,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        selfProfileMovieListAdapter = SelfProfileMovieListAdapter()
+        selfProfileMovieListAdapter = SelfProfileMovieListAdapter(false)
         binding.rvMovies.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = selfProfileMovieListAdapter
@@ -73,8 +73,10 @@ class MovieListFragment : Fragment() {
 
     private fun observeViewModel() {
         with(movieListViewModel) {
-            movieListDetails.observe(viewLifecycleOwner) { movie ->
-                updateUIWithMovieDetails(movie)
+            movieListDetails.observe(viewLifecycleOwner) { list ->
+                selfProfileMovieListAdapter = SelfProfileMovieListAdapter(list.isBlend)
+                binding.rvMovies.adapter = selfProfileMovieListAdapter
+                updateUIWithMovieDetails(list)
                 setupAdapterCallbacks()
             }
 
@@ -95,18 +97,18 @@ class MovieListFragment : Fragment() {
         }
     }
 
-    private fun updateUIWithMovieDetails(movie: PlaylistsItem) {
+    private fun updateUIWithMovieDetails(list: PlaylistsItem) {
         with(binding) {
-            tvTitle.text = movie.title
-            tvUser.text = getString(R.string.by_username, movie.username)
+            tvTitle.text = list.title
+            tvUser.text = getString(R.string.by_username, list.username)
 
-            tvDesc.visibility = if (movie.description.isEmpty()) View.GONE else View.VISIBLE
-            tvDesc.text = movie.description
+            tvDesc.visibility = if (list.description.isEmpty()) View.GONE else View.VISIBLE
+            tvDesc.text = list.description
 
-            btnEditList.visibility = if (movie.isFavorite) View.GONE else View.VISIBLE
+            btnEditList.visibility = if (list.isFavorite) View.GONE else View.VISIBLE
             btnBack.setOnClickListener { navController.navigateUp() }
         }
-        selfProfileMovieListAdapter.submitList(movie.movies)
+        selfProfileMovieListAdapter.submitList(list.movies)
     }
 
     private fun setupAdapterCallbacks() {
