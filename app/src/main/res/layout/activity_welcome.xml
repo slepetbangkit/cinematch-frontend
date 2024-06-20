@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/neutral"
+    android:gravity="center_horizontal"
+    tools:context=".view.welcome.WelcomeActivity">
+    
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/image_welcome_illustration"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:text="@string/explore_cinematch"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/plus_jakarta_sans_medium"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text="@string/welcome_description"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Button"
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+            android:text="@string/login"
+            android:textSize="16sp"
+            app:cornerRadius="10dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonVariant"
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+            android:text="@string/register"
+            android:textSize="16sp"
+            app:cornerRadius="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>

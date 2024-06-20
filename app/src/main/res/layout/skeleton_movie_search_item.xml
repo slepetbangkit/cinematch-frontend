@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/neutral">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="65dp"
+            android:layout_height="95dp"
+            android:background="@drawable/shape_poster" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp">
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_card" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_card" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_card" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/neutral_variant" />
+</LinearLayout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
+    android:background="@color/neutral"
+    tools:context=".view.profile.settings.SettingsFragment">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/go_back"
+        android:src="@drawable/baseline_chevron_left_24"
+        android:background="?android:selectableItemBackground"
+        app:tint="@color/on_neutral"
+        app:layout_constraintBottom_toBottomOf="@+id/title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title_tv" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:text="@string/about_us"
+        android:textColor="@color/on_neutral"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/first_paragraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        android:text="Cinematch combines social media and personalized content discovery into one platform for movie enthusiasts, simplifying the process through community engagement and AI-driven personalization."
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/second_paragraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        android:text="Users can follow others, share reviews, and create collaborative movie lists, fostering a movie-loving community. Our recommendation engine ensures relevant and engaging suggestions."
+        app:layout_constraintTop_toBottomOf="@id/first_paragraph"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/made_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:text="Made by"
+        android:textColor="@color/on_neutral"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/second_paragraph" />
+
+    <TextView
+        android:id="@+id/machine_learning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="Machine Learning"
+        android:textColor="@color/on_neutral"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/made_by" />
+
+
+    <TextView
+        android:id="@+id/azis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Wan Aufa Azis"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/machine_learning" />
+
+    <TextView
+        android:id="@+id/rifqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Muhammad Rifqi Adli Gumay"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/azis" />
+
+    <TextView
+        android:id="@+id/hafizd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Muhammad Hafizd Harkaputra"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rifqi" />
+
+    <TextView
+        android:id="@+id/cloud_computing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="Cloud Computing"
+        android:textColor="@color/on_neutral"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hafizd" />
+
+    <TextView
+        android:id="@+id/fathur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Sulthan Fathurrahman Tsany"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cloud_computing" />
+
+    <TextView
+        android:id="@+id/drian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Adrian Fahri Affandi"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fathur" />
+
+    <TextView
+        android:id="@+id/mobile_development"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="Mobile Development"
+        android:textColor="@color/on_neutral"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drian" />
+
+    <TextView
+        android:id="@+id/iqbal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Muhammad Iqbal Dwitama"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mobile_development" />
+
+    <TextView
+        android:id="@+id/justin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="Justin Yusuf Abidjoko"
+        android:textColor="@color/on_neutral"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iqbal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_activity"
+    app:startDestination="@id/navigation_activity">
+
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="com.slepetbangkit.cinematch.view.activity.ActivityFragment"
+        android:label="@string/activity"
+        tools:layout="@layout/fragment_activity" >
+        <action
+            android:id="@+id/action_navigation_activity_to_navigation_other_profile"
+            app:destination="@id/navigation_other_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_activity_to_navigation_movie_details"
+            app:destination="@id/navigation_movie_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_activity_to_navigation_review_detail"
+            app:destination="@id/navigation_review_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movie_details"
+        android:name="com.slepetbangkit.cinematch.view.moviedetails.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/navigation_movie_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_reviewFragment"
+            app:destination="@id/navigation_review"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_movie_details_to_addToListFragment"
+            app:destination="@id/addToListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_review"
+        android:name="com.slepetbangkit.cinematch.view.review.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" >
+        <action
+            android:id="@+id/action_reviewFragment_to_reviewDetailFragment"
+            app:destination="@id/navigation_review_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_reviewFragment_to_addReviewFragment"
+            app:destination="@id/navigation_add_review"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_review_detail"
+        android:name="com.slepetbangkit.cinematch.view.review.detail.ReviewDetailFragment"
+        android:label="fragment_review_detail"
+        tools:layout="@layout/fragment_review_detail" />
+
+    <fragment
+        android:id="@+id/navigation_add_review"
+        android:name="com.slepetbangkit.cinematch.view.review.add.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" />
+
+    <fragment
+        android:id="@+id/navigation_self_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.selfprofile.SelfProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_self_profile" >
+        <action
+            android:id="@+id/action_navigation_self_profile_to_navigation_settings"
+            app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_self_profile_to_navigation_edit_profile"
+            app:destination="@id/navigation_edit_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_self_profile_to_navigation_self_follow_list"
+            app:destination="@id/navigation_self_follow_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_edit_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.editprofile.EditProfileFragment"
+        android:label="@string/edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.slepetbangkit.cinematch.view.profile.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_about_us"
+            app:destination="@id/navigation_about_us"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_about_us"
+        android:name="com.slepetbangkit.cinematch.view.profile.aboutus.AboutUsFragment"
+        android:label="@string/about_us"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/navigation_self_follow_list"
+        android:name="com.slepetbangkit.cinematch.view.profile.followlist.selffollowlist.SelfFollowListFragment"
+        android:label="@string/follow_list"
+        tools:layout="@layout/fragment_self_follow_list" >
+        <action
+            android:id="@+id/action_navigation_self_follow_list_to_navigation_other_profile"
+            app:destination="@id/navigation_other_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_other_profile"
+        android:name="com.slepetbangkit.cinematch.view.profile.otherprofile.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile"  >
+        <action
+            android:id="@+id/action_navigation_other_profile_to_navigation_other_follow_list"
+            app:destination="@id/navigation_other_follow_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_other_follow_list"
+        android:name="com.slepetbangkit.cinematch.view.profile.followlist.otherfollowlist.OtherFollowListFragment"
+        android:label="@string/follow_list"
+        tools:layout="@layout/fragment_other_follow_list" >
+        <action
+            android:id="@+id/action_navigation_other_follow_list_to_navigation_other_profile"
+            app:destination="@id/navigation_other_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_other_follow_list_to_navigation_self_profile"
+            app:destination="@id/navigation_self_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addToListFragment"
+        android:name="com.slepetbangkit.cinematch.view.moviedetails.addtolist.AddToListFragment"
+        android:label="AddToListFragment" />
+
+</navigation>
