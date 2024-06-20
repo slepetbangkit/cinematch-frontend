@@ -32,7 +32,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_marginStart="16dp">
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/plus_jakarta_sans_semi_bold"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textColor="@color/on_neutral"
                     tools:text="Movie Title" />
 
@@ -65,25 +65,21 @@
                     android:textColor="@color/on_neutral"
                     android:alpha="0.75"
                     tools:text="Director" />
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <ImageButton
-                        android:id="@+id/add_to_list_ib"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/add_to_movie_list_button"
-                        android:src="@drawable/material_add_box_24"
-                        android:layout_gravity="bottom"
-                        android:background="@null"
-                        app:tint="@color/primary"/>
-                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Button"
+            android:id="@+id/add_to_list_ib"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:textSize="16sp"
+            android:text="@string/add_to_list"
+            app:cornerRadius="10dp" />
         <!-- Synopsis -->
+
         <TextView
             android:id="@+id/synopsis_tv"
             android:layout_width="match_parent"
@@ -93,7 +89,8 @@
             android:textSize="13sp"
             android:textColor="@color/on_neutral"
             android:alpha="0.75"
-            tools:text="Movie Plot" />
+            tools:text="Movie Description" />
+
 
         <View
             android:layout_width="match_parent"
@@ -108,7 +105,7 @@
             android:fontFamily="@font/plus_jakarta_sans_semi_bold"
             android:textSize="20sp"
             android:textColor="@color/on_neutral"
-            android:text="Verdict" />
+            android:text="@string/verdict" />
 
         <LinearLayout
             android:layout_width="match_parent"

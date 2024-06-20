@@ -86,4 +86,5 @@
     <string name="add_to_list">Add to List</string>
     <string name="this_user_does_not_follow_anyone_when_another_user_follows_this_account_theyll_appear_here">This user does not follow anyone. When another user follows this account they\'ll appear here.</string>
     <string name="this_user_does_not_have_any_followers_when_another_user_follows_this_account_they_ll_show_up_here">This user does not have any followers. When another user follows this account they\'ll show up here.</string>
+    <string name="verdict">Verdict</string>
 </resources>
