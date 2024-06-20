@@ -133,6 +133,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.response.observe(viewLifecycleOwner) {
             recommdedMoviesAdapter.submitList(it.data.recommended)
+
             if (it.data.friends.isEmpty()) {
                 binding.friendsLikesTv.visibility = View.GONE
                 binding.friendsLikesRv.visibility = View.GONE
@@ -144,7 +145,18 @@ class HomeFragment : Fragment() {
 
                 friendsMoviesAdapter.submitList(it.data.friends)
             }
-            verdictCardAdapter.submitList(it.data.verdict)
+
+            if (it.data.verdict.isEmpty()) {
+                binding.theirVerdictTv.visibility = View.GONE
+                binding.theirVerdictRv.visibility = View.GONE
+                binding.divider3.visibility = View.GONE
+            } else {
+                binding.theirVerdictTv.visibility = View.VISIBLE
+                binding.theirVerdictRv.visibility = View.VISIBLE
+                binding.divider3.visibility = View.VISIBLE
+                verdictCardAdapter.submitList(it.data.verdict)
+            }
+
             topRatedMoviesAdapter.submitList(it.data.topRated)
         }
     }
